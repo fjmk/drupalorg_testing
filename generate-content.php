@@ -254,6 +254,6 @@ add_terms($nodes, $terms);
 
 $comments = get_comments();
 
-create_comments(500, $users, $nodes, $comments);
+create_comments(200, $users, $nodes, $comments);
 
 ?>

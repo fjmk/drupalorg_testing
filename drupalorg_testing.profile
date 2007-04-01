@@ -2,8 +2,14 @@
 
 function drupalorg_testing_profile_modules() {
   return array(
-    'block', 'color', 'comment', 'filter', 'help', 'menu', 'node', 'system', 'taxonomy', 'user', 'watchdog',
-    'devel', 'devel_node_access',
+    // core, required
+    'block', 'filter', 'node', 'system', 'user', 'watchdog',
+    // core, optional as per http://drupal.org/node/27367
+    'aggregator', 'book', 'comment', 'contact', 'drupal', 'forum', 'help',
+    'legacy', 'path', 'profile', 'menu', 'search', 'statistics',
+    'taxonomy', 'throttle', 'tracker', 'upload',
+    // contrib modules
+    'codefilter', 'cvs', 'devel', 'project', 'project_issue', 'project_release',
   );
 }
 
