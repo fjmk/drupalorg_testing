@@ -8,7 +8,6 @@ if (!ini_get('safe_mode')) {
 }
 
 function create_nodes($records, $users) {
-
   $possible_types = array("story", "blog", "forum", "page");
   // Only use types that exist.
   $installed_types = array_keys(node_get_types('types'));
@@ -228,32 +227,5 @@ function get_terms() {
   }
   return $terms;
 }
-
-db_query("DELETE FROM {comments}");
-db_query("DELETE FROM {node}");
-db_query("DELETE FROM {node_revisions}");
-db_query("DELETE FROM {node_comment_statistics}");
-if (db_table_exists(forum)) { db_query("DELETE FROM {forum}"); }
-db_query("DELETE FROM {url_alias}");
-db_query("UPDATE {sequences} SET id = '0' WHERE name = 'node_nid'");
-db_query("UPDATE {sequences} SET id = '0' WHERE name = 'comments_cid'");
-db_query("ALTER TABLE {node} AUTO_INCREMENT = 1");
-db_query("ALTER TABLE {comments} AUTO_INCREMENT = 1");
-
-// get user id
-$users = get_users();
-
-$terms = get_terms();
-
-// create 100 pseudo-random nodes:
-create_nodes(50, $users);
-
-$nodes = get_nodes();
-
-add_terms($nodes, $terms);
-
-$comments = get_comments();
-
-create_comments(200, $users, $nodes, $comments);
 
 ?>

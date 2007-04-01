@@ -5,12 +5,6 @@
 include_once 'includes/bootstrap.inc';
 drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
 
-
-// use one of your own domains. Using somebody else's domain is rude.
-$domain = '';
-
-make_users(50, $domain);
-
 function make_users($num, $domain) {
   db_query('DELETE FROM {users} WHERE uid > 1');
   for ($i = 2; $i <= $num; $i++) {
