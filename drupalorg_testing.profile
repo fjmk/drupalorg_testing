@@ -1,5 +1,7 @@
 <?php
 
+// $Id$
+
 function drupalorg_testing_profile_modules() {
   return array(
     // core, required
