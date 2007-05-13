@@ -34,6 +34,7 @@ function drupalorg_testing_profile_final() {
   _drupalorg_testing_create_admin_and_login();
   _drupalorg_testing_create_roles();
   _drupalorg_testing_create_users();
+  _drupalorg_testing_create_project_terms();
   _drupalorg_testing_delete_old_content();
   _drupalorg_testing_create_content();
   _block_rehash();
@@ -150,6 +151,86 @@ function _drupalorg_testing_delete_old_content() {
   db_query("UPDATE {sequences} SET id = '0' WHERE name = 'comments_cid'");
   db_query("ALTER TABLE {node} AUTO_INCREMENT = 1");
   db_query("ALTER TABLE {comments} AUTO_INCREMENT = 1");
+}
+
+/**
+ * Auto-generates project-related terms from drupal.org.
+ */
+function _drupalorg_testing_create_project_terms() {
+  // Add top-level project terms.
+  $vid = _project_get_vid();
+  $terms = array(
+    t('Drupal project'),
+    t('Installation profiles'),
+    t('Modules'),
+    t('Theme engines'),
+    t('Themes'),
+    t('Translations'),
+  );
+  foreach ($terms as $name) {
+    drupal_execute('taxonomy_form_term', array('name' => $name), $vid);
+  }
+
+  // Add module categories.
+  $parent = db_result(db_query("SELECT tid FROM {term_data} WHERE name = '%s'", t('Modules')));
+  $terms = array(
+    t('3rd party integration'),
+    t('Administration'),
+    t('CCK'),
+    t('Commerce / advertising'),
+    t('Community'),
+    t('Content'),
+    t('Content display'),
+    t('Developer'),
+    t('Evaluation/rating'),
+    t('Event'),
+    t('File management'),
+    t('Filters/editors'),
+    t('Import/export'),
+    t('Location'),
+    t('Mail'),
+    t('Media'),
+    t('Multilingual'),
+    t('Organic Groups'),
+    t('Paging'),
+    t('Security'),
+    t('Syndication'),
+    t('Taxonomy'),
+    t('Theme related'),
+    t('User access/authentication'),
+    t('User management'),
+    t('Utility'),
+    t('Views'),
+  );
+  foreach ($terms as $name) {
+    drupal_execute('taxonomy_form_term', array('name' => $name, 'parent' => $parent), $vid);
+  }
+
+  // Add release versions.
+  $vid = _project_release_get_api_vid();
+  $terms = array(
+    '6.x', '5.x', '4.7.x', '4.6.x', '4.5.x', '4.4.x',
+    '4.3.x', '4.2.x', '4.1.x', '4.0.x',
+  );
+  foreach ($terms as $name) {
+    drupal_execute('taxonomy_form_term', array('name' => $name), $vid);
+  }
+
+  // Add release types.
+  $vocab = array(
+    'name' => t('Release Type'),
+    'nodes' => array('project_release' => 'project_release'),
+  );
+  drupal_execute('taxonomy_form_vocabulary', $vocab);
+  $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s'", t('Release type')));
+  $terms = array(
+    t('Security update'),
+    t('Bug fixes'),
+    t('New features'),
+  );
+  foreach ($terms as $name) {
+    drupal_execute('taxonomy_form_term', array('name' => $name), $vid);
+  }
 }
 
 function _drupalorg_testing_create_content() {
