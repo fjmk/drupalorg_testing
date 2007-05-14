@@ -38,6 +38,7 @@ function drupalorg_testing_profile_final() {
   _drupalorg_testing_delete_old_content();
   _drupalorg_testing_create_content();
   _drupalorg_testing_configure_project_settings();
+  _drupalorg_testing_create_menus();
   _block_rehash();
   menu_rebuild();
 }
@@ -269,5 +270,40 @@ function _drupalorg_testing_configure_project_settings() {
     $terms = taxonomy_get_term_by_name($type);
     $tid = $terms[0]->tid;
     variable_set("project_sort_method_used_$tid", drupal_map_assoc($settings));
+  }
+}
+
+/**
+ * Setup menus to match drupal.org.
+ */
+function _drupalorg_testing_create_menus() {
+  // Setup primary links.
+  $pid = variable_get('menu_primary_menu', 0);
+  $items['book'] = array(
+    'path' => 'book',
+    'title' => t('Handbooks'),
+    'weight' => 0,
+  );
+  $items['forum'] = array(
+    'path' => 'forum',
+    'title' => t('Forum'),
+    'weight' => 2,
+  );
+  $items['project'] = array(
+    'path' => 'project',
+    'title' => t('Downloads'),
+    'weight' => 4,
+  );
+  $items['contact'] = array(
+    'path' => 'contact',
+    'title' => t('Contact'),
+    'weight' => 6,
+  );
+
+  foreach ($items as $item) {
+    $item['pid'] = $pid;
+    $item['type'] = MENU_CUSTOM_ITEM | MENU_MODIFIED_BY_ADMIN;
+    $item['description'] = '';
+    menu_save_item($item);
   }
 }
