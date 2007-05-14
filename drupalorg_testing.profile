@@ -37,7 +37,9 @@ function drupalorg_testing_profile_final() {
   _drupalorg_testing_create_project_terms();
   _drupalorg_testing_delete_old_content();
   _drupalorg_testing_create_content();
+  _drupalorg_testing_configure_project_settings();
   _block_rehash();
+  menu_rebuild();
 }
 
 function _drupalorg_testing_create_node_types() {
@@ -247,4 +249,25 @@ function _drupalorg_testing_create_content() {
 
   $comments = get_comments();
   create_comments(200, $users, $nodes, $comments);
+}
+
+/**
+ * Configures variables for project* modules.
+ */
+function _drupalorg_testing_configure_project_settings() {
+  variable_set('project_sort_method', 'category');
+
+  $types = array(
+    t('Drupal Project') => array('name' => 'name'),
+    t('Installation profiles') => array('name' => 'name', 'date' => 'date'),
+    t('Modules') => array('name' => 'name', 'date' => 'date', 'category' => 'category'),
+    t('Theme engines') => array('name' => 'name'),
+    t('Themes') => array('name' => 'name', 'date' => 'date'),
+    t('Translations') => array('name' => 'name'),
+  );
+  foreach ($types as $type => $settings) {
+    $terms = taxonomy_get_term_by_name($type);
+    $tid = $terms[0]->tid;
+    variable_set("project_sort_method_used_$tid", $settings);
+  }
 }
