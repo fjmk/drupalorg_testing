@@ -258,16 +258,16 @@ function _drupalorg_testing_configure_project_settings() {
   variable_set('project_sort_method', 'category');
 
   $types = array(
-    t('Drupal Project') => array('name' => 'name'),
-    t('Installation profiles') => array('name' => 'name', 'date' => 'date'),
-    t('Modules') => array('name' => 'name', 'date' => 'date', 'category' => 'category'),
-    t('Theme engines') => array('name' => 'name'),
-    t('Themes') => array('name' => 'name', 'date' => 'date'),
-    t('Translations') => array('name' => 'name'),
+    t('Drupal Project') => array('name'),
+    t('Installation profiles') => array('name', 'date'),
+    t('Modules') => array('name', 'date', 'category'),
+    t('Theme engines') => array('name'),
+    t('Themes') => array('name', 'date'),
+    t('Translations') => array('name'),
   );
   foreach ($types as $type => $settings) {
     $terms = taxonomy_get_term_by_name($type);
     $tid = $terms[0]->tid;
-    variable_set("project_sort_method_used_$tid", $settings);
+    variable_set("project_sort_method_used_$tid", drupal_map_assoc($settings));
   }
 }
