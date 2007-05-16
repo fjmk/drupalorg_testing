@@ -2,6 +2,14 @@
 
 // $Id$
 
+define('D_O_ROLE_ANONYMOUS', 1);
+define('D_O_ROLE_AUTHENTICATED', 2);
+define('D_O_ROLE_ADMINISTRATOR', 3);
+define('D_O_ROLE_SITE_MAINTAINER', 4);
+define('D_O_ROLE_DOC_MAINTAINER', 5);
+define('D_O_ROLE_CVS_ADMIN', 6);
+define('D_O_ROLE_SWITCH', 7);
+
 function drupalorg_testing_profile_modules() {
   return array(
     // core, required
@@ -103,19 +111,242 @@ function _drupalorg_testing_create_admin_and_login() {
   user_authenticate('a', 'a');
 }
 
+/**
+ * Setup roles and permissions to mimic drupal.org.
+ * This creates an additional role, "user switcher", that has the
+ * "swtich user" permission from the devel.module.
+ */
 function _drupalorg_testing_create_roles() {
-  #2) setup some standard roles for testing (non-uid-1 admin, content
-  #admin, a role that only has "switch users" permission, etc), and
-  #configure all perms appropriately.
-  // extra roles
-  db_query("INSERT INTO {role} (rid, name) VALUES (3, 'admin user')");
-  db_query("INSERT INTO {role} (rid, name) VALUES (4, 'content admin')");
-  db_query("INSERT INTO {role} (rid, name) VALUES (5, 'switch user')");
+  // Map role names to role ID constants.
+  $roles = array(
+    D_O_ROLE_ANONYMOUS => 'anonymous',
+    D_O_ROLE_AUTHENTICATED => 'authenticated',
+    D_O_ROLE_ADMINISTRATOR => 'administrator',
+    D_O_ROLE_DOC_MAINTAINER => 'documentation maintainer',
+    D_O_ROLE_SITE_MAINTAINER => 'site maintainer',
+    D_O_ROLE_CVS_ADMIN => 'CVS administrator',
+    D_O_ROLE_SWITCH => 'user switcher',
+  );
 
-  // Insert new role's permissions
-  db_query("INSERT INTO {permission} (rid, perm, tid) VALUES (3, 'administer blocks, use PHP for block visibility, access comments, administer comments, post comments, post comments without approval, access devel information, execute php code, devel_node_access module, view devel_node_access information, administer filters, administer menu, access content, administer content types, administer nodes, create page content, create story content, edit own page content, edit own story content, edit page content, edit story content, revert revisions, view revisions, access administration pages, administer site configuration, select different theme, administer taxonomy, access user profiles, administer access control, administer users, change own username', 0)");
-  db_query("INSERT INTO {permission} (rid, perm, tid) VALUES (4, 'administer blocks, access comments, administer comments, post comments, post comments without approval, administer menu, access content, administer nodes, create page content, create story content, edit own page content, edit own story content, edit page content, edit story content, revert revisions, view revisions, access user profiles, administer users', 0)");
-  db_query("INSERT INTO {permission} (rid, perm, tid) VALUES (5, 'switch users', 0)");
+  // Define permissions for each role ID.
+  $permissions = array(
+    D_O_ROLE_ADMINISTRATOR => array(
+      // aggregator
+      'access news feeds',
+      'administer news feeds',
+      // block
+      'administer blocks',
+       //'use PHP for block visibility',
+      // book
+      'create book pages',
+      'create new books',
+      'edit book pages',
+      'edit own book pages',
+      'outline posts in books',
+      'see printer-friendly version',
+      // comment
+      'access comments',
+      'administer comments',
+      'post comments',
+      'post comments without approval',
+      // contact
+      'access site-wide contact form',
+      // cvs
+      'access CVS messages',
+      'administer CVS',
+      // devel
+      'access devel information',
+      'execute php code',
+      'devel_node_access module',
+      'view devel_node_access information',
+      // filter
+      'administer filters',
+      'administer forums',
+      // forum
+      'create forum topics',
+      'edit own forum topics',
+      // menu
+      'administer menu',
+      // node
+      'access content',
+      'administer content types',
+      'administer nodes',
+      'create page content',
+      'create story content',
+      'edit own page content',
+      'edit own story content',
+      'edit page content',
+      'edit story content',
+      'revert revisions',
+      'view revisions',
+      // path
+      'administer url aliases',
+      'create url aliases',
+      // poll
+       //'cancel own vote',
+      'create polls',
+       //'inspect all votes',
+      'vote on polls',
+      // project
+      'access own projects',
+      'access projects',
+      'administer projects',
+      'maintain projects',
+      // project_issue
+      'access own project issues',
+      'access project issues',
+      'create project issues',
+      //'edit own project issues',
+      'set issue status active',
+      'set issue status active (needs more info)',
+      'set issue status by design',
+      'set issue status closed',
+      'set issue status duplicate',
+      'set issue status fixed',
+      'set issue status patch (code needs review)',
+      'set issue status patch (code needs work)',
+      'set issue status patch (ready to be committed)',
+      'set issue status postponed',
+      'set issue status wont fix',
+      // search
+      'administer search',
+      'search content',
+      'use advanced search',
+      // system
+      'access administration pages',
+      'administer site configuration',
+       //'select different theme',
+      // taxonomy
+      'administer taxonomy',
+      // upload
+      'upload files',
+      'view uploaded files',
+      // user
+      'access user profiles',
+      'administer access control',
+      'administer users',
+      'change own username',
+    ),
+    D_O_ROLE_SITE_MAINTAINER => array(
+      // aggregator
+      'administer news feeds',
+      // book
+      'create new books',
+      'edit book pages',
+      'outline posts in books',
+      // comment
+      'administer comments',
+      // forum
+      'edit own forum topics',
+      // node
+      'administer nodes',
+      'revert revisions',
+      'view revisions',
+      // system
+      'access administration pages',
+      // upload
+      'upload files',
+    ),
+    D_O_ROLE_DOC_MAINTAINER => array(
+      // book
+      'create book pages',
+      'edit book pages',
+      'edit own book pages',
+      // node
+      'view revisions',
+    ),
+    D_O_ROLE_CVS_ADMIN => array(
+      // cvs
+      'administer CVS',
+      // project
+      'administer projects',
+      // system
+      'access administration pages',
+    ),
+    D_O_ROLE_SWITCH => array(
+      // devel
+      'switch users',
+    ),
+    D_O_ROLE_AUTHENTICATED => array(
+      // aggregator
+      'access news feeds',
+      // book
+      'create book pages',
+      'edit own book pages',
+      'see printer-friendly version',
+      // comment
+      'access comments',
+      'post comments',
+      'post comments without approval',
+      // contact
+      'access site-wide contact form',
+      // cvs
+      'access CVS messages',
+      // forum
+      'create forum topics',
+      // node
+      'access content',
+      // poll
+      'vote on polls',
+      // project
+      'access projects',
+      // project_issue
+      'access project issues',
+      'create project issues',
+      'set issue status active',
+      'set issue status active (needs more info)',
+      'set issue status by design',
+      'set issue status closed',
+      'set issue status duplicate',
+      'set issue status fixed',
+      'set issue status patch (code needs review)',
+      'set issue status patch (code needs work)',
+      'set issue status patch (ready to be committed)',
+      'set issue status postponed',
+      'set issue status wont fix',
+      // search
+      'search content',
+      'use advanced search',
+      // upload
+      'view uploaded files',
+      // user
+      'access user profiles',
+      'change own username',
+    ),
+    D_O_ROLE_ANONYMOUS => array(
+      // aggregator
+      'access news feeds',
+      // comment
+      'access comments',
+      // contact
+      'access site-wide contact form',
+      // cvs
+      'access CVS messages',
+      // node
+      'access content',
+      // project
+      'access projects',
+      // project_issue
+      'access project issues',
+      // search
+      'search content',
+      // upload
+      'view uploaded files',
+      // user
+      'access user profiles',
+    ),
+  );
+
+  // Delete current roles and permissions and re-populate them.
+  db_query('TRUNCATE {role}');
+  db_query('TRUNCATE {permission}');
+
+  foreach ($roles as $rid => $name) {
+    db_query("INSERT INTO {role} (rid, name) VALUES (%d, '%s')", $rid, $name);
+  }
+  foreach ($permissions as $rid => $perms) {
+    db_query("INSERT INTO {permission} (rid, perm, tid) VALUES (%d, '%s', 0)", $rid, implode(', ', $perms));
+  }
 }
 
 function _drupalorg_testing_create_users() {
