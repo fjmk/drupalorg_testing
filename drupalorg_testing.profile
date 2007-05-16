@@ -107,7 +107,10 @@ function _drupalorg_testing_configure_devel_module() {
 
 function _drupalorg_testing_create_admin_and_login() {
   // create the admin account
+  // Shouldn't we be using user_save() here?
   db_query("INSERT INTO {users} (uid, name, pass, mail, created, status) VALUES(1, 'a', '%s', 'a@a.a', %d, 1)", md5('a'), time());
+  // Initialize the record in the {sequences} table.
+  db_next_id('{users}_uid');
   user_authenticate('a', 'a');
 }
 
@@ -350,28 +353,43 @@ function _drupalorg_testing_create_roles() {
 }
 
 function _drupalorg_testing_create_users() {
-  #4) also create a bunch of random users with the generate script from
-  #devel.module...
+  // Define some well-known users in each of the roles.  All of these
+  // will have the same password ('a'), and will also belong to the
+  // 'User switchers' role to be able to easily switch between them.
+  $users = array(
+    'admin' => array(D_O_ROLE_ADMINISTRATOR),
+    'site' => array(D_O_ROLE_SITE_MAINTAINER),
+    'doc' => array(D_O_ROLE_DOC_MAINTAINER),
+    'cvs' => array(D_O_ROLE_CVS_ADMIN),
+    'auth' => array(), // no extra roles
+  );
+  // How many users for each role do you want?  
+  $num_users_per_role = 2;
+
+  // For now, we generate the random users first, since the
+  // old copy of the devel.module's generate script we're using is
+  // hard-coded to start at UID #2. :(
   include_once "generate-users.php";
   // use one of your own domains. Using somebody else's domain is rude.
   make_users(50, 'example.com');
 
-  #3) create a small pool of users in each of the roles, all of which
-  #are also in the "switch users" role,
-  db_query("INSERT INTO {users_roles} VALUES (1, 3)");
-  db_query("INSERT INTO {users} (uid, name, pass, mail, created, status) VALUES(51, 'admin1', '%s', 'admin1@a.a', %d, 1)", md5('a'), time());
-  db_query("INSERT INTO {users} (uid, name, pass, mail, created, status) VALUES(52, 'admin2', '%s', 'admin2@a.a', %d, 1)", md5('a'), time());
-  db_query("INSERT INTO {users} (uid, name, pass, mail, created, status) VALUES(53, 'content1', '%s', 'content1@a.a', %d, 1)", md5('a'), time());
-  db_query("INSERT INTO {users} (uid, name, pass, mail, created, status) VALUES(54, 'content2', '%s', 'content2@a.a', %d, 1)", md5('a'), time());
-  db_query("INSERT INTO {users_roles} VALUES (51, 3)");
-  db_query("INSERT INTO {users_roles} VALUES (52, 3)");
-  db_query("INSERT INTO {users_roles} VALUES (53, 4)");
-  db_query("INSERT INTO {users_roles} VALUES (54, 4)");
-  db_query("INSERT INTO {users_roles} VALUES (51, 5)");
-  db_query("INSERT INTO {users_roles} VALUES (52, 5)");
-  db_query("INSERT INTO {users_roles} VALUES (53, 5)");
-  db_query("INSERT INTO {users_roles} VALUES (54, 5)");
-  db_query("UPDATE {sequences} SET id = %d WHERE name = 'users_uid'", 54);
+  // All the well-known users have the same password.
+  $pass = md5('a');
+
+  // Now, generate our well-known users.
+  foreach ($users as $name => $roles) {
+    // Put all of these custom users into the 'User switchers' role, too.
+    $roles = array_merge($roles, array(D_O_ROLE_SWITCH));
+    for ($i = 1; $i <= $num_users_per_role; $i++) {
+      $uid = db_next_id('{users_uid}');
+      $username = $name . $i;
+      $mail = $username .'@a.a';
+      db_query("INSERT INTO {users} (uid, name, pass, mail, created, status) VALUES(%d, '%s', '%s', '%s', %d, 1)", $uid, $username, $pass, $mail, time(), 1);
+      foreach ($roles as $rid) {
+        db_query("INSERT INTO {users_roles} VALUES (%d, %d)", $uid, $rid);
+      }
+    }
+  }
 }
 
 function _drupalorg_testing_delete_old_content() {
