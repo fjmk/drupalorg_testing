@@ -499,6 +499,8 @@ function _drupalorg_testing_create_content() {
 
   $comments = get_comments();
   create_comments(200, $users, $nodes, $comments);
+
+  _drupalorg_testing_create_content_project();
 }
 
 /**
@@ -516,9 +518,126 @@ function _drupalorg_testing_configure_project_settings() {
     t('Translations') => array('name'),
   );
   foreach ($types as $type => $settings) {
-    $terms = taxonomy_get_term_by_name($type);
-    $tid = $terms[0]->tid;
+    $tid = _drupalorg_testing_get_tid_by_term($type);
     variable_set("project_sort_method_used_$tid", drupal_map_assoc($settings));
+  }
+}
+
+
+/**
+ * Generates sample project content.
+ */
+function _drupalorg_testing_create_content_project() {
+  // First, add one of each type of project.
+  $values[t('Drupal project')] = array(
+    'title' => t('Drupal'),
+    'body' => t('Drupal is an open-source platform and content management system for building dynamic web sites offering a broad range of features and services including user administration, publishing workflow, discussion capabilities, news aggregation, metadata functionalities using controlled vocabularies and XML publishing for content sharing purposes. Equipped with a powerful blend of features and configurability, Drupal can support a diverse range of web projects ranging from personal weblogs to large community-driven sites.'),
+    'uri' => 'drupal',
+    'name' => 'a',
+  );
+  $values[t('Installation profiles')] = array(
+    'title' => t('Drupal.org Testing'),
+    'body' => t('This profile installs a site with the structure, content, permissions, etc of Drupal.org to facilitate the reproduction of bugs and testing of patches for the project modules.'),
+    'uri' => 'drupalorg_testing',
+    'name' => 'site1',
+  );
+  $values[t('Theme engines')] = array(
+    'title' => t('PHPTAL theme engine'),
+    'body' => t('This is a theme engine for Drupal 5.x, which allows the use of templates written in the PHPTAL language. This engine does most of its work by calls to the <a href="/node/11810">PHPtemplate engine</a>, just replacing the underlying template engine with the one from phptal.sourceforge.net.'),
+    'uri' => 'phptal',
+    'name' => 'auth1',
+  );
+  $values[t('Themes')] = array(
+    'title' => t('Zen'),
+    'body' => t('Zen is the ultimate <em>starting theme</em> for Drupal 5. If you are building your own standards-compliant theme, you will find it much easier to start with Zen than to start with Garland or Bluemarine. This theme has LOTs of documentation in the form of code comments for both the PHP (template.php) and HTML (page.tpl.php, node.tpl.php).'),
+    'uri' => 'zen',
+    'name' => 'doc1',
+  );
+  $values[t('Translations')] = array(
+    'title' => t('Afrikaans Translation'),
+    'body' => t("This page is the official translation of Drupal core into Afrikaans. This translation is currently available for Drupal 4.6's and Drupal 4.7's (cvs) core. Modules are being added as we progress with the translation effort."),
+    'uri' => 'af',
+    'name' => 'auth1',
+  );
+  foreach ($values as $category => $project) {
+    $project['project_type'] = _drupalorg_testing_get_tid_by_term($category);
+    $project['mail'] = variable_get('site_mail', 'a@a.a');
+    drupal_execute('project_project_node_form', $project, array('type' => 'project_project'));
+
+    // CHEESY HACK: Because Drupal is not fully bootstrapped at install time,
+    // we have to do raw DB manipulation to add the terms. Sigh...
+    $node = node_load(array('title' => $project['title']));
+    db_query('INSERT INTO {term_node} (nid, tid) VALUES (%d, %d)', $node->nid, $project['project_type']);
+  }
+
+  // Modules... let's start with some developer modules so we have a few in
+  // the same category.
+  $values = array();
+  $values[] = array(
+    'title' => t('Project'),
+    'body' => t('This module provides project management for Drupal sites.  Projects are generally assumed to represent software that has source code, releases, and so on.  This module provides advanced functionality for browsing projects, optionally classifying them with a special taxonomy, and managing downloads of different versions of the software represented by the projects.  It is used to provide the <a href="/project">downloads pages</a> for Drupal.org.'),
+    'uri' => 'project',
+    'categories' => array(t('Developer')),
+    'name' => 'site1',
+  );
+  $values[] = array(
+    'title' => t('Project issue tracking'),
+    'body' => t('This module provides issue tracking for projects created with the <a href="/project/project">project module</a>.  <!--break-->It allows users to submit issues (bug reports, feature requests, tasks, etc) and enables teams to track their progress.  It provides e-mail notifications to members about updates to items.  Similar to many issue tracking systems.  You can see it in action at <a href="/project/issues">http://drupal.org/project/issues</a>.'),
+    'uri' => 'project_issue',
+    'categories' => array(t('Developer')),
+    'name' => 'site1',
+  );
+  $values[] = array(
+    'title' => t('CVS integration'),
+    'body' => t('A module that lets you track CVS commit messages. You can see it in action at http://drupal.org/cvs/. Interfaces with the project module to make releases via specific CVS branches and tags, and provides per-project source code access control.'),
+    'uri' => 'cvslog',
+    'categories' => array(t('Developer')),
+    'name' => 'cvs1',
+  );
+  // Subscribe module, because its menu path and project/subscribe hate
+  // each other. ;)
+  $values[] = array(
+    'title' => t('Subscribe'),
+    'body' => t('The subscribe module allows you to subscribe to channels which other Drupal sites publish using the publish module. Both push and pull publishing models are supported. Communication between the publishing and subscribing sites is accomplished via XML-RPC.
+
+This module is under development but testing and feedback are welcome.'),
+    'uri' => 'subscribe',
+    'categories' => array(t('Content')),
+    'name' => 'doc1',
+  );
+  // User status module, because it's in more than one category.
+  $values[] = array(
+    'title' => t('User status change notifications'),
+    'body' => t('This module enables sites to automatically send customized email notifications on the following events:
+<ul>
+<li>account activated</li>
+<li>account blocked</li>
+<li>account deleted</li>
+</ul>
+The first case is especially useful for sites that are configured to require administrator approval for new account requests.'),
+    'uri' => 'user_status',
+    'categories' => array(t('Administration'), t('Mail'), t('User management')),
+    'name' => 'admin1',
+  );
+
+  $modules_tid = _drupalorg_testing_get_tid_by_term(t('Modules'));
+  foreach ($values as $project) {
+    $project['project_type'] = $modules_tid;
+    $categories = array();
+    foreach ($project['categories'] as $category) {
+      $categories[] = _drupalorg_testing_get_tid_by_term($category);
+    }
+    $project["tid_$modules_tid"] = drupal_map_assoc($categories);
+    $project['mail'] = variable_get('site_mail', 'a@a.a');
+    drupal_execute('project_project_node_form', $project, array('type' => 'project_project'));
+
+    // CHEESY HACK: Because Drupal is not fully bootstrapped at install time,
+    // we have to do raw DB manipulation to add the terms. Sigh...
+    $node = node_load(array('title' => $project['title']));
+    db_query('INSERT INTO {term_node} (nid, tid) VALUES (%d, %d)', $node->nid, $project['project_type']);
+    foreach ($categories as $category) {
+      db_query('INSERT INTO {term_node} (nid, tid) VALUES (%d, %d)', $node->nid, $category);
+    }
   }
 }
 
@@ -555,4 +674,12 @@ function _drupalorg_testing_create_menus() {
     $item['description'] = '';
     menu_save_item($item);
   }
+}
+
+/**
+ * Helper function; get a term's ID.
+ */
+function _drupalorg_testing_get_tid_by_term($term) {
+  $terms = taxonomy_get_term_by_name($term);
+  return $terms[0]->tid;
 }
