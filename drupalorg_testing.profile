@@ -47,6 +47,7 @@ function drupalorg_testing_profile_final() {
   _drupalorg_testing_create_content();
   _drupalorg_testing_configure_project_settings();
   _drupalorg_testing_create_menus();
+  _drupalorg_testing_configure_blocks();
   _block_rehash();
   menu_rebuild();
 }
@@ -100,9 +101,6 @@ function _drupalorg_testing_configure_devel_module() {
     variable_set('devel_old_smtp_library', variable_get('smtp_library', ''));
   }
   variable_set('smtp_library', drupal_get_filename('module', 'devel'));
-
-  // enable the switch users block from devel.module, etc. [2]
-  db_query("UPDATE {blocks} SET status = 1, region = 'left' WHERE module='devel'");
 }
 
 function _drupalorg_testing_create_admin_and_login() {
@@ -673,6 +671,27 @@ function _drupalorg_testing_create_menus() {
     $item['type'] = MENU_CUSTOM_ITEM | MENU_MODIFIED_BY_ADMIN;
     $item['description'] = '';
     menu_save_item($item);
+  }
+}
+
+function _drupalorg_testing_configure_blocks() {
+  // Each entry should be an array with: (module, delta, region, weight)
+  $blocks = array();
+
+  // User login
+  $blocks[] = array('user', 0, 'right', -4);
+  // Primary navigation
+  $blocks[] = array('user', 1, 'right', -2);
+  // Devel tools
+  $blocks[] = array('devel', 1, 'right', 0);
+  // Switch users
+  $blocks[] = array('devel', 0, 'right', 2);
+  // New forum topics
+  $blocks[] = array('forum', 1, 'right', 4);
+
+  foreach ($blocks as $block) {
+    db_query("DELETE FROM {blocks} WHERE module = '%s' AND delta = %d", $block[0], $block[1]);
+    db_query("INSERT INTO {blocks} (module, delta, theme, status, region, weight) VALUES ('%s', %d, '%s', %d, '%s', %d)", $block[0], $block[1], 'garland', 1, $block[2], $block[3]);
   }
 }
 
