@@ -691,7 +691,7 @@ function _drupalorg_testing_configure_blocks() {
 
   foreach ($blocks as $block) {
     db_query("DELETE FROM {blocks} WHERE module = '%s' AND delta = %d", $block[0], $block[1]);
-    db_query("INSERT INTO {blocks} (module, delta, theme, status, region, weight) VALUES ('%s', %d, '%s', %d, '%s', %d)", $block[0], $block[1], 'garland', 1, $block[2], $block[3]);
+    db_query("INSERT INTO {blocks} (module, delta, theme, status, region, weight, pages) VALUES ('%s', %d, '%s', %d, '%s', %d, '')", $block[0], $block[1], 'garland', 1, $block[2], $block[3]);
   }
 }
 
