@@ -468,7 +468,7 @@ function _drupalorg_testing_create_project_terms() {
 
   // Add release types.
   $vocab = array(
-    'name' => t('Release Type'),
+    'name' => t('Release type'),
     'nodes' => array('project_release' => 'project_release'),
   );
   drupal_execute('taxonomy_form_vocabulary', $vocab);
