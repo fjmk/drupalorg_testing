@@ -208,7 +208,7 @@ function _drupalorg_testing_create_roles() {
       'set issue status fixed',
       'set issue status patch (code needs review)',
       'set issue status patch (code needs work)',
-      'set issue status patch (ready to be committed)',
+      'set issue status patch (ready to commit)',
       'set issue status postponed',
       'set issue status wont fix',
       // search
@@ -305,7 +305,7 @@ function _drupalorg_testing_create_roles() {
       'set issue status fixed',
       'set issue status patch (code needs review)',
       'set issue status patch (code needs work)',
-      'set issue status patch (ready to be committed)',
+      'set issue status patch (ready to commit)',
       'set issue status postponed',
       'set issue status wont fix',
       // search
