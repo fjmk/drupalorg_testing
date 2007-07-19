@@ -293,6 +293,7 @@ function _drupalorg_testing_create_roles() {
       'vote on polls',
       // project
       'access projects',
+      'maintain projects',
       // project_issue
       'access project issues',
       'create project issues',
