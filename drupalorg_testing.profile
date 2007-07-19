@@ -10,6 +10,9 @@ define('D_O_ROLE_DOC_MAINTAINER', 5);
 define('D_O_ROLE_CVS_ADMIN', 6);
 define('D_O_ROLE_SWITCH', 7);
 
+// Number of users per role the profile will create.
+define('D_O_NUM_USERS_PER_ROLE', 2);
+
 function drupalorg_testing_profile_modules() {
   return array(
     // core, required
@@ -43,7 +46,6 @@ function drupalorg_testing_profile_final() {
   _drupalorg_testing_create_roles();
   _drupalorg_testing_create_users();
   _drupalorg_testing_create_project_terms();
-  _drupalorg_testing_delete_old_content();
   _drupalorg_testing_create_content();
   _drupalorg_testing_configure_project_settings();
   _drupalorg_testing_create_menus();
@@ -361,46 +363,33 @@ function _drupalorg_testing_create_users() {
     'cvs' => array(D_O_ROLE_CVS_ADMIN),
     'auth' => array(), // no extra roles
   );
-  // How many users for each role do you want?  
-  $num_users_per_role = 2;
 
-  // For now, we generate the random users first, since the
-  // old copy of the devel.module's generate script we're using is
-  // hard-coded to start at UID #2. :(
-  include_once "generate-users.php";
-  // use one of your own domains. Using somebody else's domain is rude.
-  make_users(50, 'example.com');
-
-  // All the well-known users have the same password.
-  $pass = md5('a');
+  // Create a dummy user object for user_save().
+  $account = new stdClass();
+  $account->uid = 0;
 
   // Now, generate our well-known users.
   foreach ($users as $name => $roles) {
+    $edit = array();
+
+    // All the well-known users have the same password.
+    $edit['pass'] = 'a';
+    $edit['status'] = 1;
+
     // Put all of these custom users into the 'User switchers' role, too.
-    $roles = array_merge($roles, array(D_O_ROLE_SWITCH));
-    for ($i = 1; $i <= $num_users_per_role; $i++) {
-      $uid = db_next_id('{users_uid}');
-      $username = $name . $i;
-      $mail = $username .'@a.a';
-      db_query("INSERT INTO {users} (uid, name, pass, mail, created, status) VALUES(%d, '%s', '%s', '%s', %d, 1)", $uid, $username, $pass, $mail, time(), 1);
-      foreach ($roles as $rid) {
-        db_query("INSERT INTO {users_roles} VALUES (%d, %d)", $uid, $rid);
-      }
+    // We have to flip the roles array here, because that's what user_save() is expecting.
+    $edit['roles'] = array_flip(array_merge(array(D_O_ROLE_SWITCH), $roles));
+
+    for ($i = 1; $i <= D_O_NUM_USERS_PER_ROLE; $i++) {
+      $edit['name'] = $name . $i;
+      $edit['mail'] = $edit['name'] .'@a.a';
+      user_save($account, $edit);
     }
   }
-}
 
-function _drupalorg_testing_delete_old_content() {
-  db_query("DELETE FROM {comments}");
-  db_query("DELETE FROM {node}");
-  db_query("DELETE FROM {node_revisions}");
-  db_query("DELETE FROM {node_comment_statistics}");
-  if (db_table_exists(forum)) { db_query("DELETE FROM {forum}"); }
-  db_query("DELETE FROM {url_alias}");
-  db_query("UPDATE {sequences} SET id = '0' WHERE name = 'node_nid'");
-  db_query("UPDATE {sequences} SET id = '0' WHERE name = 'comments_cid'");
-  db_query("ALTER TABLE {node} AUTO_INCREMENT = 1");
-  db_query("ALTER TABLE {comments} AUTO_INCREMENT = 1");
+  // Create 50 random users.
+  require_once(drupal_get_path('module', 'devel') .'/devel_generate.inc');
+  devel_create_users(50, FALSE);
 }
 
 /**
@@ -484,19 +473,11 @@ function _drupalorg_testing_create_project_terms() {
 }
 
 function _drupalorg_testing_create_content() {
-  #5) create a bunch of test content with the generate script.
-  include_once "generate-content.php";
+  // #5) Create a bunch of test content with the devel generate script.
+  require_once(drupal_get_path('module', 'devel') .'/devel_generate.inc');
 
-  // create 100 pseudo-random nodes:
-  $users = get_users();
-  create_nodes(50, $users);
-
-  $nodes = get_nodes();
-  $terms = get_terms();
-  add_terms($nodes, $terms);
-
-  $comments = get_comments();
-  create_comments(200, $users, $nodes, $comments);
+  // Create 100 pseudo-random nodes, and 200 pseudo-random comments.
+  devel_generate_content(100, 200, 8, TRUE);
 
   _drupalorg_testing_create_content_project();
 }
