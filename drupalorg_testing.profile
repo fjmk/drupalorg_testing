@@ -42,6 +42,7 @@ function drupalorg_testing_profile_final() {
   _drupalorg_testing_create_node_types();
   _drupalorg_testing_configure_theme();
   _drupalorg_testing_configure_devel_module();
+  _drupalorg_testing_configure_cvs_module();
   _drupalorg_testing_create_admin_and_login();
   _drupalorg_testing_create_roles();
   _drupalorg_testing_create_users();
@@ -103,6 +104,18 @@ function _drupalorg_testing_configure_devel_module() {
     variable_set('devel_old_smtp_library', variable_get('smtp_library', ''));
   }
   variable_set('smtp_library', drupal_get_filename('module', 'devel'));
+}
+
+function _drupalorg_testing_configure_cvs_module() {
+  $repos = array(t('Drupal'), t('Contributions'));
+  foreach ($repos as $repo_name) {
+    $repo = array(
+      'name' => $repo_name,
+      'method' => 1,  // external
+      'op' => t('Save repository'),
+    );
+    drupal_execute('cvs_repository_form', $repo);
+  }
 }
 
 function _drupalorg_testing_create_admin_and_login() {
@@ -514,30 +527,40 @@ function _drupalorg_testing_create_content_project() {
     'body' => t('Drupal is an open-source platform and content management system for building dynamic web sites offering a broad range of features and services including user administration, publishing workflow, discussion capabilities, news aggregation, metadata functionalities using controlled vocabularies and XML publishing for content sharing purposes. Equipped with a powerful blend of features and configurability, Drupal can support a diverse range of web projects ranging from personal weblogs to large community-driven sites.'),
     'uri' => 'drupal',
     'name' => 'a',
+    'cvs_repository' => 1,
+    'cvs_directory' => '/',
   );
   $values[t('Installation profiles')] = array(
     'title' => t('Drupal.org Testing'),
     'body' => t('This profile installs a site with the structure, content, permissions, etc of Drupal.org to facilitate the reproduction of bugs and testing of patches for the project modules.'),
     'uri' => 'drupalorg_testing',
     'name' => 'site1',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/profiles/drupalorg_testing/',
   );
   $values[t('Theme engines')] = array(
     'title' => t('PHPTAL theme engine'),
     'body' => t('This is a theme engine for Drupal 5.x, which allows the use of templates written in the PHPTAL language. This engine does most of its work by calls to the <a href="/node/11810">PHPtemplate engine</a>, just replacing the underlying template engine with the one from phptal.sourceforge.net.'),
     'uri' => 'phptal',
     'name' => 'auth1',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/theme-engines/phptal/',
   );
   $values[t('Themes')] = array(
     'title' => t('Zen'),
     'body' => t('Zen is the ultimate <em>starting theme</em> for Drupal 5. If you are building your own standards-compliant theme, you will find it much easier to start with Zen than to start with Garland or Bluemarine. This theme has LOTs of documentation in the form of code comments for both the PHP (template.php) and HTML (page.tpl.php, node.tpl.php).'),
     'uri' => 'zen',
     'name' => 'doc1',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/themes/zen/',
   );
   $values[t('Translations')] = array(
     'title' => t('Afrikaans Translation'),
     'body' => t("This page is the official translation of Drupal core into Afrikaans. This translation is currently available for Drupal 4.6's and Drupal 4.7's (cvs) core. Modules are being added as we progress with the translation effort."),
     'uri' => 'af',
     'name' => 'auth1',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/translations/af/',
   );
   foreach ($values as $category => $project) {
     $project['project_type'] = _drupalorg_testing_get_tid_by_term($category);
@@ -559,6 +582,8 @@ function _drupalorg_testing_create_content_project() {
     'uri' => 'project',
     'categories' => array(t('Developer')),
     'name' => 'site1',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/modules/project/',
   );
   $values[] = array(
     'title' => t('Project issue tracking'),
@@ -566,6 +591,8 @@ function _drupalorg_testing_create_content_project() {
     'uri' => 'project_issue',
     'categories' => array(t('Developer')),
     'name' => 'site1',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/modules/project_issue/',
   );
   $values[] = array(
     'title' => t('CVS integration'),
@@ -573,6 +600,8 @@ function _drupalorg_testing_create_content_project() {
     'uri' => 'cvslog',
     'categories' => array(t('Developer')),
     'name' => 'cvs1',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/modules/cvslog/',
   );
   // Subscribe module, because its menu path and project/subscribe hate
   // each other. ;)
@@ -584,6 +613,8 @@ This module is under development but testing and feedback are welcome.'),
     'uri' => 'subscribe',
     'categories' => array(t('Content')),
     'name' => 'doc1',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/modules/subscribe/',
   );
   // User status module, because it's in more than one category.
   $values[] = array(
@@ -598,6 +629,8 @@ The first case is especially useful for sites that are configured to require adm
     'uri' => 'user_status',
     'categories' => array(t('Administration'), t('Mail'), t('User management')),
     'name' => 'admin1',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/modules/user_status/',
   );
 
   $modules_tid = _drupalorg_testing_get_tid_by_term(t('Modules'));
