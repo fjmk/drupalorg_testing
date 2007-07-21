@@ -116,6 +116,10 @@ function _drupalorg_testing_configure_cvs_module() {
     );
     drupal_execute('cvs_repository_form', $repo);
   }
+
+  // Set the branch/tag release messages to match drupal.org.
+  variable_set('cvs_message_new_release_branch', t('Your development snapshot release has been added. However, a downloadable package will not be available and this release will not be published until the packaging scripts run again. These scripts only make new development snapshot releases every 12 hours, so please be patient.'));
+  variable_set('cvs_message_new_release_tag', t('Your official release has been added. A downloadable package will not be available and this release will not be published until the packaging scripts run again. These scripts run every 5 minutes for official releases, so it should be available soon. Once it has been published, this release will be available in the list of choices for the "Default version" selector on your project\'s edit tab.'));
 }
 
 function _drupalorg_testing_create_admin_and_login() {
