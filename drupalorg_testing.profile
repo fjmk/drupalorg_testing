@@ -518,6 +518,19 @@ function _drupalorg_testing_configure_project_settings() {
     $tid = _drupalorg_testing_get_tid_by_term($type);
     variable_set("project_sort_method_used_$tid", drupal_map_assoc($settings));
   }
+
+  // Settings for project_release.module.
+  variable_set('project_release_browse_versions', '1');
+  variable_set('project_release_default_version_format', 'api#major%patch#extra');
+  variable_set('project_release_overview', '-1');
+
+  $active_tids = array();
+  $active_terms = array('6.x', '5.x', '4.7.x');
+  foreach ($active_terms as $term) {
+    $tid = _drupalorg_testing_get_tid_by_term($term);
+    $active_tids[$tid] = $tid;
+  }
+  variable_set('project_release_active_compatibility_tids', $active_tids);
 }
 
 
