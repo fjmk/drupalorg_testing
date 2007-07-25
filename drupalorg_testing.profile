@@ -521,7 +521,7 @@ function _drupalorg_testing_configure_project_settings() {
 
   // Settings for project_release.module.
   variable_set('project_release_browse_versions', '1');
-  variable_set('project_release_default_version_format', 'api#major%patch#extra');
+  variable_set('project_release_default_version_format', '!api#major%patch#extra');
   variable_set('project_release_overview', '-1');
 
   $active_tids = array();
