@@ -13,6 +13,17 @@ define('D_O_ROLE_SWITCH', 7);
 // Number of users per role the profile will create.
 define('D_O_NUM_USERS_PER_ROLE', 2);
 
+/**
+ * Number of users per role the profile will create CVS accounts for.
+ *
+ * By default, each role gets 2 users (e.g. "auth1" and "auth2"), but
+ * only one of them gets a CVS account (e.g. "auth1"). This is useful
+ * for testing to see how things on the site behave for people in
+ * various roles with and without CVS accounts.
+ */
+define('D_O_NUM_CVS_USERS_PER_ROLE', 1);
+
+
 function drupalorg_testing_profile_modules() {
   return array(
     // core, required
@@ -129,6 +140,8 @@ function _drupalorg_testing_create_admin_and_login() {
   // Initialize the record in the {sequences} table.
   db_next_id('{users}_uid');
   user_authenticate('a', 'a');
+  // Create a CVS account, too.
+  db_query("INSERT INTO {cvs_accounts} (uid, name, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", 1, 'a', crypt('a'), '', CVS_APPROVED);
 }
 
 /**
@@ -402,6 +415,11 @@ function _drupalorg_testing_create_users() {
       $edit['name'] = $name . $i;
       $edit['mail'] = $edit['name'] .'@a.a';
       user_save($account, $edit);
+    }
+    for ($i = 1; $i <= D_O_NUM_CVS_USERS_PER_ROLE; $i++) {
+      $user_name = $name . $i;
+      $user = user_load(array('name' => $user_name));
+      db_query("INSERT INTO {cvs_accounts} (uid, name, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", $user->uid, $user_name, crypt('a'), '', CVS_APPROVED);
     }
   }
 
