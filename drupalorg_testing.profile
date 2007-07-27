@@ -238,7 +238,7 @@ function _drupalorg_testing_create_roles() {
       'set issue status fixed',
       'set issue status patch (code needs review)',
       'set issue status patch (code needs work)',
-      'set issue status patch (ready to commit)',
+      'set issue status patch (ready to be committed)',
       'set issue status postponed',
       'set issue status wont fix',
       // search
@@ -335,7 +335,7 @@ function _drupalorg_testing_create_roles() {
       'set issue status fixed',
       'set issue status patch (code needs review)',
       'set issue status patch (code needs work)',
-      'set issue status patch (ready to commit)',
+      'set issue status patch (ready to be committed)',
       'set issue status postponed',
       'set issue status wont fix',
       // search
@@ -549,8 +549,59 @@ function _drupalorg_testing_configure_project_settings() {
     $active_tids[$tid] = $tid;
   }
   variable_set('project_release_active_compatibility_tids', $active_tids);
-}
 
+  // Settings for project_issue.module.
+
+  // Add the new, custom status values on d.o.
+  $issue_status_new = array();
+  $issue_status_new['status_add'] = array(
+    'name' => t('patch (to be ported)'),
+    'weight' => -4,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  drupal_execute('project_issue_admin_states_form', $issue_status_new);
+
+  $issue_status_new = array();
+  $issue_status_new['status_add'] = array(
+    'name' => t('active (needs more info)'),
+    'weight' => -10,
+    'author_has' => 0,
+    'default_query' => 0,
+  );
+  drupal_execute('project_issue_admin_states_form', $issue_status_new);
+
+  // Now, update the default status values for d.o customizations.
+  $issue_status_updates = array();
+  $issue_status_updates['status'] = array();
+  $issue_status_updates['status'][8] = array(
+    'name' => t('patch (code needs review)'),
+    'weight' => -8,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  $issue_status_updates['status'][13] = array(
+    'name' => t('patch (code needs work)'),
+    'weight' => -7,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  $issue_status_updates['status'][14] = array(
+    'name' => t('patch (ready to be committed)'),
+    'weight' => -6,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  // For some reason, the "default_query" is getting cleared if we don't
+  // include it here again. :(  TODO: Figure out what's going on here.
+  $issue_status_updates['status'][15] = array(
+    'name' => t('patch (to be ported)'),
+    'weight' => -4,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  drupal_execute('project_issue_admin_states_form', $issue_status_updates);
+}
 
 /**
  * Generates sample project content.
