@@ -10,7 +10,7 @@ scripts.
 Required modules and versions for Drupal 5.x as of July 30, 2007:
     
     * codefilter DRUPAL-5 
-    * cvs HEAD.
+    * cvslog HEAD.
     * devel DRUPAL-5
     * project HEAD
     * project_issue HEAD
