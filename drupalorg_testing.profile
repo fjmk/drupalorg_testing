@@ -2,15 +2,39 @@
 
 // $Id$
 
-define('D_O_ROLE_ANONYMOUS', 1);
-define('D_O_ROLE_AUTHENTICATED', 2);
-define('D_O_ROLE_ADMINISTRATOR', 3);
-define('D_O_ROLE_SITE_MAINTAINER', 4);
-define('D_O_ROLE_DOC_MAINTAINER', 5);
-define('D_O_ROLE_CVS_ADMIN', 6);
-define('D_O_ROLE_SWITCH', 7);
+/**
+ * @file
+ * Installation profile that configures a site to mimic drupal.org,
+ * especially the project management and issue tracking functionality,
+ * to facilitate testing. More information can be found in the
+ * README.txt file.
+ *
+ * Some of the constants at the top of this file can be changed to
+ * customize the profile for your site (names, passwords, domains, etc).
+ */
 
-// Number of users per role the profile will create.
+//----------------------------------------
+// Settings you probably want to customize
+//----------------------------------------
+
+/// The initial password for all of the well-known users created.
+define('D_O_PASSWORD', 'a');
+
+/// Name to be used for the user 1 (full admin) account.
+define('D_O_USER1', 'a');
+
+/// Domain to use for all user e-mail addresses.
+define('D_O_DOMAIN', 'example.com');
+
+
+//----------------------------------------
+// Settings you might want to customize
+//----------------------------------------
+
+/// E-mail address to use for the site itself.
+define('D_O_SITE_MAIL', D_O_USER1 .'@'. D_O_DOMAIN);
+
+/// Number of users per role the profile will create.
 define('D_O_NUM_USERS_PER_ROLE', 2);
 
 /**
@@ -23,6 +47,23 @@ define('D_O_NUM_USERS_PER_ROLE', 2);
  */
 define('D_O_NUM_CVS_USERS_PER_ROLE', 1);
 
+
+//----------------------------------------
+// Settings you should not change
+//----------------------------------------
+
+define('D_O_ROLE_ANONYMOUS', 1);
+define('D_O_ROLE_AUTHENTICATED', 2);
+define('D_O_ROLE_ADMINISTRATOR', 3);
+define('D_O_ROLE_SITE_MAINTAINER', 4);
+define('D_O_ROLE_DOC_MAINTAINER', 5);
+define('D_O_ROLE_CVS_ADMIN', 6);
+define('D_O_ROLE_SWITCH', 7);
+
+
+//----------------------------------------
+// Profile code
+//----------------------------------------
 
 function drupalorg_testing_profile_modules() {
   return array(
@@ -50,6 +91,7 @@ function drupalorg_testing_profile_final() {
     set_time_limit(0);
   }
 
+  variable_set('site_mail', D_O_SITE_MAIL);
   _drupalorg_testing_create_node_types();
   _drupalorg_testing_configure_theme();
   _drupalorg_testing_configure_devel_module();
@@ -136,12 +178,12 @@ function _drupalorg_testing_configure_cvs_module() {
 function _drupalorg_testing_create_admin_and_login() {
   // create the admin account
   // Shouldn't we be using user_save() here?
-  db_query("INSERT INTO {users} (uid, name, pass, mail, created, status) VALUES(1, 'a', '%s', 'a@a.a', %d, 1)", md5('a'), time());
+  db_query("INSERT INTO {users} (uid, name, pass, mail, created, status) VALUES(1, '%s', '%s', '%s', %d, 1)", D_O_USER1, md5(D_O_PASSWORD), D_O_USER1 .'@'. D_O_DOMAIN, time());
   // Initialize the record in the {sequences} table.
   db_next_id('{users}_uid');
-  user_authenticate('a', 'a');
+  user_authenticate(D_O_USER1, D_O_PASSWORD);
   // Create a CVS account, too.
-  db_query("INSERT INTO {cvs_accounts} (uid, name, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", 1, 'a', crypt('a'), '', CVS_APPROVED);
+  db_query("INSERT INTO {cvs_accounts} (uid, name, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", 1, D_O_USER1, crypt(D_O_PASSWORD), '', CVS_APPROVED);
 }
 
 /**
@@ -384,9 +426,10 @@ function _drupalorg_testing_create_roles() {
 }
 
 function _drupalorg_testing_create_users() {
-  // Define some well-known users in each of the roles.  All of these
-  // will have the same password ('a'), and will also belong to the
-  // 'User switchers' role to be able to easily switch between them.
+  // Define some well-known users in each of the roles.  All of these will
+  // have the same password (see D_O_PASSWORD at the top of this file), and
+  // will also belong to the 'User switchers' role to be able to easily switch
+  // between them.
   $users = array(
     'admin' => array(D_O_ROLE_ADMINISTRATOR),
     'site' => array(D_O_ROLE_SITE_MAINTAINER),
@@ -404,7 +447,7 @@ function _drupalorg_testing_create_users() {
     $edit = array();
 
     // All the well-known users have the same password.
-    $edit['pass'] = 'a';
+    $edit['pass'] = D_O_PASSWORD;
     $edit['status'] = 1;
 
     // Put all of these custom users into the 'User switchers' role, too.
@@ -413,13 +456,13 @@ function _drupalorg_testing_create_users() {
 
     for ($i = 1; $i <= D_O_NUM_USERS_PER_ROLE; $i++) {
       $edit['name'] = $name . $i;
-      $edit['mail'] = $edit['name'] .'@a.a';
+      $edit['mail'] = $edit['name'] .'@'. D_O_DOMAIN;
       user_save($account, $edit);
     }
     for ($i = 1; $i <= D_O_NUM_CVS_USERS_PER_ROLE; $i++) {
       $user_name = $name . $i;
       $user = user_load(array('name' => $user_name));
-      db_query("INSERT INTO {cvs_accounts} (uid, name, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", $user->uid, $user_name, crypt('a'), '', CVS_APPROVED);
+      db_query("INSERT INTO {cvs_accounts} (uid, name, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", $user->uid, $user_name, crypt(D_O_PASSWORD), '', CVS_APPROVED);
     }
   }
 
@@ -611,7 +654,7 @@ function _drupalorg_testing_create_content_project() {
     'title' => t('Drupal'),
     'body' => t('Drupal is an open-source platform and content management system for building dynamic web sites offering a broad range of features and services including user administration, publishing workflow, discussion capabilities, news aggregation, metadata functionalities using controlled vocabularies and XML publishing for content sharing purposes. Equipped with a powerful blend of features and configurability, Drupal can support a diverse range of web projects ranging from personal weblogs to large community-driven sites.'),
     'uri' => 'drupal',
-    'name' => 'a',
+    'name' => D_O_USER1,
     'cvs_repository' => 1,
     'cvs_directory' => '/',
   );
@@ -649,7 +692,7 @@ function _drupalorg_testing_create_content_project() {
   );
   foreach ($values as $category => $project) {
     $project['project_type'] = _drupalorg_testing_get_tid_by_term($category);
-    $project['mail'] = variable_get('site_mail', 'a@a.a');
+    $project['mail'] = variable_get('site_mail', D_O_SITE_MAIL);
     drupal_execute('project_project_node_form', $project, array('type' => 'project_project'));
 
     // CHEESY HACK: Because Drupal is not fully bootstrapped at install time,
@@ -726,7 +769,7 @@ The first case is especially useful for sites that are configured to require adm
       $categories[] = _drupalorg_testing_get_tid_by_term($category);
     }
     $project["tid_$modules_tid"] = drupal_map_assoc($categories);
-    $project['mail'] = variable_get('site_mail', 'a@a.a');
+    $project['mail'] = variable_get('site_mail', D_O_SITE_MAIL);
     drupal_execute('project_project_node_form', $project, array('type' => 'project_project'));
 
     // CHEESY HACK: Because Drupal is not fully bootstrapped at install time,

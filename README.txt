@@ -16,7 +16,10 @@ appropriate location.
 In addition to installing core and enabling these modules, the profile
 performs the following additional setup:
 
-* Creates uid 1 user with "a" as username and password and logs it in.
+* Creates the site super-user (uid 1) and logs it in.  By default, the
+  username and password are both "a", but you can alter this by
+  changing the "D_O_USER1" and "D_O_PASSWORD" constants at the top of
+  the drupalorg_testing.profile file.
 * Creates the role and permission structure used on drupal.org.
 * Creates a few well-known users for each special role, and gives all
   of them the ability to switch back and forth using the "Switch user"
