@@ -341,6 +341,7 @@ function _drupalorg_testing_create_roles() {
     D_O_ROLE_SWITCH => array(
       // devel
       'switch users',
+      'access devel information',
     ),
     D_O_ROLE_AUTHENTICATED => array(
       // aggregator
