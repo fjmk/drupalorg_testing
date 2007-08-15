@@ -183,7 +183,7 @@ function _drupalorg_testing_create_admin_and_login() {
   db_next_id('{users}_uid');
   user_authenticate(D_O_USER1, D_O_PASSWORD);
   // Create a CVS account, too.
-  db_query("INSERT INTO {cvs_accounts} (uid, name, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", 1, D_O_USER1, crypt(D_O_PASSWORD), '', CVS_APPROVED);
+  db_query("INSERT INTO {cvs_accounts} (uid, cvs_user, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", 1, D_O_USER1, crypt(D_O_PASSWORD), '', CVS_APPROVED);
 }
 
 /**
@@ -463,7 +463,7 @@ function _drupalorg_testing_create_users() {
     for ($i = 1; $i <= D_O_NUM_CVS_USERS_PER_ROLE; $i++) {
       $user_name = $name . $i;
       $user = user_load(array('name' => $user_name));
-      db_query("INSERT INTO {cvs_accounts} (uid, name, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", $user->uid, $user_name, crypt(D_O_PASSWORD), '', CVS_APPROVED);
+      db_query("INSERT INTO {cvs_accounts} (uid, cvs_user, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", $user->uid, $user_name, crypt(D_O_PASSWORD), '', CVS_APPROVED);
     }
   }
 
