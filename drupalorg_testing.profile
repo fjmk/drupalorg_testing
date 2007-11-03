@@ -75,6 +75,7 @@ function drupalorg_testing_profile_modules() {
     'taxonomy', 'throttle', 'tracker', 'upload',
     // contrib modules
     'codefilter', 'cvs', 'devel', 'project', 'project_issue', 'project_release',
+    'comment_upload',
   );
 }
 
