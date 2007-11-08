@@ -558,7 +558,7 @@ function _drupalorg_testing_create_content() {
   require_once(drupal_get_path('module', 'devel') .'/devel_generate.inc');
 
   // Create 100 pseudo-random nodes, and 200 pseudo-random comments.
-  devel_generate_content(100, 200, 8, TRUE);
+  devel_generate_content(100, 200, 8, TRUE, array('page', 'story', 'forum'));
 
   _drupalorg_testing_create_content_project();
 }
