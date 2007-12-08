@@ -103,6 +103,7 @@ function drupalorg_testing_profile_final() {
   _drupalorg_testing_create_project_terms();
   _drupalorg_testing_create_content();
   _drupalorg_testing_configure_project_settings();
+  _drupalorg_testing_create_issues();
   _drupalorg_testing_create_menus();
   _drupalorg_testing_configure_blocks();
   _block_rehash();
@@ -645,6 +646,17 @@ function _drupalorg_testing_configure_project_settings() {
     'default_query' => 1,
   );
   drupal_execute('project_issue_admin_states_form', $issue_status_updates);
+}
+
+/**
+ * Generates sample issues.
+ */
+function _drupalorg_testing_create_issues() {
+  $file = drupal_get_path('module', 'project_issue_generate') .'/project_issue_generate.inc';
+  if (file_exists($file)) {
+    require_once($file);
+    project_issue_generate_issues(50);
+  }
 }
 
 /**
