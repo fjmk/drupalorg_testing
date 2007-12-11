@@ -72,7 +72,7 @@ function drupalorg_testing_profile_modules() {
     // core, optional as per http://drupal.org/node/27367
     'aggregator', 'book', 'comment', 'contact', 'drupal', 'forum', 'help',
     'legacy', 'path', 'profile', 'menu', 'search', 'statistics',
-    'taxonomy', 'throttle', 'tracker', 'upload',
+    'taxonomy', 'tracker', 'upload',
     // contrib modules
     'codefilter', 'cvs', 'devel', 'project', 'project_issue', 'project_release',
     'comment_upload',
