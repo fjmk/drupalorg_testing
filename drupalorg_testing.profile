@@ -95,6 +95,7 @@ function drupalorg_testing_profile_final() {
   variable_set('site_mail', D_O_SITE_MAIL);
   _drupalorg_testing_create_node_types();
   _drupalorg_testing_configure_theme();
+  _drupalorg_testing_configure_comment();
   _drupalorg_testing_configure_devel_module();
   _drupalorg_testing_configure_cvs_module();
   _drupalorg_testing_create_admin_and_login();
@@ -148,6 +149,10 @@ function _drupalorg_testing_configure_theme() {
   variable_set('theme_settings', $theme_settings);
 }
 
+function _drupalorg_testing_configure_comment() {
+  variable_set('comment_preview', 0);
+  variable_set('comment_form_location', 1);
+}
 function _drupalorg_testing_configure_devel_module() {
   variable_set('dev_query', 1);
   variable_set('devel_query_display', 1);
