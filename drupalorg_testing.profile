@@ -654,13 +654,14 @@ function _drupalorg_testing_configure_project_settings() {
 }
 
 /**
- * Generates sample issues.
+ * Generates sample issues and issue comments.
  */
 function _drupalorg_testing_create_issues() {
   $file = drupal_get_path('module', 'project_issue_generate') .'/project_issue_generate.inc';
   if (file_exists($file)) {
     require_once($file);
     project_issue_generate_issues(50);
+    project_issue_generate_issue_comments(100);
   }
 }
 
