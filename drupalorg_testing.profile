@@ -662,7 +662,9 @@ function _drupalorg_testing_create_issues() {
   if (file_exists($file)) {
     require_once($file);
     project_issue_generate_issues(50);
-    project_issue_generate_issue_comments(100);
+    if (function_exists('project_issue_generate_issue_comments')) {
+      project_issue_generate_issue_comments(100);
+    }
   }
 }
 
