@@ -393,6 +393,7 @@ function _drupalorg_testing_create_roles() {
       'use advanced search',
       // upload
       'view uploaded files',
+      'upload files',
       // user
       'access user profiles',
       'change own username',
