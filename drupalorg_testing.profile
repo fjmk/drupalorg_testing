@@ -164,6 +164,7 @@ function _drupalorg_testing_configure_devel_module() {
     variable_set('devel_old_smtp_library', variable_get('smtp_library', ''));
   }
   variable_set('smtp_library', drupal_get_filename('module', 'devel'));
+  variable_set('devel_switch_user_list_size', 12);
 }
 
 function _drupalorg_testing_configure_cvs_module() {
