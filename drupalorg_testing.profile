@@ -673,6 +673,12 @@ function _drupalorg_testing_create_issues() {
  * Generates sample project content.
  */
 function _drupalorg_testing_create_content_project() {
+  // Disable comments and file attachments on project_project and project_release nodes.
+  variable_set('comment_project_project', COMMENT_NODE_DISABLED);
+  variable_set('upload_project_project', 0);
+  variable_set('comment_project_release', COMMENT_NODE_DISABLED);
+  variable_set('upload_project_release', 0);
+
   // First, add one of each type of project.
   $values[t('Drupal project')] = array(
     'title' => t('Drupal'),
