@@ -817,30 +817,47 @@ The first case is especially useful for sites that are configured to require adm
  */
 function _drupalorg_testing_create_menus() {
   // Setup primary links.
-  $pid = variable_get('menu_primary_menu', 0);
+  $primary_pid = variable_get('menu_primary_menu', 0);
   $items['book'] = array(
     'path' => 'book',
     'title' => t('Handbooks'),
     'weight' => 0,
+    'pid' => $primary_pid,
   );
   $items['forum'] = array(
     'path' => 'forum',
     'title' => t('Forum'),
     'weight' => 2,
+    'pid' => $primary_pid,
   );
   $items['project'] = array(
     'path' => 'project',
     'title' => t('Downloads'),
     'weight' => 4,
+    'pid' => $primary_pid,
   );
   $items['contact'] = array(
     'path' => 'contact',
     'title' => t('Contact'),
     'weight' => 6,
+    'pid' => $primary_pid,
   );
 
+  // Now, move the children of /project we want back to the navigation menu,
+  // which is hard-coded in menu.inc to be menu id #1. 
+  $items['project/issues'] = array(
+    'path' => 'project/issues',
+    'title' => t('Issues'),
+    'pid' => 1,
+  );
+  $items['project/user'] = array(
+    'path' => 'project/user',
+    'title' => t('My projects'),
+    'pid' => 1,
+  );
+
+  // Finally, save all these customizations.
   foreach ($items as $item) {
-    $item['pid'] = $pid;
     $item['type'] = MENU_CUSTOM_ITEM | MENU_MODIFIED_BY_ADMIN;
     $item['description'] = '';
     menu_save_item($item);
