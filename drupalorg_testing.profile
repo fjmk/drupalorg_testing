@@ -537,11 +537,15 @@ function _drupalorg_testing_create_project_terms() {
   // Add release versions.
   $vid = _project_release_get_api_vid();
   $terms = array(
-    '6.x', '5.x', '4.7.x', '4.6.x', '4.5.x', '4.4.x',
-    '4.3.x', '4.2.x', '4.1.x', '4.0.x',
+    '4.0.x', '4.1.x', '4.2.x', '4.3.x',
+    '4.4.x', '4.5.x', '4.6.x', '4.7.x', '5.x', '6.x', '7.x',
   );
+  $weight = 10;
+  // For releases to be properly ordered in the download tables, the oldest taxonomy
+  // terms must have the heaviest weights.
   foreach ($terms as $name) {
-    drupal_execute('taxonomy_form_term', array('name' => $name), $vid);
+    drupal_execute('taxonomy_form_term', array('name' => $name, 'weight' => $weight), $vid);
+    $weight--;
   }
 
   // Add release types.
