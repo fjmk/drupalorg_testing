@@ -552,6 +552,7 @@ function _drupalorg_testing_create_project_terms() {
   $vocab = array(
     'name' => t('Release type'),
     'nodes' => array('project_release' => 'project_release'),
+    'multiple' => TRUE,
   );
   drupal_execute('taxonomy_form_vocabulary', $vocab);
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s'", t('Release type')));
