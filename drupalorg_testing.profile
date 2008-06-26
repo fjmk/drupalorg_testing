@@ -158,7 +158,16 @@ function _drupalorg_testing_configure_devel_module() {
   variable_set('devel_query_display', 1);
   variable_set('dev_timer', 1);
 #  variable_set('devel_redirect_page', 1);
-  variable_set('devel_error_handler', DEVEL_ERROR_HANDLER_BACKTRACE);
+  // The devel backtrace error handler requires the krumo library, which does not
+  // come with the Drupal 5 version of the devel module.  To keep users who have
+  // not installed the krumo library on their own from getting a WSOD,
+  // only use the backtrace error handler if the krumo library is found.
+  if (has_krumo()) {
+    variable_set('devel_error_handler', DEVEL_ERROR_HANDLER_BACKTRACE);
+  }
+  else {
+    variable_set('devel_error_handler', DEVEL_ERROR_HANDLER_STANDARD);
+  }
   // Save any old SMTP library
   if (variable_get('smtp_library', '') != '' && variable_get('smtp_library', '') != drupal_get_filename('module', 'devel')) {
     variable_set('devel_old_smtp_library', variable_get('smtp_library', ''));
