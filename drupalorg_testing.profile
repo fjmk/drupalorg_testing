@@ -94,6 +94,7 @@ function drupalorg_testing_profile_final() {
 
   variable_set('site_mail', D_O_SITE_MAIL);
   _drupalorg_testing_create_node_types();
+  _drupalorg_testing_configure_site();
   _drupalorg_testing_configure_theme();
   _drupalorg_testing_configure_comment();
   _drupalorg_testing_configure_devel_module();
@@ -140,6 +141,10 @@ function _drupalorg_testing_create_node_types() {
   // Default page to not be promoted and have comments disabled.
   variable_set('node_options_page', array('status'));
   variable_set('comment_page', COMMENT_NODE_READ_WRITE);
+}
+
+function _drupalorg_testing_configure_site() {
+  variable_set('cache', CACHE_NORMAL);
 }
 
 function _drupalorg_testing_configure_theme() {
