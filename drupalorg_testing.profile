@@ -588,6 +588,7 @@ function _drupalorg_testing_create_content() {
   devel_generate_content(100, 200, 8, TRUE, array('page', 'story', 'forum'));
 
   _drupalorg_testing_create_content_project();
+  _drupalorg_testing_create_content_project_release();
 }
 
 /**
@@ -691,13 +692,15 @@ function _drupalorg_testing_create_issues() {
 
 /**
  * Generates sample project content.
+ *
+ * NOTE: If you add other projects here that might ever have releases,
+ * you should update the $projects array near the top of
+ * drupalorg_testing_build_releases.php.
  */
 function _drupalorg_testing_create_content_project() {
-  // Disable comments and file attachments on project_project and project_release nodes.
+  // Disable comments and file attachments on project_project nodes.
   variable_set('comment_project_project', COMMENT_NODE_DISABLED);
   variable_set('upload_project_project', 0);
-  variable_set('comment_project_release', COMMENT_NODE_DISABLED);
-  variable_set('upload_project_release', 0);
 
   // First, add one of each type of project.
   $values[t('Drupal project')] = array(
@@ -828,6 +831,119 @@ The first case is especially useful for sites that are configured to require adm
     db_query('INSERT INTO {term_node} (nid, tid) VALUES (%d, %d)', $node->nid, $project['project_type']);
     foreach ($categories as $category) {
       db_query('INSERT INTO {term_node} (nid, tid) VALUES (%d, %d)', $node->nid, $category);
+    }
+  }
+}
+
+/**
+ * Generates sample project release nodes.
+ */
+function _drupalorg_testing_create_content_project_release() {
+  // Disable comments and file attachments on project_release nodes.
+  variable_set('comment_project_release', COMMENT_NODE_DISABLED);
+  variable_set('upload_project_release', 0);
+
+  // Create the project directory under the files directory so that
+  // files for releases can later be created there.  If the files
+  // directory doesn't already exist then create it as well.
+  $directory_created_successfully = 0;
+  $directory = variable_get('file_directory_path', 'files');
+  if (file_check_directory($directory, FILE_CREATE_DIRECTORY)) {
+    $directory .= '/project';
+    $directory_created_successfully = file_check_directory($directory, FILE_CREATE_DIRECTORY);
+  }
+
+  $file = drupal_get_path('profile', 'drupalorg_testing') .'/drupalorg_testing_release_info.inc';
+  if (file_exists($file)) {
+    // Note:  Including the drupalorg_testing_release_info.inc file gives us the
+    // $releases and $supported_releases variables used below in this block of code.
+    require_once($file);
+
+    // Retrieve a list of projects on the site.
+    $result = db_query("SELECT n.nid, pp.uri, u.name FROM {node} n INNER JOIN {project_projects} pp ON n.nid = pp.nid INNER JOIN {users} u ON n.uid = u.uid WHERE n.type = 'project_project'");
+    $projects = array();
+    while ($project = db_fetch_array($result)) {
+      $projects[$project['uri']] = $project;
+    }
+
+    foreach ($releases as $release) {
+      // Some fields of the release node haven't been set yet, so set those here.
+      $release['pid'] = $projects[$release['project_uri']]['nid'];
+
+      // All releases will be created by the same user who created the parent project.
+      $release['name'] = $projects[$release['project_uri']]['name'];
+
+      // Set the date/time of the release to be the same as that of the file.
+      $release['date'] = format_date($release['file_date'], 'custom', 'Y-m-d H:i:s O');
+
+      $release['body'] = "Ideally this would be some random text or the actual body of the release node on drupal.org.";
+
+      // Build the full file path of the file associated with the release.
+      $full_path = $directory .'/'. $release['file_name'];
+      $release['file_path'] = !empty($release['file_name']) ? $full_path : '';
+
+      // Determine the tids of all categories associated with the release.
+      $categories = array();
+      foreach ($release['categories'] as $category) {
+        $categories[] = _drupalorg_testing_get_tid_by_term($category);
+      }
+      $release['type'] = 'project_release';
+
+      drupal_execute('project_release_node_form', $release, $release);
+
+      // LAME HACK: Because of evil interactions between how project.module is
+      // creating the taxonomy vocabularies for itself and how
+      // taxonomy_get_tree() caches its results, we have to do raw DB
+      // manipulation to add the terms and cvs related stuff.  See
+      // http://drupal.org/node/151976#comment-569814 for more information on
+      // why this hack is needed.
+      $node = node_load(array('title' => $release['title']));
+      foreach ($categories as $tid) {
+        db_query('INSERT INTO {term_node} (nid, tid) VALUES (%d, %d)', $node->nid, $tid);
+      }
+
+      // Put an entry for this tag/branch in {cvs_tags}
+      db_query("INSERT INTO {cvs_tags} (nid, tag, branch) VALUES (%d, '%s', %d)", $node->nid, $release['tag'], $release['rebuild']);
+
+      // Automatically create an empty file for each release with a non-empty
+      // file path.  However, only do so if the directory was successfully
+      // created earlier in this function.
+      if (!empty($release['file_path']) && $directory_created_successfully && touch($release['file_path'], $release['file_date'])) {
+        drupal_set_message(t('A file for the release titled %title was created at %full_path.', array('%title' => $release['title'], '%full_path' => $release['file_path'])));
+
+        // Manually put file and version info into db since drupal_execute()
+        // doesn't seem to add this information.  We only want to add this
+        // file information if creation of the empty file is successful,
+        // because otherwise viewing a release node will create PHP errors.
+        db_query("UPDATE {project_release_nodes} SET file_path = '%s', file_date = %d, file_hash = '%s', rebuild = %d, version_major = %d, version_minor = %d, version_patch = %d, version_extra = '%s' WHERE nid = %d", $release['file_path'], $release['file_date'], $release['file_hash'], $release['rebuild'], $release['major'], $release['minor'], $release['patch'], $release['extra'], $node->nid);
+      }
+      else {
+        // We still want the version information to be saved to the database,
+        // just not any file information.
+        db_query("UPDATE {project_release_nodes} SET rebuild = %d, version_major = %d, version_minor = %d, version_patch = %d, version_extra = '%s' WHERE nid = %d", $release['rebuild'], $release['major'], $release['minor'], $release['patch'], $release['extra'], $node->nid);
+      }
+    }
+
+    // Grab an array of information about which releases for projects used in
+    // this profile are supported, recommended, or unsupported.
+    // Then add this information to the {project_release_supported_versions} table.
+    foreach ($supported_releases as $uri => $version) {
+      $pid = $projects[$uri]['nid'];
+      foreach ($version as $term => $data) {
+        $tid = _drupalorg_testing_get_tid_by_term($term);
+        if (!empty($data['supported_majors'])) {
+          $supported_majors = explode(',', $data['supported_majors']);
+          foreach ($supported_majors as $major) {
+            if (!empty($data['recommended_major']) && ($major == $data['recommended_major'])) {
+              $recommended = 1;
+            }
+            else {
+              $recommended = 0;
+            }
+            db_query('INSERT INTO {project_release_supported_versions} (nid, tid, major, supported, recommended, snapshot) VALUES (%d, %d, %d, %d, %d, %d)', $pid, $tid, $major, 1, $recommended, 1);
+          }
+        }
+      }
     }
   }
 }
