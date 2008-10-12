@@ -1023,8 +1023,27 @@ function _drupalorg_testing_configure_blocks() {
 
 /**
  * Helper function; get a term's ID.
+ *
+ * @param $term
+ *   The name of a term to look up.
+ * @param $reset
+ *   Whether to reset the internal cache.
+ * @return
+ *   The tid of the term named $term.  If there are multiple
+ *   terms with the same name, the tid of the first term
+ *   found will be returned.
  */
-function _drupalorg_testing_get_tid_by_term($term) {
-  $terms = taxonomy_get_term_by_name($term);
-  return $terms[0]->tid;
+function _drupalorg_testing_get_tid_by_term($term, $reset = NULL) {
+  static $cache = array();
+
+  if ($reset) {
+    $cache = array();
+  }
+
+  if (!isset($cache[$term])) {
+    $terms = taxonomy_get_term_by_name($term);
+    $cache[$term] = $terms;
+  }
+
+  return $cache[$term][0]->tid;
 }
