@@ -833,6 +833,47 @@ The first case is especially useful for sites that are configured to require adm
       db_query('INSERT INTO {term_node} (nid, tid) VALUES (%d, %d)', $node->nid, $category);
     }
   }
+
+  // Setup some other projects under "Drupal project" that aren't in CVS.
+  $values = array();
+  $values[] = array(
+    'title' => t('Drupal.org webmasters'),
+    'body' => t('Drupal mailing lists, web site, forums, etc.') ."\n\n".
+      t('A project with issue tracker that you can use to report spam, broken links, user account problems, or outdated documentation.') ."\n\n".
+      t('If you want to report a problem with the Apache and MySQL installation on drupal.org, the Mailman mailing lists, the CVS repositories, and the various Drupal installations on the drupal.org domain, please use the <a href="@url">Drupal.org infrastructure project</a> instead.', array('@url' => url('project/infrastructure'))) ."\n",
+    'uri' => 'webmasters',
+    'name' => 'a',
+  );
+  $values[] = array(
+    'title' => t('Drupal.org infrastructure'),
+    'body' => t('An issue tracker for everything related to the Drupal.org servers.  This includes the Apache and MySQL installation, the Mailman mailing lists, the CVS repositories, and the various Drupal installations on the drupal.org domain.') ."\n\n".
+      t('If you want to report spam, broken links, user account problems, or outdated documentation, please use the <a href="@url">Drupal.org webmasters issue tracker</a> instead.', array('@url' => url('project/webmasters'))) ."\n",
+    'uri' => 'infrastructure',
+    'name' => 'a',
+  );
+ $values[] = array(
+    'title' => t('Documentation'),
+    'body' => t('The Drupal documentation project.'),
+    'uri' => 'documentation',
+    'name' => 'a',
+    'cvs_repository' => 2,
+    'cvs_directory' => '/contributions/docs/',
+  );
+  $drupal_tid = _drupalorg_testing_get_tid_by_term(t('Drupal project'));
+  foreach ($values as $project) {
+    $project['project_type'] = $drupal_tid;
+    $project['mail'] = variable_get('site_mail', D_O_SITE_MAIL);
+    drupal_execute('project_project_node_form', $project, array('type' => 'project_project'));
+
+    // LAME HACK: Because of evil interactions between how project.module is
+    // creating the taxonomy vocabularies for itself and how
+    // taxonomy_get_tree() caches its results, we have to do raw DB
+    // manipulation to add the terms and cvs related stuff.  See
+    // http://drupal.org/node/151976#comment-569814 for more information on
+    // why this hack is needed.
+    $node = node_load(array('title' => $project['title']));
+    _project_db_save_taxonomy($node->nid, $drupal_tid);
+  }
 }
 
 /**
