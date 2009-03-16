@@ -98,18 +98,25 @@ function drupalorg_testing_profile_final() {
   _drupalorg_testing_configure_theme();
   _drupalorg_testing_configure_comment();
   _drupalorg_testing_configure_devel_module();
-  _drupalorg_testing_configure_cvs_module();
-  _drupalorg_testing_create_admin_and_login();
-  _drupalorg_testing_create_roles();
-  _drupalorg_testing_create_users();
-  _drupalorg_testing_create_project_terms();
-  _drupalorg_testing_create_content();
-  _drupalorg_testing_configure_project_settings();
-  _drupalorg_testing_create_issues();
-  _drupalorg_testing_create_menus();
-  _drupalorg_testing_configure_blocks();
-  _block_rehash();
-  menu_rebuild();
+  // If the files directory isn't writable, then
+  // exit because several of the following steps
+  // depend on the server being able to create
+  // files and directories within the files
+  // directory.
+  if (_drupalorg_testing_configure_files()) {
+    _drupalorg_testing_configure_cvs_module();
+    _drupalorg_testing_create_admin_and_login();
+    _drupalorg_testing_create_roles();
+    _drupalorg_testing_create_users();
+    _drupalorg_testing_create_project_terms();
+    _drupalorg_testing_create_content();
+    _drupalorg_testing_configure_project_settings();
+    _drupalorg_testing_create_issues();
+    _drupalorg_testing_create_menus();
+    _drupalorg_testing_configure_blocks();
+    _block_rehash();
+    menu_rebuild();
+  }
 }
 
 function _drupalorg_testing_create_node_types() {
@@ -624,6 +631,30 @@ function _drupalorg_testing_configure_project_settings() {
   variable_set('project_release_active_compatibility_tids', $active_tids);
 
   // Settings for project_issue.module.
+  $issue_settings = array();
+  $issue_settings['project_directory_issues'] = variable_get('project_directory_issues', 'issues');
+  // Set the auto close user to be empty for now.  This is a hack that is necessary
+  // because it is not possible in D5 to reset the user_access() static cache.  Therefore,
+  // if we allow the auto close user to be anonymous, as would be typical, when the form
+  // is executed below there will be a form error because it will appear that the
+  // anonymous user does not have access to view project issues.  This form error will
+  // result in later failures of drupal_execute(), because it is *also* impossible
+  // to reset the static cache in form_set_errors().  To make a long story short,
+  // we'll end up with no issues being generated.
+  //
+  // So, we set the auto close user to be empty here (this means that auto-closing
+  // will be disabled), and then we print an error message reminding the user
+  // to set this back manually if the user wishes for issues to be automatically closed.
+  //
+  // @TODO:  For the Drupal 6 version, we should be able to just
+  // call user_access() with $reset = TRUE before calling drupal_execute()
+  // to execute the project_issue_settings_form.
+  $account = user_load(array('uid' => 1));
+  if (!empty($account)) {
+    $issue_settings['project_issue_auto_close_user'] = '';
+    drupal_execute('project_issue_settings_form', $issue_settings);
+    drupal_set_message(t('If you wish for project issues to be automatically closed after 2 weeks, please !auto_close_link to be %anon.', array('!auto_close_link' => l(t('set the Auto-close user'), 'admin/project/project-issue-settings'), '%anon' => variable_get('anonymous', t('Anonymous')))), 'error');
+  }
 
   // Add the new, custom status values on d.o.
   $issue_status_new = array();
@@ -1087,4 +1118,27 @@ function _drupalorg_testing_get_tid_by_term($term, $reset = NULL) {
   }
 
   return $cache[$term][0]->tid;
+}
+
+/**
+ * Make sure the core file system is set up properly
+ * and that the files directory is writable by the web
+ * server.
+ *
+ * @return
+ *   If FALSE, then the files directory is not properly
+ *   set up or is not writable by the web server.
+ */
+function _drupalorg_testing_configure_files() {
+  drupal_execute('system_file_system_settings', array());
+  $profile_name = 'Drupal.org testing';
+  $directory = file_directory_path();
+  if (!file_check_directory($directory, TRUE)) {
+    // Permissions are not properly set to allow
+    // server to create files.  Therefore, present an
+    // error message.
+    drupal_set_message(t('The %files directory was either not able to be created or is not writable by the web server.  In order for the !profile_name profile to install properly, the web server must be able to create files and directories in the Drupal files directory.  Please adjust the permissions of your file system so that the web server has the appropriate access to the %files directory and then reinstall the !profile_name profile.', array('%files' => $directory, '!profile_name' => $profile_name)), 'error');
+    return FALSE;
+  }
+  return TRUE;
 }
