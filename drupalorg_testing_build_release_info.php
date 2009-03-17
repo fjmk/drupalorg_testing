@@ -103,9 +103,10 @@ function dot_get_releases($project, $api_term, &$releases, &$supported_releases)
           'title' => (string) $value->name,
           'version' => (string) $value->version,
           'project_uri' => $project,
-          'major' => (int) $value->version_major,
-          'patch' => (int) $value->version_patch,
-          'extra' => (string) $value->version_extra,
+          'version_major' => (int) $value->version_major,
+          'version_minor' => isset($value->version_minor) ? (int) $value->version_minor : NULL,
+          'version_patch' => (int) $value->version_patch,
+          'version_extra' => (string) $value->version_extra,
           'categories' => get_categories($api_term, $value->terms),
           'tag' => (string) $value->tag,
           'rebuild' => (string) $value->version_extra == 'dev' ? 1 : 0,
@@ -168,6 +169,7 @@ function get_categories($api_term, $terms) {
  */
 function get_file_header() {
   $output = "<?php\n";
+  // Use a gratuitous string concatenation to fool CVS into leaving this keyword alone.
   $output .= '// $Id$'."\n\n";
   $output .= '// Generated with: '. basename(__FILE__) ."\n";
   $output .= '// Generated on: '. date('r') ."\n\n";

@@ -982,17 +982,14 @@ function _drupalorg_testing_create_content_project_release() {
       // created earlier in this function.
       if (!empty($release['file_path']) && $directory_created_successfully && touch($release['file_path'], $release['file_date'])) {
         drupal_set_message(t('A file for the release titled %title was created at %full_path.', array('%title' => $release['title'], '%full_path' => $release['file_path'])));
-
-        // Manually put file and version info into db since drupal_execute()
-        // doesn't seem to add this information.  We only want to add this
-        // file information if creation of the empty file is successful,
-        // because otherwise viewing a release node will create PHP errors.
-        db_query("UPDATE {project_release_nodes} SET file_path = '%s', file_date = %d, file_hash = '%s', rebuild = %d, version_major = %d, version_minor = %d, version_patch = %d, version_extra = '%s' WHERE nid = %d", $release['file_path'], $release['file_date'], $release['file_hash'], $release['rebuild'], $release['major'], $release['minor'], $release['patch'], $release['extra'], $node->nid);
-      }
-      else {
-        // We still want the version information to be saved to the database,
-        // just not any file information.
-        db_query("UPDATE {project_release_nodes} SET rebuild = %d, version_major = %d, version_minor = %d, version_patch = %d, version_extra = '%s' WHERE nid = %d", $release['rebuild'], $release['major'], $release['minor'], $release['patch'], $release['extra'], $node->nid);
+        // The form altering code for CVS module removes the 'file' form field,
+        // so it's not properly put into $form_values for the save step, and
+        // there's really no clean way to get the values to the current save
+        // function without refactoring. So for now, just stuff the correct
+        // values back in via a database query.
+        // TODO: this should go away in 6.x with a refactoring of the saving
+        // code for project releases.
+        db_query("UPDATE {project_release_nodes} SET file_path = '%s', file_date = %d, file_hash = '%s' WHERE nid = %d", $release['file_path'], $release['file_date'], $release['file_hash'], $node->nid);
       }
     }
 
@@ -1052,7 +1049,7 @@ function _drupalorg_testing_create_menus() {
   );
 
   // Now, move the children of /project we want back to the navigation menu,
-  // which is hard-coded in menu.inc to be menu id #1. 
+  // which is hard-coded in menu.inc to be menu id #1.
   $items['project/issues'] = array(
     'path' => 'project/issues',
     'title' => t('Issues'),

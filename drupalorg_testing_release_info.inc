@@ -2,7 +2,7 @@
 // $Id$
 
 // Generated with: drupalorg_testing_build_release_info.php
-// Generated on: Sun, 12 Oct 2008 10:31:11 -0500
+// Generated on: Mon, 16 Mar 2009 21:20:53 -0400
 
 /**
  * @file
@@ -26,9 +26,10 @@ $releases = array (
     'title' => 'Drupal 4.7.11',
     'version' => '4.7.11',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 11,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 11,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -47,9 +48,10 @@ $releases = array (
     'title' => 'drupal 4.7.10',
     'version' => '4.7.10',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 10,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 10,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -67,9 +69,10 @@ $releases = array (
     'title' => 'Drupal 4.7.9',
     'version' => '4.7.9',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 9,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 9,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -87,9 +90,10 @@ $releases = array (
     'title' => 'drupal 4.7.8',
     'version' => '4.7.8',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 8,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 8,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -107,9 +111,10 @@ $releases = array (
     'title' => 'Drupal 4.7.7',
     'version' => '4.7.7',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 7,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 7,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -128,9 +133,10 @@ $releases = array (
     'title' => 'drupal 4.7.6',
     'version' => '4.7.6',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 6,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 6,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -147,9 +153,10 @@ $releases = array (
     'title' => 'drupal 4.7.5',
     'version' => '4.7.5',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 5,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 5,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -166,9 +173,10 @@ $releases = array (
     'title' => 'Drupal 4.7.4',
     'version' => '4.7.4',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 4,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 4,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -185,9 +193,10 @@ $releases = array (
     'title' => 'Drupal 4.7.3',
     'version' => '4.7.3',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 3,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 3,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -204,9 +213,10 @@ $releases = array (
     'title' => 'Drupal 4.7.2',
     'version' => '4.7.2',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -223,9 +233,10 @@ $releases = array (
     'title' => 'Drupal 4.7.1',
     'version' => '4.7.1',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -239,12 +250,173 @@ $releases = array (
   ),
   11 => 
   array (
+    'title' => 'Drupal 4.7.0-beta5',
+    'version' => '4.7.0-beta5',
+    'project_uri' => 'drupal',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 0,
+    'version_extra' => 'beta5',
+    'categories' => 
+    array (
+      0 => '4.7.x',
+    ),
+    'tag' => 'DRUPAL-4-7-0-BETA-5',
+    'rebuild' => 0,
+    'file_name' => 'drupal-4.7.0-beta5.tar.gz',
+    'file_hash' => 'd37be19cce40774ae8cac0b0bc6c3839',
+    'file_date' => 1235015737,
+    'status' => 1,
+  ),
+  12 => 
+  array (
+    'title' => 'Drupal 4.7.0-beta4',
+    'version' => '4.7.0-beta4',
+    'project_uri' => 'drupal',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 0,
+    'version_extra' => 'beta4',
+    'categories' => 
+    array (
+      0 => '4.7.x',
+    ),
+    'tag' => 'DRUPAL-4-7-0-BETA-4',
+    'rebuild' => 0,
+    'file_name' => 'drupal-4.7.0-beta4.tar.gz',
+    'file_hash' => '09225de2e0edb24a0e0f79a6793fe5c8',
+    'file_date' => 1235015734,
+    'status' => 1,
+  ),
+  13 => 
+  array (
+    'title' => 'Drupal 4.7.0-beta6',
+    'version' => '4.7.0-beta6',
+    'project_uri' => 'drupal',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 0,
+    'version_extra' => 'beta6',
+    'categories' => 
+    array (
+      0 => '4.7.x',
+    ),
+    'tag' => 'DRUPAL-4-7-0-BETA-6',
+    'rebuild' => 0,
+    'file_name' => 'drupal-4.7.0-beta6.tar.gz',
+    'file_hash' => 'dfdebe835d1ebfde6088026ae5760ecd',
+    'file_date' => 1235015728,
+    'status' => 1,
+  ),
+  14 => 
+  array (
+    'title' => 'Drupal 4.7.0-rc4',
+    'version' => '4.7.0-rc4',
+    'project_uri' => 'drupal',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 0,
+    'version_extra' => 'rc4',
+    'categories' => 
+    array (
+      0 => '4.7.x',
+    ),
+    'tag' => 'DRUPAL-4-7-0-RC-4',
+    'rebuild' => 0,
+    'file_name' => 'drupal-4.7.0-rc4.tar.gz',
+    'file_hash' => 'e9f03cc24aa29bb28dd16c77b0151305',
+    'file_date' => 1235015727,
+    'status' => 1,
+  ),
+  15 => 
+  array (
+    'title' => 'Drupal 4.7.0-rc1',
+    'version' => '4.7.0-rc1',
+    'project_uri' => 'drupal',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 0,
+    'version_extra' => 'rc1',
+    'categories' => 
+    array (
+      0 => '4.7.x',
+    ),
+    'tag' => 'DRUPAL-4-7-0-RC-1',
+    'rebuild' => 0,
+    'file_name' => 'drupal-4.7.0-rc1.tar.gz',
+    'file_hash' => 'd8eebfa42cb03f2c1407298b95be1196',
+    'file_date' => 1235015723,
+    'status' => 1,
+  ),
+  16 => 
+  array (
+    'title' => 'Drupal 4.7.0-rc3',
+    'version' => '4.7.0-rc3',
+    'project_uri' => 'drupal',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 0,
+    'version_extra' => 'rc3',
+    'categories' => 
+    array (
+      0 => '4.7.x',
+    ),
+    'tag' => 'DRUPAL-4-7-0-RC-3',
+    'rebuild' => 0,
+    'file_name' => 'drupal-4.7.0-rc3.tar.gz',
+    'file_hash' => 'dffd4e08ae243ae7cea5d01d6de71561',
+    'file_date' => 1235015721,
+    'status' => 1,
+  ),
+  17 => 
+  array (
+    'title' => 'Drupal 4.7.0-beta3',
+    'version' => '4.7.0-beta3',
+    'project_uri' => 'drupal',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 0,
+    'version_extra' => 'beta3',
+    'categories' => 
+    array (
+      0 => '4.7.x',
+    ),
+    'tag' => 'DRUPAL-4-7-0-BETA-3',
+    'rebuild' => 0,
+    'file_name' => 'drupal-4.7.0-beta3.tar.gz',
+    'file_hash' => 'd6980c4acd9f5be90c9090217c2b2249',
+    'file_date' => 1235015719,
+    'status' => 1,
+  ),
+  18 => 
+  array (
+    'title' => 'Drupal 4.7.0-rc2',
+    'version' => '4.7.0-rc2',
+    'project_uri' => 'drupal',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 0,
+    'version_extra' => 'rc2',
+    'categories' => 
+    array (
+      0 => '4.7.x',
+    ),
+    'tag' => 'DRUPAL-4-7-0-RC-2',
+    'rebuild' => 0,
+    'file_name' => 'drupal-4.7.0-rc2.tar.gz',
+    'file_hash' => 'ecdafa4ecafd04705a79cea2cb81c3f2',
+    'file_date' => 1235015717,
+    'status' => 1,
+  ),
+  19 => 
+  array (
     'title' => 'Drupal 4.7.0',
     'version' => '4.7.0',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 4,
+    'version_minor' => 7,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -256,204 +428,123 @@ $releases = array (
     'file_date' => 1146476364,
     'status' => 1,
   ),
-  12 => 
-  array (
-    'title' => 'Drupal 4.7.0-rc4',
-    'version' => '4.7.0-rc4',
-    'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'rc4',
-    'categories' => 
-    array (
-      0 => '4.7.x',
-    ),
-    'tag' => 'DRUPAL-4-7-0-RC-4',
-    'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1146232399,
-    'status' => 0,
-  ),
-  13 => 
-  array (
-    'title' => 'Drupal 4.7.0-rc3',
-    'version' => '4.7.0-rc3',
-    'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'rc3',
-    'categories' => 
-    array (
-      0 => '4.7.x',
-    ),
-    'tag' => 'DRUPAL-4-7-0-RC-3',
-    'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1145074838,
-    'status' => 0,
-  ),
-  14 => 
-  array (
-    'title' => 'Drupal 4.7.0-rc2',
-    'version' => '4.7.0-rc2',
-    'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'rc2',
-    'categories' => 
-    array (
-      0 => '4.7.x',
-    ),
-    'tag' => 'DRUPAL-4-7-0-RC-2',
-    'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1144424426,
-    'status' => 0,
-  ),
-  15 => 
-  array (
-    'title' => 'Drupal 4.7.0-rc1',
-    'version' => '4.7.0-rc1',
-    'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'rc1',
-    'categories' => 
-    array (
-      0 => '4.7.x',
-    ),
-    'tag' => 'DRUPAL-4-7-0-RC-1',
-    'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1143798952,
-    'status' => 0,
-  ),
-  16 => 
-  array (
-    'title' => 'Drupal 4.7.0-beta6',
-    'version' => '4.7.0-beta6',
-    'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'beta6',
-    'categories' => 
-    array (
-      0 => '4.7.x',
-    ),
-    'tag' => 'DRUPAL-4-7-0-BETA-6',
-    'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1142297926,
-    'status' => 0,
-  ),
-  17 => 
-  array (
-    'title' => 'Drupal 4.7.0-beta5',
-    'version' => '4.7.0-beta5',
-    'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'beta5',
-    'categories' => 
-    array (
-      0 => '4.7.x',
-    ),
-    'tag' => 'DRUPAL-4-7-0-BETA-5',
-    'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1141335933,
-    'status' => 0,
-  ),
-  18 => 
-  array (
-    'title' => 'Drupal 4.7.0-beta4',
-    'version' => '4.7.0-beta4',
-    'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'beta4',
-    'categories' => 
-    array (
-      0 => '4.7.x',
-    ),
-    'tag' => 'DRUPAL-4-7-0-BETA-4',
-    'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1138307049,
-    'status' => 0,
-  ),
-  19 => 
-  array (
-    'title' => 'Drupal 4.7.0-beta3',
-    'version' => '4.7.0-beta3',
-    'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'beta3',
-    'categories' => 
-    array (
-      0 => '4.7.x',
-    ),
-    'tag' => 'DRUPAL-4-7-0-BETA-3',
-    'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1136848840,
-    'status' => 0,
-  ),
   20 => 
   array (
-    'title' => 'Drupal 4.7.0-beta2',
-    'version' => '4.7.0-beta2',
+    'title' => 'Drupal 5.16',
+    'version' => '5.16',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'beta2',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 16,
+    'version_extra' => '',
     'categories' => 
     array (
-      0 => '4.7.x',
+      0 => '5.x',
+      1 => 'Bug fixes',
+      6 => 'Security update',
     ),
-    'tag' => 'DRUPAL-4-7-0-BETA-2',
+    'tag' => 'DRUPAL-5-16',
     'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1134750015,
-    'status' => 0,
+    'file_name' => 'drupal-5.16.tar.gz',
+    'file_hash' => 'b8b603a5dbf5e7f280ed6e1521ca9bae',
+    'file_date' => 1235604024,
+    'status' => 1,
   ),
-  21 => 
+  25 => 
   array (
-    'title' => 'Drupal 4.7.0-beta1',
-    'version' => '4.7.0-beta1',
+    'title' => 'Drupal 5.15',
+    'version' => '5.15',
     'project_uri' => 'drupal',
-    'major' => 4,
-    'patch' => 0,
-    'extra' => 'beta1',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 15,
+    'version_extra' => '',
     'categories' => 
     array (
-      0 => '4.7.x',
+      0 => '5.x',
+      1 => 'Bug fixes',
+      2 => 'Security update',
     ),
-    'tag' => 'DRUPAL-4-7-0-BETA-1',
+    'tag' => 'DRUPAL-5-15',
     'rebuild' => 0,
-    'file_name' => '',
-    'file_hash' => '',
-    'file_date' => 1134054564,
-    'status' => 0,
+    'file_name' => 'drupal-5.15.tar.gz',
+    'file_hash' => '4c3c71bcf17bdbbe8c4e8dacbb1d0072',
+    'file_date' => 1231976415,
+    'status' => 1,
   ),
-  22 => 
+  26 => 
+  array (
+    'title' => 'Drupal 5.14',
+    'version' => '5.14',
+    'project_uri' => 'drupal',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 14,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '5.x',
+      1 => 'Bug fixes',
+    ),
+    'tag' => 'DRUPAL-5-14',
+    'rebuild' => 0,
+    'file_name' => 'drupal-5.14.tar.gz',
+    'file_hash' => '281c9ef75f757ab660d5e190b4a6c6c5',
+    'file_date' => 1229017817,
+    'status' => 1,
+  ),
+  27 => 
+  array (
+    'title' => 'Drupal 5.13',
+    'version' => '5.13',
+    'project_uri' => 'drupal',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 13,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '5.x',
+      1 => 'Bug fixes',
+      2 => 'Security update',
+    ),
+    'tag' => 'DRUPAL-5-13',
+    'rebuild' => 0,
+    'file_name' => 'drupal-5.13.tar.gz',
+    'file_hash' => 'ceb0122cb27fd503fd24d1bacd967c2a',
+    'file_date' => 1228949101,
+    'status' => 1,
+  ),
+  28 => 
+  array (
+    'title' => 'Drupal 5.12',
+    'version' => '5.12',
+    'project_uri' => 'drupal',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 12,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '5.x',
+      1 => 'Security update',
+    ),
+    'tag' => 'DRUPAL-5-12',
+    'rebuild' => 0,
+    'file_name' => 'drupal-5.12.tar.gz',
+    'file_hash' => 'c07181e42894dc14438598f7772df434',
+    'file_date' => 1224703814,
+    'status' => 1,
+  ),
+  29 => 
   array (
     'title' => 'Drupal 5.11',
     'version' => '5.11',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 11,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 11,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -467,14 +558,15 @@ $releases = array (
     'file_date' => 1223496909,
     'status' => 1,
   ),
-  23 => 
+  30 => 
   array (
     'title' => 'Drupal 5.10',
     'version' => '5.10',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 10,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 10,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -488,14 +580,15 @@ $releases = array (
     'file_date' => 1218672307,
     'status' => 1,
   ),
-  24 => 
+  31 => 
   array (
     'title' => 'Drupal 5.9',
     'version' => '5.9',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 9,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 9,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -509,14 +602,15 @@ $releases = array (
     'file_date' => 1216843213,
     'status' => 1,
   ),
-  25 => 
+  32 => 
   array (
     'title' => 'Drupal 5.8',
     'version' => '5.8',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 8,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 8,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -530,14 +624,15 @@ $releases = array (
     'file_date' => 1215640810,
     'status' => 1,
   ),
-  26 => 
+  33 => 
   array (
     'title' => 'Drupal 5.7',
     'version' => '5.7',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 7,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 7,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -550,14 +645,15 @@ $releases = array (
     'file_date' => 1201565405,
     'status' => 1,
   ),
-  27 => 
+  34 => 
   array (
     'title' => 'Drupal 5.6',
     'version' => '5.6',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 6,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 6,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -571,14 +667,15 @@ $releases = array (
     'file_date' => 1200003605,
     'status' => 1,
   ),
-  28 => 
+  35 => 
   array (
     'title' => 'Drupal 5.5',
     'version' => '5.5',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 5,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 5,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -591,14 +688,15 @@ $releases = array (
     'file_date' => 1196973010,
     'status' => 1,
   ),
-  29 => 
+  36 => 
   array (
     'title' => 'Drupal 5.4',
     'version' => '5.4',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 4,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 4,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -611,14 +709,15 @@ $releases = array (
     'file_date' => 1196889610,
     'status' => 1,
   ),
-  30 => 
+  37 => 
   array (
     'title' => 'drupal 5.3',
     'version' => '5.3',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 3,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 3,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -632,14 +731,15 @@ $releases = array (
     'file_date' => 1192656905,
     'status' => 1,
   ),
-  31 => 
+  38 => 
   array (
     'title' => 'Drupal 5.2',
     'version' => '5.2',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -653,14 +753,15 @@ $releases = array (
     'file_date' => 1185477907,
     'status' => 1,
   ),
-  32 => 
+  39 => 
   array (
     'title' => 'drupal 5.1',
     'version' => '5.1',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -672,14 +773,15 @@ $releases = array (
     'file_date' => 1170116410,
     'status' => 1,
   ),
-  33 => 
+  40 => 
   array (
     'title' => 'drupal 5.0',
     'version' => '5.0',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -691,14 +793,15 @@ $releases = array (
     'file_date' => 1168849206,
     'status' => 1,
   ),
-  34 => 
+  41 => 
   array (
     'title' => 'Drupal 5.0-rc2',
     'version' => '5.0-rc2',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 0,
-    'extra' => 'rc2',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'rc2',
     'categories' => 
     array (
       0 => '5.x',
@@ -710,14 +813,15 @@ $releases = array (
     'file_date' => 1168443606,
     'status' => 1,
   ),
-  35 => 
+  42 => 
   array (
     'title' => 'drupal 5.0-rc1',
     'version' => '5.0-rc1',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 0,
-    'extra' => 'rc1',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'rc1',
     'categories' => 
     array (
       0 => '5.x',
@@ -729,14 +833,15 @@ $releases = array (
     'file_date' => 1166160005,
     'status' => 1,
   ),
-  36 => 
+  43 => 
   array (
     'title' => 'Drupal 5.0-beta2',
     'version' => '5.0-beta2',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 0,
-    'extra' => 'beta2',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta2',
     'categories' => 
     array (
       0 => '5.x',
@@ -748,14 +853,15 @@ $releases = array (
     'file_date' => 1164717604,
     'status' => 1,
   ),
-  37 => 
+  44 => 
   array (
     'title' => 'Drupal 5.0-beta1',
     'version' => '5.0-beta1',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 0,
-    'extra' => 'beta1',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta1',
     'categories' => 
     array (
       0 => '5.x',
@@ -767,14 +873,15 @@ $releases = array (
     'file_date' => 1162307974,
     'status' => 1,
   ),
-  38 => 
+  45 => 
   array (
     'title' => 'Drupal 5.x-dev',
     'version' => '5.x-dev',
     'project_uri' => 'drupal',
-    'major' => 5,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 5,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '5.x',
@@ -782,18 +889,128 @@ $releases = array (
     'tag' => 'DRUPAL-5',
     'rebuild' => 1,
     'file_name' => 'drupal-5.x-dev.tar.gz',
-    'file_hash' => '73dbb96636996cef7ab755e90214bc9b',
-    'file_date' => 1223510639,
+    'file_hash' => '0770135b3abb7867a5f1d766689f0ee2',
+    'file_date' => 1235649991,
     'status' => 1,
   ),
-  39 => 
+  46 => 
+  array (
+    'title' => 'drupal 6.10',
+    'version' => '6.10',
+    'project_uri' => 'drupal',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 10,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '6.x',
+      1 => 'Bug fixes',
+      4 => 'Security update',
+    ),
+    'tag' => 'DRUPAL-6-10',
+    'rebuild' => 0,
+    'file_name' => 'drupal-6.10.tar.gz',
+    'file_hash' => 'd8f222c260556b5d7c3ff41bdd251b3c',
+    'file_date' => 1235596219,
+    'status' => 1,
+  ),
+  49 => 
+  array (
+    'title' => 'drupal 6.9',
+    'version' => '6.9',
+    'project_uri' => 'drupal',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 9,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '6.x',
+      1 => 'Bug fixes',
+      2 => 'Security update',
+    ),
+    'tag' => 'DRUPAL-6-9',
+    'rebuild' => 0,
+    'file_name' => 'drupal-6.9.tar.gz',
+    'file_hash' => '5c682a4709f4632febbe7617a784a01a',
+    'file_date' => 1231976414,
+    'status' => 1,
+  ),
+  50 => 
+  array (
+    'title' => 'drupal 6.8',
+    'version' => '6.8',
+    'project_uri' => 'drupal',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 8,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '6.x',
+      1 => 'Bug fixes',
+    ),
+    'tag' => 'DRUPAL-6-8',
+    'rebuild' => 0,
+    'file_name' => 'drupal-6.8.tar.gz',
+    'file_hash' => '561f281b2dbee8310293a61443bdfbc7',
+    'file_date' => 1229018429,
+    'status' => 1,
+  ),
+  51 => 
+  array (
+    'title' => 'drupal 6.7',
+    'version' => '6.7',
+    'project_uri' => 'drupal',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 7,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '6.x',
+      1 => 'Bug fixes',
+      2 => 'Security update',
+    ),
+    'tag' => 'DRUPAL-6-7',
+    'rebuild' => 0,
+    'file_name' => 'drupal-6.7.tar.gz',
+    'file_hash' => 'c9e8e5a9892538d355c62bd17b95b3a9',
+    'file_date' => 1228948512,
+    'status' => 1,
+  ),
+  52 => 
+  array (
+    'title' => 'drupal 6.6',
+    'version' => '6.6',
+    'project_uri' => 'drupal',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 6,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '6.x',
+      1 => 'Bug fixes',
+      2 => 'Security update',
+    ),
+    'tag' => 'DRUPAL-6-6',
+    'rebuild' => 0,
+    'file_name' => 'drupal-6.6.tar.gz',
+    'file_hash' => 'caaa55d1990b34dee48f5047ce98e2bb',
+    'file_date' => 1224703817,
+    'status' => 1,
+  ),
+  53 => 
   array (
     'title' => 'drupal 6.5',
     'version' => '6.5',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 5,
-    'extra' => '',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 5,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '6.x',
@@ -807,14 +1024,15 @@ $releases = array (
     'file_date' => 1223497211,
     'status' => 1,
   ),
-  40 => 
+  54 => 
   array (
     'title' => 'Drupal 6.4',
     'version' => '6.4',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 4,
-    'extra' => '',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 4,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '6.x',
@@ -828,14 +1046,15 @@ $releases = array (
     'file_date' => 1218672611,
     'status' => 1,
   ),
-  41 => 
+  55 => 
   array (
     'title' => 'drupal 6.3',
     'version' => '6.3',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 3,
-    'extra' => '',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 3,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '6.x',
@@ -849,14 +1068,15 @@ $releases = array (
     'file_date' => 1215640510,
     'status' => 1,
   ),
-  42 => 
+  56 => 
   array (
     'title' => 'drupal 6.2',
     'version' => '6.2',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '6.x',
@@ -870,14 +1090,15 @@ $releases = array (
     'file_date' => 1207776009,
     'status' => 1,
   ),
-  43 => 
+  57 => 
   array (
     'title' => 'drupal 6.1',
     'version' => '6.1',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '6.x',
@@ -891,14 +1112,15 @@ $releases = array (
     'file_date' => 1204142109,
     'status' => 1,
   ),
-  44 => 
+  58 => 
   array (
     'title' => 'drupal 6.0',
     'version' => '6.0',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '6.x',
@@ -911,14 +1133,15 @@ $releases = array (
     'file_date' => 1202913008,
     'status' => 1,
   ),
-  45 => 
+  59 => 
   array (
     'title' => 'drupal 6.0-rc4',
     'version' => '6.0-rc4',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => 'rc4',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'rc4',
     'categories' => 
     array (
       0 => '6.x',
@@ -931,14 +1154,15 @@ $releases = array (
     'file_date' => 1202511908,
     'status' => 1,
   ),
-  46 => 
+  60 => 
   array (
     'title' => 'drupal 6.0-rc3',
     'version' => '6.0-rc3',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => 'rc3',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'rc3',
     'categories' => 
     array (
       0 => '6.x',
@@ -952,14 +1176,15 @@ $releases = array (
     'file_date' => 1201733406,
     'status' => 1,
   ),
-  47 => 
+  61 => 
   array (
     'title' => 'drupal 6.0-rc2',
     'version' => '6.0-rc2',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => 'rc2',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'rc2',
     'categories' => 
     array (
       0 => '6.x',
@@ -973,14 +1198,15 @@ $releases = array (
     'file_date' => 1200005705,
     'status' => 1,
   ),
-  48 => 
+  62 => 
   array (
     'title' => 'drupal 6.0-rc1',
     'version' => '6.0-rc1',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => 'rc1',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'rc1',
     'categories' => 
     array (
       0 => '6.x',
@@ -993,14 +1219,15 @@ $releases = array (
     'file_date' => 1198191308,
     'status' => 1,
   ),
-  49 => 
+  63 => 
   array (
     'title' => 'drupal 6.0-beta4',
     'version' => '6.0-beta4',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => 'beta4',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta4',
     'categories' => 
     array (
       0 => '6.x',
@@ -1013,14 +1240,15 @@ $releases = array (
     'file_date' => 1196889906,
     'status' => 1,
   ),
-  50 => 
+  64 => 
   array (
     'title' => 'drupal 6.0-beta3',
     'version' => '6.0-beta3',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => 'beta3',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta3',
     'categories' => 
     array (
       0 => '6.x',
@@ -1033,14 +1261,15 @@ $releases = array (
     'file_date' => 1195684804,
     'status' => 1,
   ),
-  51 => 
+  65 => 
   array (
     'title' => 'drupal 6.0-beta2',
     'version' => '6.0-beta2',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => 'beta2',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta2',
     'categories' => 
     array (
       0 => '6.x',
@@ -1053,14 +1282,15 @@ $releases = array (
     'file_date' => 1192658104,
     'status' => 1,
   ),
-  52 => 
+  66 => 
   array (
     'title' => 'drupal 6.0-beta1',
     'version' => '6.0-beta1',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => 'beta1',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta1',
     'categories' => 
     array (
       0 => '6.x',
@@ -1073,14 +1303,15 @@ $releases = array (
     'file_date' => 1189840804,
     'status' => 1,
   ),
-  53 => 
+  67 => 
   array (
     'title' => 'Drupal 6.x-dev',
     'version' => '6.x-dev',
     'project_uri' => 'drupal',
-    'major' => 6,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 6,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '6.x',
@@ -1089,18 +1320,19 @@ $releases = array (
     'tag' => 'DRUPAL-6',
     'rebuild' => 1,
     'file_name' => 'drupal-6.x-dev.tar.gz',
-    'file_hash' => 'df4d394a982f043a37a8f26989d1eb3e',
-    'file_date' => 1223510643,
+    'file_hash' => 'a9c6f21cd366fc8bd8a9e20fa98eee83',
+    'file_date' => 1236729941,
     'status' => 1,
   ),
-  54 => 
+  68 => 
   array (
     'title' => 'drupalorg_testing 5.x-1.x-dev',
     'version' => '5.x-1.x-dev',
     'project_uri' => 'drupalorg_testing',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '5.x',
@@ -1108,18 +1340,19 @@ $releases = array (
     'tag' => 'HEAD',
     'rebuild' => 1,
     'file_name' => 'drupalorg_testing-5.x-1.x-dev.tar.gz',
-    'file_hash' => '879bfb6b8f06e0e4a8358b1a03804ba8',
-    'file_date' => 1217505800,
+    'file_hash' => 'c4b9656912fb520cbb29d232f979bf13',
+    'file_date' => 1237205176,
     'status' => 1,
   ),
-  55 => 
+  69 => 
   array (
     'title' => 'phptal 4.7.x-1.x-dev',
     'version' => '4.7.x-1.x-dev',
     'project_uri' => 'phptal',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1131,14 +1364,15 @@ $releases = array (
     'file_date' => 1163419794,
     'status' => 1,
   ),
-  56 => 
+  70 => 
   array (
     'title' => 'phptal 5.x-1.0',
     'version' => '5.x-1.0',
     'project_uri' => 'phptal',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1150,14 +1384,15 @@ $releases = array (
     'file_date' => 1170371405,
     'status' => 1,
   ),
-  57 => 
+  71 => 
   array (
     'title' => 'phptal 6.x-3.0',
     'version' => '6.x-3.0',
     'project_uri' => 'phptal',
-    'major' => 3,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 3,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '6.x',
@@ -1169,14 +1404,37 @@ $releases = array (
     'file_date' => 1188206707,
     'status' => 1,
   ),
-  58 => 
+  72 => 
+  array (
+    'title' => 'zen 5.x-1.2',
+    'version' => '5.x-1.2',
+    'project_uri' => 'zen',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '5.x',
+      1 => 'New features',
+      2 => 'Bug fixes',
+    ),
+    'tag' => 'DRUPAL-5--1-2',
+    'rebuild' => 0,
+    'file_name' => 'zen-5.x-1.2.tar.gz',
+    'file_hash' => '1da8fa556041d8d0e278d96ba4662b9d',
+    'file_date' => 1234677342,
+    'status' => 1,
+  ),
+  73 => 
   array (
     'title' => 'zen 5.x-1.1',
     'version' => '5.x-1.1',
     'project_uri' => 'zen',
-    'major' => 1,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1190,14 +1448,15 @@ $releases = array (
     'file_date' => 1208777117,
     'status' => 1,
   ),
-  59 => 
+  74 => 
   array (
     'title' => 'zen 5.x-1.0',
     'version' => '5.x-1.0',
     'project_uri' => 'zen',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1211,14 +1470,15 @@ $releases = array (
     'file_date' => 1202991608,
     'status' => 1,
   ),
-  60 => 
+  75 => 
   array (
     'title' => 'zen 5.x-1.0-beta2',
     'version' => '5.x-1.0-beta2',
     'project_uri' => 'zen',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'beta2',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta2',
     'categories' => 
     array (
       0 => '5.x',
@@ -1232,14 +1492,15 @@ $releases = array (
     'file_date' => 1201603207,
     'status' => 1,
   ),
-  61 => 
+  76 => 
   array (
     'title' => 'zen 5.x-1.0-beta1',
     'version' => '5.x-1.0-beta1',
     'project_uri' => 'zen',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'beta1',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta1',
     'categories' => 
     array (
       0 => '5.x',
@@ -1253,14 +1514,15 @@ $releases = array (
     'file_date' => 1199633409,
     'status' => 1,
   ),
-  62 => 
+  77 => 
   array (
     'title' => 'zen 5.x-1.x-dev',
     'version' => '5.x-1.x-dev',
     'project_uri' => 'zen',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '5.x',
@@ -1268,18 +1530,19 @@ $releases = array (
     'tag' => 'DRUPAL-5',
     'rebuild' => 1,
     'file_name' => 'zen-5.x-1.x-dev.tar.gz',
-    'file_hash' => '3a8c29149dc1d255103ddde254faf8de',
-    'file_date' => 1222043282,
+    'file_hash' => 'ace418d98649a7efe05807ccb80c6c67',
+    'file_date' => 1234700455,
     'status' => 1,
   ),
-  63 => 
+  78 => 
   array (
     'title' => 'zen 5.x-0.8',
     'version' => '5.x-0.8',
     'project_uri' => 'zen',
-    'major' => 0,
-    'patch' => 8,
-    'extra' => '',
+    'version_major' => 0,
+    'version_minor' => NULL,
+    'version_patch' => 8,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1293,14 +1556,15 @@ $releases = array (
     'file_date' => 1196320808,
     'status' => 1,
   ),
-  64 => 
+  79 => 
   array (
     'title' => 'zen 5.x-0.7',
     'version' => '5.x-0.7',
     'project_uri' => 'zen',
-    'major' => 0,
-    'patch' => 7,
-    'extra' => '',
+    'version_major' => 0,
+    'version_minor' => NULL,
+    'version_patch' => 7,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1314,14 +1578,15 @@ $releases = array (
     'file_date' => 1192437608,
     'status' => 1,
   ),
-  65 => 
+  80 => 
   array (
     'title' => 'zen 5.x-0.6',
     'version' => '5.x-0.6',
     'project_uri' => 'zen',
-    'major' => 0,
-    'patch' => 6,
-    'extra' => '',
+    'version_major' => 0,
+    'version_minor' => NULL,
+    'version_patch' => 6,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1333,14 +1598,15 @@ $releases = array (
     'file_date' => 1169011807,
     'status' => 1,
   ),
-  66 => 
+  81 => 
   array (
     'title' => 'zen 5.x-0.5',
     'version' => '5.x-0.5',
     'project_uri' => 'zen',
-    'major' => 0,
-    'patch' => 5,
-    'extra' => '',
+    'version_major' => 0,
+    'version_minor' => NULL,
+    'version_patch' => 5,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1352,14 +1618,58 @@ $releases = array (
     'file_date' => 1169010902,
     'status' => 1,
   ),
-  67 => 
+  82 => 
+  array (
+    'title' => 'zen 6.x-2.x-dev',
+    'version' => '6.x-2.x-dev',
+    'project_uri' => 'zen',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
+    'categories' => 
+    array (
+      0 => '6.x',
+      1 => 'New features',
+    ),
+    'tag' => 'HEAD',
+    'rebuild' => 1,
+    'file_name' => 'zen-6.x-2.x-dev.tar.gz',
+    'file_hash' => 'f583338d774888b725562ec35ff24f6b',
+    'file_date' => 1235089311,
+    'status' => 1,
+  ),
+  83 => 
+  array (
+    'title' => 'zen 6.x-1.0',
+    'version' => '6.x-1.0',
+    'project_uri' => 'zen',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '6.x',
+      1 => 'New features',
+      2 => 'Bug fixes',
+    ),
+    'tag' => 'DRUPAL-6--1-0',
+    'rebuild' => 0,
+    'file_name' => 'zen-6.x-1.0.tar.gz',
+    'file_hash' => '334c0a648b2e1b5f80e9e5e0754869a4',
+    'file_date' => 1234555897,
+    'status' => 1,
+  ),
+  84 => 
   array (
     'title' => 'zen 6.x-1.0-beta3',
     'version' => '6.x-1.0-beta3',
     'project_uri' => 'zen',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'beta3',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta3',
     'categories' => 
     array (
       0 => '6.x',
@@ -1373,14 +1683,15 @@ $releases = array (
     'file_date' => 1221475935,
     'status' => 1,
   ),
-  68 => 
+  85 => 
   array (
     'title' => 'zen 6.x-1.0-beta2',
     'version' => '6.x-1.0-beta2',
     'project_uri' => 'zen',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'beta2',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta2',
     'categories' => 
     array (
       0 => '6.x',
@@ -1393,14 +1704,15 @@ $releases = array (
     'file_date' => 1211289618,
     'status' => 1,
   ),
-  69 => 
+  86 => 
   array (
     'title' => 'zen 6.x-1.0-beta1',
     'version' => '6.x-1.0-beta1',
     'project_uri' => 'zen',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'beta1',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'beta1',
     'categories' => 
     array (
       0 => '6.x',
@@ -1413,33 +1725,35 @@ $releases = array (
     'file_date' => 1210787719,
     'status' => 1,
   ),
-  70 => 
+  87 => 
   array (
     'title' => 'zen 6.x-1.x-dev',
     'version' => '6.x-1.x-dev',
     'project_uri' => 'zen',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '6.x',
     ),
-    'tag' => 'HEAD',
+    'tag' => 'DRUPAL-6--1',
     'rebuild' => 1,
     'file_name' => 'zen-6.x-1.x-dev.tar.gz',
-    'file_hash' => 'b2505148c45a33a60d53452417208b53',
-    'file_date' => 1222043282,
+    'file_hash' => 'ec6792e23920afbdb390065c89cd6f85',
+    'file_date' => 1234743669,
     'status' => 1,
   ),
-  71 => 
+  88 => 
   array (
     'title' => 'af 4.7.x-1.x-dev',
     'version' => '4.7.x-1.x-dev',
     'project_uri' => 'af',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1451,14 +1765,15 @@ $releases = array (
     'file_date' => 1174412507,
     'status' => 1,
   ),
-  72 => 
+  89 => 
   array (
     'title' => 'project 4.7.x-2.4',
     'version' => '4.7.x-2.4',
     'project_uri' => 'project',
-    'major' => 2,
-    'patch' => 4,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 4,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1471,14 +1786,15 @@ $releases = array (
     'file_date' => 1199661307,
     'status' => 1,
   ),
-  73 => 
+  90 => 
   array (
     'title' => 'project 4.7.x-2.3',
     'version' => '4.7.x-2.3',
     'project_uri' => 'project',
-    'major' => 2,
-    'patch' => 3,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 3,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1492,14 +1808,15 @@ $releases = array (
     'file_date' => 1187567105,
     'status' => 1,
   ),
-  74 => 
+  91 => 
   array (
     'title' => 'project 4.7.x-2.2',
     'version' => '4.7.x-2.2',
     'project_uri' => 'project',
-    'major' => 2,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1514,14 +1831,15 @@ $releases = array (
     'file_date' => 1169599508,
     'status' => 1,
   ),
-  75 => 
+  92 => 
   array (
     'title' => 'project 4.7.x-2.1',
     'version' => '4.7.x-2.1',
     'project_uri' => 'project',
-    'major' => 2,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1536,14 +1854,15 @@ $releases = array (
     'file_date' => 1166416207,
     'status' => 1,
   ),
-  76 => 
+  93 => 
   array (
     'title' => 'project 4.7.x-2.0',
     'version' => '4.7.x-2.0',
     'project_uri' => 'project',
-    'major' => 2,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1555,14 +1874,15 @@ $releases = array (
     'file_date' => 1163243111,
     'status' => 1,
   ),
-  77 => 
+  94 => 
   array (
     'title' => 'project 4.7.x-2.x-dev',
     'version' => '4.7.x-2.x-dev',
     'project_uri' => 'project',
-    'major' => 2,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1574,14 +1894,15 @@ $releases = array (
     'file_date' => 1199664491,
     'status' => 1,
   ),
-  78 => 
+  95 => 
   array (
     'title' => 'project 4.7.x-1.4',
     'version' => '4.7.x-1.4',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 4,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 4,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1594,14 +1915,15 @@ $releases = array (
     'file_date' => 1199661308,
     'status' => 1,
   ),
-  79 => 
+  96 => 
   array (
     'title' => 'project 4.7.x-1.3',
     'version' => '4.7.x-1.3',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 3,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 3,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1615,14 +1937,15 @@ $releases = array (
     'file_date' => 1187566506,
     'status' => 1,
   ),
-  80 => 
+  97 => 
   array (
     'title' => 'project 4.7.x-1.2',
     'version' => '4.7.x-1.2',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1636,14 +1959,15 @@ $releases = array (
     'file_date' => 1169599509,
     'status' => 1,
   ),
-  81 => 
+  98 => 
   array (
     'title' => 'project 4.7.x-1.1',
     'version' => '4.7.x-1.1',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1657,14 +1981,15 @@ $releases = array (
     'file_date' => 1166416205,
     'status' => 1,
   ),
-  82 => 
+  99 => 
   array (
     'title' => 'project 4.7.x-1.0',
     'version' => '4.7.x-1.0',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1676,14 +2001,15 @@ $releases = array (
     'file_date' => 1163253714,
     'status' => 1,
   ),
-  83 => 
+  100 => 
   array (
     'title' => 'project 4.7.x-1.x-dev',
     'version' => '4.7.x-1.x-dev',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1695,14 +2021,38 @@ $releases = array (
     'file_date' => 1199664490,
     'status' => 1,
   ),
-  84 => 
+  101 => 
+  array (
+    'title' => 'project 5.x-1.3',
+    'version' => '5.x-1.3',
+    'project_uri' => 'project',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 3,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '5.x',
+      1 => 'New features',
+      2 => 'Bug fixes',
+      3 => 'Security update',
+    ),
+    'tag' => 'DRUPAL-5--1-3',
+    'rebuild' => 0,
+    'file_name' => 'project-5.x-1.3.tar.gz',
+    'file_hash' => '94c285630cde2582ab05946b2dfc2167',
+    'file_date' => 1231361439,
+    'status' => 1,
+  ),
+  102 => 
   array (
     'title' => 'project 5.x-1.2',
     'version' => '5.x-1.2',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1716,14 +2066,15 @@ $releases = array (
     'file_date' => 1204929910,
     'status' => 1,
   ),
-  85 => 
+  103 => 
   array (
     'title' => 'project 5.x-1.1',
     'version' => '5.x-1.1',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1737,14 +2088,15 @@ $releases = array (
     'file_date' => 1199661308,
     'status' => 1,
   ),
-  86 => 
+  104 => 
   array (
     'title' => 'project 5.x-1.0',
     'version' => '5.x-1.0',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -1758,14 +2110,15 @@ $releases = array (
     'file_date' => 1187567106,
     'status' => 1,
   ),
-  87 => 
+  105 => 
   array (
     'title' => 'project 5.x-1.x-dev',
     'version' => '5.x-1.x-dev',
     'project_uri' => 'project',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '5.x',
@@ -1773,18 +2126,19 @@ $releases = array (
     'tag' => 'DRUPAL-5',
     'rebuild' => 1,
     'file_name' => 'project-5.x-1.x-dev.tar.gz',
-    'file_hash' => '5de3a163009e0378d639e2df6a463bfd',
-    'file_date' => 1223684044,
+    'file_hash' => 'cce65e3fa551c88d13c5315008b20317',
+    'file_date' => 1233101755,
     'status' => 1,
   ),
-  88 => 
+  106 => 
   array (
     'title' => 'project 5.x-0.1-beta',
     'version' => '5.x-0.1-beta',
     'project_uri' => 'project',
-    'major' => 0,
-    'patch' => 1,
-    'extra' => 'beta',
+    'version_major' => 0,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => 'beta',
     'categories' => 
     array (
       0 => '5.x',
@@ -1799,14 +2153,35 @@ $releases = array (
     'file_date' => 1169599502,
     'status' => 1,
   ),
-  89 => 
+  107 => 
+  array (
+    'title' => 'project 6.x-1.x-dev',
+    'version' => '6.x-1.x-dev',
+    'project_uri' => 'project',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
+    'categories' => 
+    array (
+      0 => '6.x',
+    ),
+    'tag' => 'HEAD',
+    'rebuild' => 1,
+    'file_name' => 'project-6.x-1.x-dev.tar.gz',
+    'file_hash' => 'd00018413df22345ccb91b2778375ea7',
+    'file_date' => 1236514543,
+    'status' => 1,
+  ),
+  108 => 
   array (
     'title' => 'project_issue 4.7.x-2.7',
     'version' => '4.7.x-2.7',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 7,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 7,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1820,14 +2195,15 @@ $releases = array (
     'file_date' => 1201740310,
     'status' => 1,
   ),
-  90 => 
+  109 => 
   array (
     'title' => 'project_issue 4.7.x-2.6',
     'version' => '4.7.x-2.6',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 6,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 6,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1840,14 +2216,15 @@ $releases = array (
     'file_date' => 1199664009,
     'status' => 1,
   ),
-  91 => 
+  110 => 
   array (
     'title' => 'project_issue 4.7.x-2.5',
     'version' => '4.7.x-2.5',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 5,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 5,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1861,14 +2238,15 @@ $releases = array (
     'file_date' => 1190862310,
     'status' => 1,
   ),
-  92 => 
+  111 => 
   array (
     'title' => 'project_issue 4.7.x-2.4',
     'version' => '4.7.x-2.4',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 4,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 4,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1882,14 +2260,15 @@ $releases = array (
     'file_date' => 1187567710,
     'status' => 1,
   ),
-  93 => 
+  112 => 
   array (
     'title' => 'project_issue 4.7.x-2.3',
     'version' => '4.7.x-2.3',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 3,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 3,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1903,14 +2282,15 @@ $releases = array (
     'file_date' => 1173341405,
     'status' => 1,
   ),
-  94 => 
+  113 => 
   array (
     'title' => 'project_issue 4.7.x-2.2',
     'version' => '4.7.x-2.2',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1924,14 +2304,15 @@ $releases = array (
     'file_date' => 1169599511,
     'status' => 1,
   ),
-  95 => 
+  114 => 
   array (
     'title' => 'project_issue 4.7.x-2.1',
     'version' => '4.7.x-2.1',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1946,14 +2327,15 @@ $releases = array (
     'file_date' => 1166416208,
     'status' => 1,
   ),
-  96 => 
+  115 => 
   array (
     'title' => 'project_issue 4.7.x-2.0',
     'version' => '4.7.x-2.0',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1965,14 +2347,15 @@ $releases = array (
     'file_date' => 1163253715,
     'status' => 1,
   ),
-  97 => 
+  116 => 
   array (
     'title' => 'project_issue 4.7.x-2.x-dev',
     'version' => '4.7.x-2.x-dev',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -1984,14 +2367,15 @@ $releases = array (
     'file_date' => 1202515704,
     'status' => 1,
   ),
-  98 => 
+  117 => 
   array (
     'title' => 'project_issue 4.7.x-1.7',
     'version' => '4.7.x-1.7',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 7,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 7,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2005,14 +2389,15 @@ $releases = array (
     'file_date' => 1201740311,
     'status' => 1,
   ),
-  99 => 
+  118 => 
   array (
     'title' => 'project_issue 4.7.x-1.6',
     'version' => '4.7.x-1.6',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 6,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 6,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2025,14 +2410,15 @@ $releases = array (
     'file_date' => 1199664009,
     'status' => 1,
   ),
-  100 => 
+  119 => 
   array (
     'title' => 'project_issue 4.7.x-1.5',
     'version' => '4.7.x-1.5',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 5,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 5,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2046,14 +2432,15 @@ $releases = array (
     'file_date' => 1190862311,
     'status' => 1,
   ),
-  101 => 
+  120 => 
   array (
     'title' => 'project_issue 4.7.x-1.4',
     'version' => '4.7.x-1.4',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 4,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 4,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2067,14 +2454,15 @@ $releases = array (
     'file_date' => 1187567710,
     'status' => 1,
   ),
-  102 => 
+  121 => 
   array (
     'title' => 'project_issue 4.7.x-1.3',
     'version' => '4.7.x-1.3',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 3,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 3,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2088,14 +2476,15 @@ $releases = array (
     'file_date' => 1173341402,
     'status' => 1,
   ),
-  103 => 
+  122 => 
   array (
     'title' => 'project_issue 4.7.x-1.2',
     'version' => '4.7.x-1.2',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2109,14 +2498,15 @@ $releases = array (
     'file_date' => 1169599514,
     'status' => 1,
   ),
-  104 => 
+  123 => 
   array (
     'title' => 'project_issue 4.7.x-1.1',
     'version' => '4.7.x-1.1',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2130,14 +2520,15 @@ $releases = array (
     'file_date' => 1166416210,
     'status' => 1,
   ),
-  105 => 
+  124 => 
   array (
     'title' => 'project_issue 4.7.x-1.0',
     'version' => '4.7.x-1.0',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2149,14 +2540,15 @@ $releases = array (
     'file_date' => 1163253715,
     'status' => 1,
   ),
-  106 => 
+  125 => 
   array (
     'title' => 'project_issue 4.7.x-1.x-dev',
     'version' => '4.7.x-1.x-dev',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2168,14 +2560,38 @@ $releases = array (
     'file_date' => 1202515703,
     'status' => 1,
   ),
-  107 => 
+  126 => 
+  array (
+    'title' => 'project_issue 5.x-2.3',
+    'version' => '5.x-2.3',
+    'project_uri' => 'project_issue',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 3,
+    'version_extra' => '',
+    'categories' => 
+    array (
+      0 => '5.x',
+      1 => 'New features',
+      2 => 'Bug fixes',
+      3 => 'Security update',
+    ),
+    'tag' => 'DRUPAL-5--2-3',
+    'rebuild' => 0,
+    'file_name' => 'project_issue-5.x-2.3.tar.gz',
+    'file_hash' => 'b958d81bf2879feefc6b56b83fcc5668',
+    'file_date' => 1231361440,
+    'status' => 1,
+  ),
+  127 => 
   array (
     'title' => 'project_issue 5.x-2.2',
     'version' => '5.x-2.2',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2189,14 +2605,15 @@ $releases = array (
     'file_date' => 1208744414,
     'status' => 1,
   ),
-  108 => 
+  128 => 
   array (
     'title' => 'project_issue 5.x-2.1',
     'version' => '5.x-2.1',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2210,14 +2627,15 @@ $releases = array (
     'file_date' => 1204931115,
     'status' => 1,
   ),
-  109 => 
+  129 => 
   array (
     'title' => 'project_issue 5.x-2.0',
     'version' => '5.x-2.0',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2232,14 +2650,15 @@ $releases = array (
     'file_date' => 1201740311,
     'status' => 1,
   ),
-  110 => 
+  130 => 
   array (
     'title' => 'project_issue 5.x-2.x-dev',
     'version' => '5.x-2.x-dev',
     'project_uri' => 'project_issue',
-    'major' => 2,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '5.x',
@@ -2247,18 +2666,19 @@ $releases = array (
     'tag' => 'DRUPAL-5--2',
     'rebuild' => 1,
     'file_name' => 'project_issue-5.x-2.x-dev.tar.gz',
-    'file_hash' => '2ab69626e75e08aa06fbd4906d13958f',
-    'file_date' => 1223511094,
+    'file_hash' => '94feda504e14f97b48aa19c808c8a7f6',
+    'file_date' => 1235477717,
     'status' => 1,
   ),
-  111 => 
+  131 => 
   array (
     'title' => 'project_issue 5.x-1.3',
     'version' => '5.x-1.3',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 3,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 3,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2272,14 +2692,15 @@ $releases = array (
     'file_date' => 1201740311,
     'status' => 1,
   ),
-  112 => 
+  132 => 
   array (
     'title' => 'project_issue 5.x-1.2',
     'version' => '5.x-1.2',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2293,14 +2714,15 @@ $releases = array (
     'file_date' => 1199664010,
     'status' => 1,
   ),
-  113 => 
+  133 => 
   array (
     'title' => 'project_issue 5.x-1.1',
     'version' => '5.x-1.1',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2314,14 +2736,15 @@ $releases = array (
     'file_date' => 1190862010,
     'status' => 1,
   ),
-  114 => 
+  134 => 
   array (
     'title' => 'project_issue 5.x-1.0',
     'version' => '5.x-1.0',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2335,14 +2758,15 @@ $releases = array (
     'file_date' => 1187567710,
     'status' => 1,
   ),
-  115 => 
+  135 => 
   array (
     'title' => 'project_issue 5.x-1.x-dev',
     'version' => '5.x-1.x-dev',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '5.x',
@@ -2354,14 +2778,15 @@ $releases = array (
     'file_date' => 1218499686,
     'status' => 1,
   ),
-  116 => 
+  136 => 
   array (
     'title' => 'project_issue 5.x-0.2-beta',
     'version' => '5.x-0.2-beta',
     'project_uri' => 'project_issue',
-    'major' => 0,
-    'patch' => 2,
-    'extra' => 'beta',
+    'version_major' => 0,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => 'beta',
     'categories' => 
     array (
       0 => '5.x',
@@ -2376,14 +2801,15 @@ $releases = array (
     'file_date' => 1173341409,
     'status' => 1,
   ),
-  117 => 
+  137 => 
   array (
     'title' => 'project_issue 5.x-0.1-beta',
     'version' => '5.x-0.1-beta',
     'project_uri' => 'project_issue',
-    'major' => 0,
-    'patch' => 1,
-    'extra' => 'beta',
+    'version_major' => 0,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => 'beta',
     'categories' => 
     array (
       0 => '5.x',
@@ -2398,14 +2824,15 @@ $releases = array (
     'file_date' => 1169599520,
     'status' => 1,
   ),
-  118 => 
+  138 => 
   array (
     'title' => 'project_issue 6.x-1.x-dev',
     'version' => '6.x-1.x-dev',
     'project_uri' => 'project_issue',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '6.x',
@@ -2413,18 +2840,19 @@ $releases = array (
     'tag' => 'HEAD',
     'rebuild' => 1,
     'file_name' => 'project_issue-6.x-1.x-dev.tar.gz',
-    'file_hash' => '2f97410379326768157259c483aba66b',
-    'file_date' => 1223511095,
+    'file_hash' => '1f73f1b825b8d31645a123fc253473a0',
+    'file_date' => 1235780124,
     'status' => 1,
   ),
-  119 => 
+  139 => 
   array (
     'title' => 'cvslog 4.7.x-2.2',
     'version' => '4.7.x-2.2',
     'project_uri' => 'cvslog',
-    'major' => 2,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2437,14 +2865,15 @@ $releases = array (
     'file_date' => 1187565303,
     'status' => 1,
   ),
-  120 => 
+  140 => 
   array (
     'title' => 'cvslog 4.7.x-2.1',
     'version' => '4.7.x-2.1',
     'project_uri' => 'cvslog',
-    'major' => 2,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2459,14 +2888,15 @@ $releases = array (
     'file_date' => 1165340103,
     'status' => 1,
   ),
-  121 => 
+  141 => 
   array (
     'title' => 'cvslog 4.7.x-2.0',
     'version' => '4.7.x-2.0',
     'project_uri' => 'cvslog',
-    'major' => 2,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2478,14 +2908,15 @@ $releases = array (
     'file_date' => 1163253713,
     'status' => 1,
   ),
-  122 => 
+  142 => 
   array (
     'title' => 'cvslog 4.7.x-2.x-dev',
     'version' => '4.7.x-2.x-dev',
     'project_uri' => 'cvslog',
-    'major' => 2,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 2,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2497,14 +2928,15 @@ $releases = array (
     'file_date' => 1201132982,
     'status' => 1,
   ),
-  123 => 
+  143 => 
   array (
     'title' => 'cvslog 4.7.x-1.2',
     'version' => '4.7.x-1.2',
     'project_uri' => 'cvslog',
-    'major' => 1,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2517,14 +2949,15 @@ $releases = array (
     'file_date' => 1187565002,
     'status' => 1,
   ),
-  124 => 
+  144 => 
   array (
     'title' => 'cvslog 4.7.x-1.1',
     'version' => '4.7.x-1.1',
     'project_uri' => 'cvslog',
-    'major' => 1,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2538,14 +2971,15 @@ $releases = array (
     'file_date' => 1165340103,
     'status' => 1,
   ),
-  125 => 
+  145 => 
   array (
     'title' => 'cvslog 4.7.x-1.0',
     'version' => '4.7.x-1.0',
     'project_uri' => 'cvslog',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2557,14 +2991,15 @@ $releases = array (
     'file_date' => 1163253714,
     'status' => 1,
   ),
-  126 => 
+  146 => 
   array (
     'title' => 'cvslog 4.7.x-1.x-dev',
     'version' => '4.7.x-1.x-dev',
     'project_uri' => 'cvslog',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2576,14 +3011,15 @@ $releases = array (
     'file_date' => 1193443345,
     'status' => 1,
   ),
-  127 => 
+  147 => 
   array (
     'title' => 'cvslog 5.x-1.1',
     'version' => '5.x-1.1',
     'project_uri' => 'cvslog',
-    'major' => 1,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2597,14 +3033,15 @@ $releases = array (
     'file_date' => 1203629704,
     'status' => 1,
   ),
-  128 => 
+  148 => 
   array (
     'title' => 'cvslog 5.x-1.0',
     'version' => '5.x-1.0',
     'project_uri' => 'cvslog',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2616,14 +3053,15 @@ $releases = array (
     'file_date' => 1187565304,
     'status' => 1,
   ),
-  129 => 
+  149 => 
   array (
     'title' => 'cvslog 5.x-1.x-dev',
     'version' => '5.x-1.x-dev',
     'project_uri' => 'cvslog',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '5.x',
@@ -2631,18 +3069,59 @@ $releases = array (
     'tag' => 'DRUPAL-5',
     'rebuild' => 1,
     'file_name' => 'cvslog-5.x-1.x-dev.tar.gz',
-    'file_hash' => 'a2eb4db54a3d1f3405387507bc219b8d',
-    'file_date' => 1204718569,
+    'file_hash' => 'ab1f87654acfde803d8067da2c5b2f7a',
+    'file_date' => 1233403451,
     'status' => 1,
   ),
-  130 => 
+  150 => 
+  array (
+    'title' => 'cvslog 6.x-1.0-alpha1',
+    'version' => '6.x-1.0-alpha1',
+    'project_uri' => 'cvslog',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'alpha1',
+    'categories' => 
+    array (
+      0 => '6.x',
+    ),
+    'tag' => 'DRUPAL-6--1-0-ALPHA1',
+    'rebuild' => 0,
+    'file_name' => '',
+    'file_hash' => 'ae4883911efdb1e0a3e3b0bd39846085',
+    'file_date' => 1235015713,
+    'status' => 0,
+  ),
+  152 => 
+  array (
+    'title' => 'cvslog 6.x-1.x-dev',
+    'version' => '6.x-1.x-dev',
+    'project_uri' => 'cvslog',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
+    'categories' => 
+    array (
+      0 => '6.x',
+    ),
+    'tag' => 'HEAD',
+    'rebuild' => 1,
+    'file_name' => 'cvslog-6.x-1.x-dev.tar.gz',
+    'file_hash' => 'c42455d035ec9698f2f67ccdd2f27d7d',
+    'file_date' => 1236816292,
+    'status' => 1,
+  ),
+  153 => 
   array (
     'title' => 'subscribe 4.7.x-1.x-dev',
     'version' => '4.7.x-1.x-dev',
     'project_uri' => 'subscribe',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2654,14 +3133,15 @@ $releases = array (
     'file_date' => 1178756555,
     'status' => 1,
   ),
-  131 => 
+  154 => 
   array (
     'title' => 'user_status 4.7.x-1.2',
     'version' => '4.7.x-1.2',
     'project_uri' => 'user_status',
-    'major' => 1,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2673,14 +3153,15 @@ $releases = array (
     'file_date' => 1175286613,
     'status' => 1,
   ),
-  132 => 
+  155 => 
   array (
     'title' => 'user_status 4.7.x-1.1',
     'version' => '4.7.x-1.1',
     'project_uri' => 'user_status',
-    'major' => 1,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2692,14 +3173,15 @@ $releases = array (
     'file_date' => 1168899604,
     'status' => 1,
   ),
-  133 => 
+  156 => 
   array (
     'title' => 'user_status 4.7.x-1.0',
     'version' => '4.7.x-1.0',
     'project_uri' => 'user_status',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2711,14 +3193,15 @@ $releases = array (
     'file_date' => 1168644007,
     'status' => 1,
   ),
-  134 => 
+  157 => 
   array (
     'title' => 'user_status 4.7.x-1.x-dev',
     'version' => '4.7.x-1.x-dev',
     'project_uri' => 'user_status',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '4.7.x',
@@ -2730,14 +3213,15 @@ $releases = array (
     'file_date' => 1184069667,
     'status' => 1,
   ),
-  135 => 
+  158 => 
   array (
     'title' => 'user_status 5.x-1.2',
     'version' => '5.x-1.2',
     'project_uri' => 'user_status',
-    'major' => 1,
-    'patch' => 2,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 2,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2750,14 +3234,15 @@ $releases = array (
     'file_date' => 1201715108,
     'status' => 1,
   ),
-  136 => 
+  159 => 
   array (
     'title' => 'user_status 5.x-1.1',
     'version' => '5.x-1.1',
     'project_uri' => 'user_status',
-    'major' => 1,
-    'patch' => 1,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 1,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2769,14 +3254,15 @@ $releases = array (
     'file_date' => 1175286616,
     'status' => 1,
   ),
-  137 => 
+  160 => 
   array (
     'title' => 'user_status 5.x-1.0',
     'version' => '5.x-1.0',
     'project_uri' => 'user_status',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => '',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => '',
     'categories' => 
     array (
       0 => '5.x',
@@ -2788,14 +3274,15 @@ $releases = array (
     'file_date' => 1168920004,
     'status' => 1,
   ),
-  138 => 
+  161 => 
   array (
     'title' => 'user_status 5.x-1.x-dev',
     'version' => '5.x-1.x-dev',
     'project_uri' => 'user_status',
-    'major' => 1,
-    'patch' => 0,
-    'extra' => 'dev',
+    'version_major' => 1,
+    'version_minor' => NULL,
+    'version_patch' => 0,
+    'version_extra' => 'dev',
     'categories' => 
     array (
       0 => '5.x',
@@ -2906,7 +3393,7 @@ $supported_releases = array (
     array (
       'project_status' => 'published',
       'recommended_major' => '1',
-      'supported_majors' => '1',
+      'supported_majors' => '1,2',
       'default_major' => '1',
     ),
   ),
@@ -2952,10 +3439,10 @@ $supported_releases = array (
     ),
     '6.x' => 
     array (
-      'project_status' => NULL,
-      'recommended_major' => NULL,
-      'supported_majors' => NULL,
-      'default_major' => NULL,
+      'project_status' => 'published',
+      'recommended_major' => '1',
+      'supported_majors' => '1',
+      'default_major' => '1',
     ),
   ),
   'project_issue' => 
@@ -3000,10 +3487,10 @@ $supported_releases = array (
     ),
     '6.x' => 
     array (
-      'project_status' => NULL,
-      'recommended_major' => NULL,
-      'supported_majors' => NULL,
-      'default_major' => NULL,
+      'project_status' => 'published',
+      'recommended_major' => '1',
+      'supported_majors' => '1',
+      'default_major' => '1',
     ),
   ),
   'subscribe' => 
