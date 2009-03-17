@@ -783,6 +783,11 @@ function _drupalorg_testing_create_content_project() {
     // we have to do raw DB manipulation to add the terms. Sigh...
     $node = node_load(array('title' => $project['title']));
     db_query('INSERT INTO {term_node} (nid, tid) VALUES (%d, %d)', $node->nid, $project['project_type']);
+
+    // Fix the version format string for core.
+    if ($project['uri'] == 'drupal') {
+      db_query("UPDATE {project_release_projects} SET version_format = '%s' WHERE nid = %d", '!major%minor%patch#extra', $node->nid);
+    }
   }
 
   // Modules... let's start with some developer modules so we have a few in
