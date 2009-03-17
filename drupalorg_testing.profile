@@ -975,7 +975,7 @@ function _drupalorg_testing_create_content_project_release() {
       }
 
       // Put an entry for this tag/branch in {cvs_tags}
-      db_query("INSERT INTO {cvs_tags} (nid, tag, branch) VALUES (%d, '%s', %d)", $node->nid, $release['tag'], $release['rebuild']);
+      db_query("INSERT INTO {cvs_tags} (nid, tag, branch) VALUES (%d, '%s', %d)", $release['pid'], $release['tag'], $release['rebuild']);
 
       // Automatically create an empty file for each release with a non-empty
       // file path.  However, only do so if the directory was successfully
