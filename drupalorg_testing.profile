@@ -904,6 +904,9 @@ The first case is especially useful for sites that are configured to require adm
     // why this hack is needed.
     $node = node_load(array('title' => $project['title']));
     _project_db_save_taxonomy($node->nid, $drupal_tid);
+
+    // Disable releases on these projects
+    db_query("UPDATE {project_release_projects} SET releases = 0 WHERE nid = %d", $node->nid);
   }
 }
 
