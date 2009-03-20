@@ -101,19 +101,21 @@ function dot_get_releases($project, $api_term, &$releases, &$supported_releases)
         $parsed_file_url = parse_url((string) $value->download_link);
         $releases[] = array(
           'title' => (string) $value->name,
-          'version' => (string) $value->version,
           'project_uri' => $project,
-          'version_major' => (int) $value->version_major,
-          'version_minor' => isset($value->version_minor) ? (int) $value->version_minor : NULL,
-          'version_patch' => (int) $value->version_patch,
-          'version_extra' => (string) $value->version_extra,
           'categories' => get_categories($api_term, $value->terms),
-          'tag' => (string) $value->tag,
-          'rebuild' => (string) $value->version_extra == 'dev' ? 1 : 0,
-          'file_name' => isset($parsed_file_url['path']) ? pathinfo($parsed_file_url['path'], PATHINFO_BASENAME) : '',
-          'file_hash' => (string) $value->mdhash,
-          'file_date' => (int) $value->date,
+          'filename' => isset($parsed_file_url['path']) ? pathinfo($parsed_file_url['path'], PATHINFO_BASENAME) : '',
+          'filehash' => (string) $value->mdhash,
+          'filedate' => (int) $value->date,
           'status' => (string) $value->status == 'published' ? 1 : 0,
+          'project_release' => array(
+            'version' => (string) $value->version,
+            'version_major' => (int) $value->version_major,
+            'version_minor' => isset($value->version_minor) ? (int) $value->version_minor : NULL,
+            'version_patch' => (int) $value->version_patch,
+            'version_extra' => (string) $value->version_extra,
+            'tag' => (string) $value->tag,
+            'rebuild' => (string) $value->version_extra == 'dev' ? 1 : 0,
+          ),
         );
       }
     }
