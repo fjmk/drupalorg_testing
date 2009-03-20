@@ -105,100 +105,117 @@ function drupalorg_testing_form_alter(&$form, $form_state, $form_id) {
   }
 }
 
-// Move to the specified task.
-function install_set_next_task($next_task, $url) {
-  variable_set('install_task', $next_task);
-  extract(parse_url(urldecode($url)));
-  $query .= "&task=$next_task";
-  install_goto("install.php?$query");
-}
-
-/**
- * Return a list of tasks that this profile supports.
- *
- * @return
- *   A keyed array of tasks the profile will perform during
- *   the final stage. The keys of the array will be used internally,
- *   while the values will be displayed to the user in the installer
- *   task list.
- */
 function drupalorg_testing_profile_task_list() {
-  return array(
-    'basic-site-config' => t('Basic site configuration'),
-    'check-file-system' => t('Check file system'),
-    'configure-users' => t('Configure users'),
-    'configure-module-settings' => t('Configure module settings'),
-    'configure-project-taxonomy' => t('Configure project taxonomy'),
-    'create-site-content' => t('Create site content'),
-    'configure-menus-blocks' => t('Configure menus/blocks'),
-  );
+  return array('drupalorg-testing-batch' => t('Configure drupal.org settings'));
 }
 
 function drupalorg_testing_profile_tasks(&$task, $url) {
+
+  switch ($task) {
+    case 'profile':
+      // If the files directory isn't writable, then exit because several of the
+      // following steps depend on the server being able to create files and
+      // directories within the files directory.
+      if (_drupalorg_testing_configure_files()) {
+        // Start a batch, switch to 'drupalorg-testing-batch' task. We need to
+        // set the variable here, because batch_process() redirects.
+        variable_set('install_task', 'drupalorg-testing-batch');
+        _drupalorg_testing_set_batch($task, $url);
+      }
+      // Files directory creation failed, skip the rest of the setup.
+      else {
+        $task = 'profile-finished';
+      }
+      break;
+    case 'drupalorg-testing-batch':
+      // We are running a batch install of the profile.
+      // This might run in multiple HTTP requests, constantly redirecting
+      // to the same address, until the batch finished callback is invoked
+      // and the task advances to 'profile-finished'.
+      include_once 'includes/batch.inc';
+      $output = _batch_page();
+      return $output;
+      break;
+  }
+}
+
+/**
+* Sets up the batch processing of the install profile tasks.
+*/
+function _drupalorg_testing_set_batch(&$task, $url) {
+  $batch = array(
+    'operations' => array(
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_node_types', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_site', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_theme', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_comment', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_attachments', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_roles', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_users', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_devel_module', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_cvs_module', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_project_settings', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_project_terms', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_content', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_content_project', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_content_project_release', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_issues', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_menus', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_blocks', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_rebuild_menu', array())),
+    ),
+    'title' => t('Setting up drupal.org testing site...'),
+    'finished' => '_drupalorg_testing_batch_finished',
+  );
+  batch_set($batch);
+  batch_process($url, $url);
+}
+
+/**
+ * Dispatch function for the batch processing. This allows us to do some
+ * consistent setup across page loads while breaking up the tasks.
+ *
+ * @param $function
+ *   The function to dispatch to.
+ * @param $args
+ *   Any args passed to the function from the batch.
+ * @param $context
+ *   The batch context.
+ */
+function _drupalorg_testing_batch_dispatch($function, $args, &$context) {
   // If not in 'safe mode', increase the maximum execution time:
   if (!ini_get('safe_mode')) {
     set_time_limit(0);
   }
   install_include(drupalorg_testing_profile_modules());
   module_load_include('inc', 'taxonomy', 'taxonomy.admin');
-
-  switch ($task) {
-    case 'profile':
-      install_set_next_task('basic-site-config', $url);
-      break;
-    case 'basic-site-config':
-      _drupalorg_testing_create_node_types();
-      _drupalorg_testing_configure_site();
-      _drupalorg_testing_configure_theme();
-      _drupalorg_testing_configure_comment();
-      _drupalorg_testing_configure_attachments();
-      install_set_next_task('check-file-system', $url);
-      break;
-    case 'check-file-system':
-      // If the files directory isn't writable, then
-      // exit because several of the following steps
-      // depend on the server being able to create
-      // files and directories within the files
-      // directory.
-      if (!_drupalorg_testing_configure_files()) {
-        $task = 'profile';
-      }
-      else {
-        install_set_next_task('configure-users', $url);
-      }
-      break;
-    case 'configure-users':
-      _drupalorg_testing_create_roles();
-      _drupalorg_testing_create_users();
-      install_set_next_task('configure-module-settings', $url);
-      break;
-    case 'configure-module-settings':
-      _drupalorg_testing_configure_devel_module();
-      _drupalorg_testing_configure_cvs_module();
-      _drupalorg_testing_configure_project_settings();
-      install_set_next_task('configure-project-taxonomy', $url);
-      break;
-    case 'configure-project-taxonomy':
-      _drupalorg_testing_create_project_terms();
-      install_set_next_task('create-site-content', $url);
-      break;
-    case 'create-site-content':
-      _drupalorg_testing_create_content();
-      _drupalorg_testing_create_issues();
-      install_set_next_task('configure-menus-blocks', $url);
-      break;
-    case 'configure-menus-blocks':
-      _drupalorg_testing_create_menus();
-      _drupalorg_testing_configure_blocks();
-      _block_rehash();
-      menu_rebuild();
-      // Return control to the installer.
-      $task = 'profile';
-      break;
-  }
+  $function($args, $context);
 }
 
-function _drupalorg_testing_create_node_types() {
+/**
+* Batch 'finished' callback
+*/
+function _drupalorg_testing_batch_finished($success, $results, $operations) {
+  if ($success) {
+    // Here we do something meaningful with the results.
+    $message = count($results) .' actions processed.';
+    $message .= theme('item_list', $results);
+    $type = 'status';
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    $message = 'An error occurred while processing '. $error_operation[0] .' with arguments :'. print_r($error_operation[0], TRUE);
+    $type = 'error';
+  }
+  drupal_set_message($message, $type);
+
+  // Advance the installer task.
+  variable_set('install_task', 'profile-finished');
+}
+
+function _drupalorg_testing_create_node_types($args, &$context) {
   $types = array(
     array(
       'type' => 'page',
@@ -222,24 +239,31 @@ function _drupalorg_testing_create_node_types() {
   foreach ($types as $type) {
     $type = (object) _node_type_set_defaults($type);
     node_type_save($type);
+    // Store some result for post-processing in the finished callback.
+    $context['results'][] = t('Set up node type %type.', array('%type' => $type));
   }
 
   // Default page to not be promoted.
   variable_set('node_options_page', array('status'));
+  $context['message'] = t('Set up basic node types');
 }
 
-function _drupalorg_testing_configure_site() {
+function _drupalorg_testing_configure_site($args, &$context) {
   variable_set('cache', CACHE_NORMAL);
+  $context['results'][] = t('Configured site settings.');
+  $context['message'] = t('Configured site settings');
 }
 
-function _drupalorg_testing_configure_theme() {
+function _drupalorg_testing_configure_theme($args, &$context) {
   // Don't display date and author information for page nodes by default.
   $theme_settings = variable_get('theme_settings', array());
   $theme_settings['toggle_node_info_page'] = FALSE;
   variable_set('theme_settings', $theme_settings);
+  $context['results'][] = t('Configured default theme.');
+  $context['message'] = t('Configured default theme');
 }
 
-function _drupalorg_testing_configure_comment() {
+function _drupalorg_testing_configure_comment($args, &$context) {
 
   $types = array(
     'book',
@@ -263,9 +287,12 @@ function _drupalorg_testing_configure_comment() {
   foreach ($types as $type) {
     variable_set('comment_' . $type, COMMENT_NODE_DISABLED);
   }
+
+  $context['results'][] = t('Configured comment settings.');
+  $context['message'] = t('Configured comment settings');
 }
 
-function _drupalorg_testing_configure_attachments() {
+function _drupalorg_testing_configure_attachments($args, &$context) {
 
   // comment module
   $types = array(
@@ -306,9 +333,12 @@ function _drupalorg_testing_configure_attachments() {
   foreach ($types as $type) {
     variable_set('comment_upload_' . $type, 0);
   }
+
+  $context['results'][] = t('Configured attachment settings.');
+  $context['message'] = t('Configured attachment settings');
 }
 
-function _drupalorg_testing_configure_devel_module() {
+function _drupalorg_testing_configure_devel_module($args, &$context) {
   variable_set('dev_query', 1);
   variable_set('devel_query_display', 1);
   variable_set('dev_timer', 1);
@@ -320,9 +350,12 @@ function _drupalorg_testing_configure_devel_module() {
   }
   variable_set('smtp_library', drupal_get_filename('module', 'devel'));
   variable_set('devel_switch_user_list_size', 12);
+
+  $context['results'][] = t('Configured devel module settings.');
+  $context['message'] = t('Configured devel module');
 }
 
-function _drupalorg_testing_configure_cvs_module() {
+function _drupalorg_testing_configure_cvs_module($args, &$context) {
   $repos = array(t('Drupal'), t('Contributions'));
   foreach ($repos as $repo_name) {
     $repo = array(
@@ -335,6 +368,7 @@ function _drupalorg_testing_configure_cvs_module() {
     // properly.
     $form_state['clicked_button']['#id'] = 'edit-submit';
     drupal_execute('cvs_repository_form', $form_state);
+    $context['results'][] = t('Configured CVS repository %repo.', array('%repo' => $repo_name));
   }
 
   // Set the branch/tag release messages to match drupal.org.
@@ -343,6 +377,9 @@ function _drupalorg_testing_configure_cvs_module() {
 
   // Create a CVS account for the admin user.
   db_query("INSERT INTO {cvs_accounts} (uid, cvs_user, pass, motivation, status) VALUES (%d, '%s', '%s', '%s', %d)", 1, D_O_USER1, crypt(D_O_PASSWORD), '', CVS_APPROVED);
+
+  $context['results'][] = t('Configured CVS settings.');
+  $context['message'] = t('Configured CVS module');
 }
 
 /**
@@ -350,7 +387,7 @@ function _drupalorg_testing_configure_cvs_module() {
  * This creates an additional role, "user switcher", that has the
  * "swtich user" permission from the devel.module.
  */
-function _drupalorg_testing_create_roles() {
+function _drupalorg_testing_create_roles($args, &$context) {
   // Map role names to role ID constants.
   $roles = array(
     D_O_ROLE_ANONYMOUS => 'anonymous',
@@ -586,12 +623,15 @@ function _drupalorg_testing_create_roles() {
   foreach ($roles as $rid => $name) {
     db_query("INSERT INTO {role} (rid, name) VALUES (%d, '%s')", $rid, $name);
   }
+  $context['results'][] = t('Created roles.');
   foreach ($permissions as $rid => $perms) {
     db_query("INSERT INTO {permission} (rid, perm, tid) VALUES (%d, '%s', 0)", $rid, implode(', ', $perms));
   }
+  $context['results'][] = t('Set role permissions.');
+  $context['message'] = t('Created roles and set permissions');
 }
 
-function _drupalorg_testing_create_users() {
+function _drupalorg_testing_create_users($args, &$context) {
   // Define some well-known users in each of the roles.  All of these will
   // have the same password (see D_O_PASSWORD at the top of this file), and
   // will also belong to the 'User switchers' role to be able to easily switch
@@ -624,6 +664,7 @@ function _drupalorg_testing_create_users() {
       $edit['name'] = $name . $i;
       $edit['mail'] = $edit['name'] .'@'. D_O_DOMAIN;
       user_save($account, $edit);
+      $context['results'][] = t('Created user %name.', array('%name' => $edit['name']));
     }
     for ($i = 1; $i <= D_O_NUM_CVS_USERS_PER_ROLE; $i++) {
       $user_name = $name . $i;
@@ -635,12 +676,14 @@ function _drupalorg_testing_create_users() {
   // Create 50 random users.
   module_load_include('inc', 'devel', 'devel_generate');
   devel_create_users(50, FALSE);
+  $context['results'][] = t('Created 50 random users.');
+  $context['message'] = t('Created users');
 }
 
 /**
  * Auto-generates project-related terms from drupal.org.
  */
-function _drupalorg_testing_create_project_terms() {
+function _drupalorg_testing_create_project_terms($args, &$context) {
   // Add top-level project terms.
   $vocabulary = taxonomy_vocabulary_load(_project_get_vid());
   $terms = array(
@@ -655,6 +698,7 @@ function _drupalorg_testing_create_project_terms() {
   foreach ($terms as $name => $description) {
     $form_state['values'] = array();
     drupal_execute('taxonomy_form_term', $form_state, $vocabulary, array('name' => $name, 'description' => $description));
+    $context['results'][] = t('Created project category %term.', array('%term' => $name));
   }
 
   // Add module categories.
@@ -700,6 +744,7 @@ function _drupalorg_testing_create_project_terms() {
   foreach ($terms as $name) {
     $form_state['values'] = array();
     drupal_execute('taxonomy_form_term', $form_state, $vocabulary, array('name' => $name, 'description' => $parent));
+    $context['results'][] = t('Created project Modules category %term.', array('%term' => $name));
   }
 
   // Add release versions.
@@ -715,6 +760,7 @@ function _drupalorg_testing_create_project_terms() {
     $form_state['values'] = array();
     drupal_execute('taxonomy_form_term', $form_state, $vocabulary, array('name' => $name, 'weight' => $weight));
     $weight--;
+    $context['results'][] = t('Created release version %term.', array('%term' => $name));
   }
 
   // Add release types.
@@ -735,10 +781,13 @@ function _drupalorg_testing_create_project_terms() {
   foreach ($terms as $name) {
     $form_state['values'] = array();
     drupal_execute('taxonomy_form_term', $form_state, $vocabulary, array('name' => $name));
+    $context['results'][] = t('Created release type %term.', array('%term' => $name));
   }
+
+  $context['message'] = t('Created project taxonomy');
 }
 
-function _drupalorg_testing_create_content() {
+function _drupalorg_testing_create_content($args, &$context) {
   // Create a bunch of test content with the devel generate script.
   module_load_include('inc', 'devel', 'devel_generate');
 
@@ -752,15 +801,14 @@ function _drupalorg_testing_create_content() {
     'title_length' => '8',
   );
   devel_generate_content($form_state);
-
-  _drupalorg_testing_create_content_project();
-  _drupalorg_testing_create_content_project_release();
+  $context['results'][] = t('Created 100 random nodes.');
+  $context['message'] = t('Created dummy content');
 }
 
 /**
  * Configures variables for project* modules.
  */
-function _drupalorg_testing_configure_project_settings() {
+function _drupalorg_testing_configure_project_settings($args, &$context) {
   // TODO: there's currently so default sort method for
   // projects in 6.x, so fix this when it appears.
 
@@ -791,6 +839,7 @@ function _drupalorg_testing_configure_project_settings() {
     $active_tids[$tid] = $tid;
   }
   variable_set('project_release_active_compatibility_tids', $active_tids);
+  $context['results'][] = t('Configured project release settings.');
 
   // Settings for project_issue.module.
   variable_set('project_directory_issues', 'issues');
@@ -839,18 +888,23 @@ function _drupalorg_testing_configure_project_settings() {
   );
   $form_state['values'] = $issue_status_updates;
   drupal_execute('project_issue_admin_states_form', $form_state);
+
+  $context['results'][] = t('Configured project issue settings.');
+  $context['message'] = t('Configured project settings');
 }
 
 /**
  * Generates sample issues and issue comments.
  */
-function _drupalorg_testing_create_issues() {
+function _drupalorg_testing_create_issues($args, &$context) {
   if (module_load_include('inc', 'project_issue_generate') !== FALSE) {
     project_issue_generate_issues(50);
     if (function_exists('project_issue_generate_issue_comments')) {
       project_issue_generate_issue_comments(100);
     }
   }
+  $context['results'][] = t('Generated 50 random issues, and 100 random issue followups.');
+  $context['message'] = t('Created dummy issues');
 }
 
 /**
@@ -860,7 +914,7 @@ function _drupalorg_testing_create_issues() {
  * you should update the $projects array near the top of
  * drupalorg_testing_build_releases.php.
  */
-function _drupalorg_testing_create_content_project() {
+function _drupalorg_testing_create_content_project($args, &$context) {
   // First, add one of each type of project.
   $values[t('Drupal project')] = array(
     'title' => t('Drupal'),
@@ -926,6 +980,8 @@ function _drupalorg_testing_create_content_project() {
     if ($project['project']['uri'] == 'drupal') {
       db_query("UPDATE {project_release_projects} SET version_format = '%s' WHERE nid = %d", '!major%minor%patch#extra', $node->nid);
     }
+
+    $context['results'][] = t('Created project %name.', array('%name' => $project['title']));
   }
 
   // Modules... let's start with some developer modules so we have a few in
@@ -1017,6 +1073,7 @@ The first case is especially useful for sites that are configured to require adm
     foreach ($categories as $category) {
       db_query('INSERT INTO {term_node} (nid, tid, vid) VALUES (%d, %d, %d)', $node->nid, $category, $node->vid);
     }
+    $context['results'][] = t('Created project %name.', array('%name' => $project['title']));
   }
 
   // Setup some other projects under "Drupal project" that aren't in CVS.
@@ -1064,13 +1121,16 @@ The first case is especially useful for sites that are configured to require adm
 
     // Disable releases on these projects
     db_query("UPDATE {project_release_projects} SET releases = 0 WHERE nid = %d", $node->nid);
+
+    $context['results'][] = t('Created project %name.', array('%name' => $project['title']));
   }
+  $context['message'] = t('Created dummy projects');
 }
 
 /**
  * Generates sample project release nodes.
  */
-function _drupalorg_testing_create_content_project_release() {
+function _drupalorg_testing_create_content_project_release($args, &$context) {
 
   // For some reason, the static cache of drupal_get_schema() doesn't
   // have {project_release_file} in it at this point in the install.
@@ -1123,6 +1183,8 @@ function _drupalorg_testing_create_content_project_release() {
 
       $node = install_save_node($release);
 
+      $context['results'][] = t('Created project release %name.', array('%name' => $release['title']));
+
       // Automatically create an empty file for each release with a non-empty
       // file path.
       if (!empty($release['filename'])) {
@@ -1145,7 +1207,8 @@ function _drupalorg_testing_create_content_project_release() {
               $file->nid = $node->nid;
               $file->filehash = $release['filehash'];
               drupal_write_record('project_release_file', $file);
-              drupal_set_message(t('A file for the release titled %title was created at %full_path.', array('%title' => $release['title'], '%full_path' => $filepath)));
+
+              $context['results'][] = t('A file for release %title was created at %full_path.', array('%title' => $release['title'], '%full_path' => $filepath));
             }
             else {
               $error = TRUE;
@@ -1203,12 +1266,14 @@ function _drupalorg_testing_create_content_project_release() {
       }
     }
   }
+
+  $context['message'] = t('Created dummy project releases');
 }
 
 /**
  * Setup menus to match drupal.org.
  */
-function _drupalorg_testing_create_menus() {
+function _drupalorg_testing_create_menus($args, &$context) {
   $items['book'] = array(
     'menu_name' => 'primary-links',
     'link_path' => 'book',
@@ -1264,10 +1329,13 @@ function _drupalorg_testing_create_menus() {
   // Finally, save all these customizations.
   foreach ($items as $item) {
     menu_link_save($item);
+    $context['results'][] = t('Created menu item %name at %path.', array('%name' => $item['link_title'], '%path' => $item['link_path']));
   }
+
+  $context['message'] = t('Created menus');
 }
 
-function _drupalorg_testing_configure_blocks() {
+function _drupalorg_testing_configure_blocks($args, &$context) {
   // Each entry should be an array with: (module, delta, region, weight)
   $blocks = array();
 
@@ -1286,6 +1354,17 @@ function _drupalorg_testing_configure_blocks() {
     db_query("DELETE FROM {blocks} WHERE module = '%s' AND delta = %d", $block[0], $block[1]);
     db_query("INSERT INTO {blocks} (module, delta, theme, status, region, weight, pages, cache) VALUES ('%s', %d, '%s', %d, '%s', %d, '', 0)", $block[0], $block[1], 'garland', 1, $block[2], $block[3]);
   }
+
+  _block_rehash();
+
+  $context['results'][] = t('Configured blocks.');
+  $context['message'] = t('Configured blocks');
+}
+
+function _drupalorg_testing_rebuild_menu($args, &$context) {
+  menu_rebuild();
+  $context['results'][] = t('Rebuilt menus.');
+  $context['message'] = t('Rebuilt menus');
 }
 
 /**
