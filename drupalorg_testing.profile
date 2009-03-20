@@ -110,7 +110,7 @@ function install_set_next_task($next_task, $url) {
   variable_set('install_task', $next_task);
   extract(parse_url(urldecode($url)));
   $query .= "&task=$next_task";
-  drupal_goto('install.php', $query);
+  install_goto("install.php?$query");
 }
 
 /**
