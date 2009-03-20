@@ -355,18 +355,33 @@ function _drupalorg_testing_configure_devel_module($args, &$context) {
 }
 
 function _drupalorg_testing_configure_cvs_module($args, &$context) {
-  $repos = array(t('Drupal'), t('Contributions'));
-  foreach ($repos as $repo_name) {
-    $repo = array(
-      'name' => $repo_name,
-      'method' => 1,  // external
-    );
-    $form_state['values'] = $repo;
+  $repos = array(
+    'drupal' => array(
+      'name' => t('Drupal'),
+      'modules' => 'drupal',
+    ),
+    'contributions' => array(
+      'name' => t('Contributions'),
+      'modules' => 'contributions',
+    ),
+  );
+  $repo_info = array(
+    'root' => file_directory_temp() . "/testrepos",
+    'diffurl' => '',
+    'newurl' => '',
+    'trackerurl' => '',
+    'method' => '1',
+  );
+
+
+  foreach ($repos as $repo => $info) {
+    $form_state = array();
+    $form_state['values'] = array_merge($repo_info, $info);;
     // Dunno why CVS module is checking this button for submit,
     // but it has to be included here for the form to process
     // properly.
     $form_state['clicked_button']['#id'] = 'edit-submit';
-    drupal_execute('cvs_repository_form', $form_state);
+    cvs_repository_form_submit(array(), $form_state);
     $context['results'][] = t('Configured CVS repository %repo.', array('%repo' => $repo_name));
   }
 
@@ -700,7 +715,7 @@ function _drupalorg_testing_create_project_terms($args, &$context) {
   }
 
   // Add module categories.
-  $parent = db_result(db_query("SELECT tid FROM {term_data} WHERE name = '%s'", t('Modules')));
+  $modules_tid = install_taxonomy_get_tid(t('Modules'));
   $terms = array(
     t('Administration'),
     t('CCK'),
@@ -740,12 +755,12 @@ function _drupalorg_testing_create_project_terms($args, &$context) {
   );
 
   foreach ($terms as $name) {
-    install_taxonomy_add_term($project_vid, $name);
+    install_taxonomy_add_term($modules_tid, $name);
     $context['results'][] = t('Created project Modules category %term.', array('%term' => $name));
   }
 
   // Add release versions.
-  $vocabulary = taxonomy_vocabulary_load(_project_release_get_api_vid());
+  $release_vid = _project_release_get_api_vid();
   $terms = array(
     '4.0.x', '4.1.x', '4.2.x', '4.3.x',
     '4.4.x', '4.5.x', '4.6.x', '4.7.x', '5.x', '6.x', '7.x',
@@ -754,7 +769,7 @@ function _drupalorg_testing_create_project_terms($args, &$context) {
   // For releases to be properly ordered in the download tables, the oldest taxonomy
   // terms must have the heaviest weights.
   foreach ($terms as $name) {
-    install_taxonomy_add_term($project_vid, $name, '', array('weight' => $weight));
+    install_taxonomy_add_term($release_vid, $name, '', array('weight' => $weight));
     $weight--;
     $context['results'][] = t('Created release version %term.', array('%term' => $name));
   }
@@ -834,48 +849,89 @@ function _drupalorg_testing_configure_project_settings($args, &$context) {
   variable_set('project_issue_followup_user', '0');
   variable_set('project_issue_autocomplete', '1');
 
-  // Add the new, custom status values on d.o.
-  $issue_status_new = array();
-  $issue_status_new['status_add'] = array(
+  // Clear existing states -- this way we can we can set everything
+  // just how we want it in the profile without having to worry about
+  // adjusting what's already there.
+  db_query("DELETE FROM {project_issue_state}");
+
+  // Now set up the issue states from scratch.
+  $status = array();
+  $status[1] = array(
+    'name' => t('active'),
+    'weight' => -13,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  $status[16] = array(
     'name' => t('postponed (maintainer needs more info)'),
     'weight' => -10,
     'author_has' => 0,
     'default_query' => 1,
   );
-  $form_state['values'] = $issue_status_new;
-  drupal_execute('project_issue_admin_states_form', $form_state);
-
-  // Now, update the default status values for d.o customizations.
-  $issue_status_updates = array();
-  $issue_status_updates['status'] = array();
-  $issue_status_updates['status'][8] = array(
+  $status[8] = array(
     'name' => t('needs review'),
     'weight' => -8,
     'author_has' => 0,
     'default_query' => 1,
   );
-  $issue_status_updates['status'][13] = array(
+  $status[13] = array(
     'name' => t('needs work'),
     'weight' => -7,
     'author_has' => 0,
     'default_query' => 1,
   );
-  $issue_status_updates['status'][14] = array(
+  $status[14] = array(
     'name' => t('reviewed & tested by the community'),
     'weight' => -6,
     'author_has' => 0,
     'default_query' => 1,
   );
-  // For some reason, the "default_query" is getting cleared if we don't
-  // include it here again. :(  TODO: Figure out what's going on here.
-  $issue_status_updates['status'][15] = array(
+  $status[15] = array(
     'name' => t('patch (to be ported)'),
     'weight' => -4,
     'author_has' => 0,
     'default_query' => 1,
   );
-  $form_state['values'] = $issue_status_updates;
-  drupal_execute('project_issue_admin_states_form', $form_state);
+  $status[2] = array(
+    'name' => t('fixed'),
+    'weight' => 1,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  $status[3] = array(
+    'name' => t('duplicate'),
+    'weight' => 4,
+    'author_has' => 0,
+    'default_query' => 0,
+  );
+  $status[4] = array(
+    'name' => t('postponed'),
+    'weight' => 6,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  $status[5] = array(
+    'name' => t("won't fix"),
+    'weight' => 9,
+    'author_has' => 0,
+    'default_query' => 0,
+  );
+  $status[6] = array(
+    'name' => t('by design'),
+    'weight' => 11,
+    'author_has' => 0,
+    'default_query' => 0,
+  );
+  $status[7] = array(
+    'name' => t('closed'),
+    'weight' => 13,
+    'author_has' => 1,
+    'default_query' => 0,
+  );
+
+  $form_state['values']['status'] = $status;
+  $form_state['values']['default_state'] = '1';
+  project_issue_admin_states_form_submit(array(), $form_state);
 
   $context['results'][] = t('Configured project issue settings.');
   $context['message'] = t('Configured project settings');
@@ -1365,9 +1421,6 @@ function _drupalorg_testing_rebuild_menu($args, &$context) {
  *   set up or is not writable by the web server.
  */
 function _drupalorg_testing_configure_files() {
-  $form_state['values'] = array();
-  drupal_execute('system_file_system_settings', $form_state);
-  $profile_name = 'Drupal.org testing';
   $directory = file_directory_path();
   if (!file_check_directory($directory, TRUE)) {
     // Permissions are not properly set to allow
@@ -1376,5 +1429,12 @@ function _drupalorg_testing_configure_files() {
     drupal_set_message(t('The %files directory was either not able to be created or is not writable by the web server.  In order for the !profile_name profile to install properly, the web server must be able to create files and directories in the Drupal files directory.  Please adjust the permissions of your file system so that the web server has the appropriate access to the %files directory and then reinstall the !profile_name profile.', array('%files' => $directory, '!profile_name' => $profile_name)), 'error');
     return FALSE;
   }
+
+  // Set these now so we're extra sure our release file creation behaves
+  // consistently.
+  variable_set('file_directory_path', $directory);
+  variable_set('file_directory_temp', file_directory_temp());
+  variable_set('file_downloads', FILE_DOWNLOADS_PUBLIC);
+
   return TRUE;
 }
