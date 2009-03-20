@@ -188,7 +188,6 @@ function _drupalorg_testing_batch_dispatch($function, $args, &$context) {
     set_time_limit(0);
   }
   install_include(drupalorg_testing_profile_modules());
-  module_load_include('inc', 'taxonomy', 'taxonomy.admin');
   $function($args, $context);
 }
 
@@ -685,7 +684,7 @@ function _drupalorg_testing_create_users($args, &$context) {
  */
 function _drupalorg_testing_create_project_terms($args, &$context) {
   // Add top-level project terms.
-  $vocabulary = taxonomy_vocabulary_load(_project_get_vid());
+  $project_vid = _project_get_vid();
   $terms = array(
     t('Drupal project') => t('Get started by downloading the official Drupal core files. These official releases come bundled with a variety of modules and themes to give you a good starting point to help build your site. Drupal core includes basic community features like blogging, forums, and contact forms, and can be easily extended by downloading other contributed modules and themes.'),
     t('Installation profiles') => t('Installation profiles are a feature in Drupal core that was added in the 5.x series. The new Drupal installer allows you to specify an installation profile which defines which modules should be enabled, and can customize the new installation after they have been installed. This will allow customized "distributions" that enable and configure a set of modules that work together for a specific kind of site (Drupal for bloggers, Drupal for musicians, Drupal for developers, and so on).'),
@@ -696,8 +695,7 @@ function _drupalorg_testing_create_project_terms($args, &$context) {
   );
 
   foreach ($terms as $name => $description) {
-    $form_state['values'] = array();
-    drupal_execute('taxonomy_form_term', $form_state, $vocabulary, array('name' => $name, 'description' => $description));
+    install_taxonomy_add_term($project_vid, $name, $description);
     $context['results'][] = t('Created project category %term.', array('%term' => $name));
   }
 
@@ -742,8 +740,7 @@ function _drupalorg_testing_create_project_terms($args, &$context) {
   );
 
   foreach ($terms as $name) {
-    $form_state['values'] = array();
-    drupal_execute('taxonomy_form_term', $form_state, $vocabulary, array('name' => $name, 'description' => $parent));
+    install_taxonomy_add_term($project_vid, $name);
     $context['results'][] = t('Created project Modules category %term.', array('%term' => $name));
   }
 
@@ -757,21 +754,13 @@ function _drupalorg_testing_create_project_terms($args, &$context) {
   // For releases to be properly ordered in the download tables, the oldest taxonomy
   // terms must have the heaviest weights.
   foreach ($terms as $name) {
-    $form_state['values'] = array();
-    drupal_execute('taxonomy_form_term', $form_state, $vocabulary, array('name' => $name, 'weight' => $weight));
+    install_taxonomy_add_term($project_vid, $name, '', array('weight' => $weight));
     $weight--;
     $context['results'][] = t('Created release version %term.', array('%term' => $name));
   }
 
   // Add release types.
-  $vocab = array(
-    'name' => t('Release type'),
-    'nodes' => array('project_release' => 'project_release'),
-    'multiple' => TRUE,
-  );
-  $form_state['values'] = array();
-  drupal_execute('taxonomy_form_vocabulary', $form_state, $vocab);
-  $vocabulary = taxonomy_vocabulary_load(db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s'", t('Release type'))));
+  $release_type_vid = install_taxonomy_add_vocabulary(t('Release type'), array('project_release' => 'project_release'), array('multiple' => TRUE));
   $terms = array(
     t('Security update'),
     t('Bug fixes'),
@@ -779,8 +768,7 @@ function _drupalorg_testing_create_project_terms($args, &$context) {
   );
 
   foreach ($terms as $name) {
-    $form_state['values'] = array();
-    drupal_execute('taxonomy_form_term', $form_state, $vocabulary, array('name' => $name));
+    install_taxonomy_add_term($release_type_vid, $name);
     $context['results'][] = t('Created release type %term.', array('%term' => $name));
   }
 
@@ -822,7 +810,7 @@ function _drupalorg_testing_configure_project_settings($args, &$context) {
   );
 
   foreach ($types as $type => $settings) {
-    $tid = _drupalorg_testing_get_tid_by_term($type);
+    $tid = install_taxonomy_get_tid($type);
     // TODO: there's currently do method for per-term sorting
     // in 6.x, so fix this when it appears...
   }
@@ -835,7 +823,7 @@ function _drupalorg_testing_configure_project_settings($args, &$context) {
   $active_tids = array();
   $active_terms = array('7.x', '6.x', '5.x');
   foreach ($active_terms as $term) {
-    $tid = _drupalorg_testing_get_tid_by_term($term);
+    $tid = install_taxonomy_get_tid($term);
     $active_tids[$tid] = $tid;
   }
   variable_set('project_release_active_compatibility_tids', $active_tids);
@@ -967,7 +955,7 @@ function _drupalorg_testing_create_content_project($args, &$context) {
     ),
   );
   foreach ($values as $category => $project) {
-    $project['project_type'] = _drupalorg_testing_get_tid_by_term($category);
+    $project['project_type'] = install_taxonomy_get_tid($category);
     $project['mail'] = variable_get('site_mail', D_O_SITE_MAIL);
     $project['type'] = 'project_project';
     $node = install_save_node($project);
@@ -1054,12 +1042,12 @@ The first case is especially useful for sites that are configured to require adm
     ),
   );
 
-  $modules_tid = _drupalorg_testing_get_tid_by_term(t('Modules'));
+  $modules_tid = install_taxonomy_get_tid(t('Modules'));
   foreach ($values as $project) {
     $project['project_type'] = $modules_tid;
     $categories = array();
     foreach ($project['categories'] as $category) {
-      $categories[] = _drupalorg_testing_get_tid_by_term($category);
+      $categories[] = install_taxonomy_get_tid($category);
     }
     $project["tid_$modules_tid"] = drupal_map_assoc($categories);
     $project['mail'] = variable_get('site_mail', D_O_SITE_MAIL);
@@ -1103,7 +1091,7 @@ The first case is especially useful for sites that are configured to require adm
       'directory' => '/contributions/docs/',
     ),
   );
-  $drupal_tid = _drupalorg_testing_get_tid_by_term(t('Drupal project'));
+  $drupal_tid = install_taxonomy_get_tid(t('Drupal project'));
   foreach ($values as $project) {
     $project['project_type'] = $drupal_tid;
     $project['mail'] = variable_get('site_mail', D_O_SITE_MAIL);
@@ -1176,7 +1164,7 @@ function _drupalorg_testing_create_content_project_release($args, &$context) {
       // Determine the tids of all categories associated with the release.
       $categories = array();
       foreach ($release['categories'] as $category) {
-        $categories[] = _drupalorg_testing_get_tid_by_term($category);
+        $categories[] = install_taxonomy_get_tid($category);
       }
 
       $release['type'] = 'project_release';
@@ -1250,7 +1238,7 @@ function _drupalorg_testing_create_content_project_release($args, &$context) {
     foreach ($supported_releases as $uri => $version) {
       $pid = $projects[$uri]['nid'];
       foreach ($version as $term => $data) {
-        $tid = _drupalorg_testing_get_tid_by_term($term);
+        $tid = install_taxonomy_get_tid($term);
         if (!empty($data['supported_majors'])) {
           $supported_majors = explode(',', $data['supported_majors']);
           foreach ($supported_majors as $major) {
@@ -1365,33 +1353,6 @@ function _drupalorg_testing_rebuild_menu($args, &$context) {
   menu_rebuild();
   $context['results'][] = t('Rebuilt menus.');
   $context['message'] = t('Rebuilt menus');
-}
-
-/**
- * Helper function; get a term's ID.
- *
- * @param $term
- *   The name of a term to look up.
- * @param $reset
- *   Whether to reset the internal cache.
- * @return
- *   The tid of the term named $term.  If there are multiple
- *   terms with the same name, the tid of the first term
- *   found will be returned.
- */
-function _drupalorg_testing_get_tid_by_term($term, $reset = NULL) {
-  static $cache = array();
-
-  if ($reset) {
-    $cache = array();
-  }
-
-  if (!isset($cache[$term])) {
-    $terms = taxonomy_get_term_by_name($term);
-    $cache[$term] = $terms;
-  }
-
-  return $cache[$term][0]->tid;
 }
 
 /**
