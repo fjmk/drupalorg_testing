@@ -208,6 +208,10 @@ function _drupalorg_testing_batch_finished($success, $results, $operations) {
     $message = 'An error occurred while processing '. $error_operation[0] .' with arguments :'. print_r($error_operation[0], TRUE);
     $type = 'error';
   }
+
+  // Clear out any status messages that modules may have thrown, as we're
+  // setting our own for the profile.  Leave error messages, however.
+  drupal_get_messages('status');
   drupal_set_message($message, $type);
 
   // Advance the installer task.
@@ -293,7 +297,7 @@ function _drupalorg_testing_configure_comment($args, &$context) {
 
 function _drupalorg_testing_configure_attachments($args, &$context) {
 
-  // comment module
+  // upload module
   $types = array(
     'book',
     'forum',
@@ -312,6 +316,9 @@ function _drupalorg_testing_configure_attachments($args, &$context) {
   foreach ($types as $type) {
     variable_set('upload_' . $type, 0);
   }
+
+  // Allow archives since it's a testing site.
+  variable_set('upload_extensions_default', 'jpg jpeg gif png txt html doc xls pdf ppt pps odt ods odp tar gz tgz');
 
   // comment_upload module
   $types = array(
@@ -1020,10 +1027,6 @@ function _drupalorg_testing_create_content_project($args, &$context) {
     $project['type'] = 'project_project';
     $node = install_save_node($project);
 
-    // CHEESY HACK: Because Drupal is not fully bootstrapped at install time,
-    // we have to do raw DB manipulation to add the terms. Sigh...
-    db_query('INSERT INTO {term_node} (nid, tid, vid) VALUES (%d, %d, %d)', $node->nid, $project['project_type'], $node->vid);
-
     // Fix the version format string for core.
     if ($project['project']['uri'] == 'drupal') {
       db_query("UPDATE {project_release_projects} SET version_format = '%s' WHERE nid = %d", '!major%minor%patch#extra', $node->nid);
@@ -1114,13 +1117,7 @@ The first case is especially useful for sites that are configured to require adm
     $project['type'] = 'project_project';
     $node = install_save_node($project);
 
-    // CHEESY HACK: Because Drupal is not fully bootstrapped at install time,
-    // we have to do raw DB manipulation to add the terms. Sigh...
-    // TODO: is this still true in 6.x?
-    db_query('INSERT INTO {term_node} (nid, tid, vid) VALUES (%d, %d, %d)', $node->nid, $project['project_type'], $node->vid);
-    foreach ($categories as $category) {
-      db_query('INSERT INTO {term_node} (nid, tid, vid) VALUES (%d, %d, %d)', $node->nid, $category, $node->vid);
-    }
+
     $context['results'][] = t('Created project %name.', array('%name' => $project['title']));
   }
 
@@ -1157,15 +1154,6 @@ The first case is especially useful for sites that are configured to require adm
     $project['mail'] = variable_get('site_mail', D_O_SITE_MAIL);
     $project['type'] = 'project_project';
     $node = install_save_node($project);
-
-    // LAME HACK: Because of evil interactions between how project.module is
-    // creating the taxonomy vocabularies for itself and how
-    // taxonomy_get_tree() caches its results, we have to do raw DB
-    // manipulation to add the terms and cvs related stuff.  See
-    // http://drupal.org/node/151976#comment-569814 for more information on
-    // why this hack is needed.
-    // TODO: is this still true in 6.x?
-    _project_db_save_taxonomy($node->nid, $drupal_tid, $node->vid);
 
     // Disable releases on these projects
     db_query("UPDATE {project_release_projects} SET releases = 0 WHERE nid = %d", $node->nid);
