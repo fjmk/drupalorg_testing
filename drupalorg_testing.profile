@@ -1373,24 +1373,24 @@ function _drupalorg_testing_create_menus($args, &$context) {
 }
 
 function _drupalorg_testing_configure_blocks($args, &$context) {
-  // Each entry should be an array with: (module, delta, region, weight)
-  $blocks = array();
 
-  // User login
-  $blocks[] = array('user', 0, 'right', -4);
-  // Primary navigation
-  $blocks[] = array('user', 1, 'right', -2);
-  // Devel tools
-  $blocks[] = array('devel', 1, 'right', 0);
-  // Switch users
-  $blocks[] = array('devel', 0, 'right', 2);
-  // New forum topics
-  $blocks[] = array('forum', 1, 'right', 4);
+  // Clear out existing blocks.
+  db_query("DELETE FROM {blocks}");
 
-  foreach ($blocks as $block) {
-    db_query("DELETE FROM {blocks} WHERE module = '%s' AND delta = %d", $block[0], $block[1]);
-    db_query("INSERT INTO {blocks} (module, delta, theme, status, region, weight, pages, cache) VALUES ('%s', %d, '%s', %d, '%s', %d, '', 0)", $block[0], $block[1], 'garland', 1, $block[2], $block[3]);
-  }
+  // Devel blocks.
+  install_add_block('menu', 'devel', 'garland', 1, 1, 'right');
+  install_add_block('devel', 0, 'garland', 1, 2, 'right');
+  install_add_block('devel', 2, 'garland', 1, 0, 'footer');
+
+  // User blocks.
+  install_add_block('user', 0, 'garland', 1, -4, 'right');
+  install_add_block('user', 1, 'garland', 1, -2, 'right');
+
+  // Forum blocks.
+  install_add_block('forum', 1, 'garland', 1, 4, 'right');
+
+  // Drupal footer.
+  install_add_block('system', 0, 'garland', 1, 10, 'footer');
 
   _block_rehash();
 
