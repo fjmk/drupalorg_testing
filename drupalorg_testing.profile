@@ -154,8 +154,8 @@ function _drupalorg_testing_set_batch(&$task, $url) {
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_users', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_devel_module', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_cvs_module', array())),
-      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_project_settings', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_project_terms', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_project_settings', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_content', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_content_project', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_content_project_release', array())),
@@ -239,7 +239,7 @@ function _drupalorg_testing_create_node_types($args, &$context) {
     $type = (object) _node_type_set_defaults($type);
     node_type_save($type);
     // Store some result for post-processing in the finished callback.
-    $context['results'][] = t('Set up node type %type.', array('%type' => $type));
+    $context['results'][] = t('Set up node type %type.', array('%type' => $type->name));
   }
 
   // Default page to not be promoted.
@@ -382,7 +382,7 @@ function _drupalorg_testing_configure_cvs_module($args, &$context) {
     // properly.
     $form_state['clicked_button']['#id'] = 'edit-submit';
     cvs_repository_form_submit(array(), $form_state);
-    $context['results'][] = t('Configured CVS repository %repo.', array('%repo' => $repo_name));
+    $context['results'][] = t('Configured CVS repository %repo.', array('%repo' => $info['name']));
   }
 
   // Set the branch/tag release messages to match drupal.org.
@@ -755,7 +755,7 @@ function _drupalorg_testing_create_project_terms($args, &$context) {
   );
 
   foreach ($terms as $name) {
-    install_taxonomy_add_term($modules_tid, $name);
+    install_taxonomy_add_term($project_vid, $name, '', array('parent' => array($modules_tid)));
     $context['results'][] = t('Created project Modules category %term.', array('%term' => $name));
   }
 
@@ -849,22 +849,32 @@ function _drupalorg_testing_configure_project_settings($args, &$context) {
   variable_set('project_issue_followup_user', '0');
   variable_set('project_issue_autocomplete', '1');
 
-  // Clear existing states -- this way we can we can set everything
-  // just how we want it in the profile without having to worry about
-  // adjusting what's already there.
-  db_query("DELETE FROM {project_issue_state}");
+  // Add custom statuses
+  $form_state = array();
+  $form_state['values']['status'] = array();
+  $form_state['values']['status_add'] = array(
+    'name' => t('patch (to be ported)'),
+    'weight' => -4,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  project_issue_admin_states_form_submit(array(), $form_state);
 
-  // Now set up the issue states from scratch.
+  $form_state = array();
+  $form_state['values']['status'] = array();
+  $form_state['values']['status_add'] = array(
+    'name' => t('postponed (maintainer needs more info)'),
+    'weight' => -10,
+    'author_has' => 0,
+    'default_query' => 1,
+  );
+  project_issue_admin_states_form_submit(array(), $form_state);
+
+  // Now set up the issue states from scratch for existing statuses.
   $status = array();
   $status[1] = array(
     'name' => t('active'),
     'weight' => -13,
-    'author_has' => 0,
-    'default_query' => 1,
-  );
-  $status[16] = array(
-    'name' => t('postponed (maintainer needs more info)'),
-    'weight' => -10,
     'author_has' => 0,
     'default_query' => 1,
   );
@@ -883,12 +893,6 @@ function _drupalorg_testing_configure_project_settings($args, &$context) {
   $status[14] = array(
     'name' => t('reviewed & tested by the community'),
     'weight' => -6,
-    'author_has' => 0,
-    'default_query' => 1,
-  );
-  $status[15] = array(
-    'name' => t('patch (to be ported)'),
-    'weight' => -4,
     'author_has' => 0,
     'default_query' => 1,
   );
