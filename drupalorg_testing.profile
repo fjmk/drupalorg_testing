@@ -1221,10 +1221,9 @@ function _drupalorg_testing_create_content_project_release($args, &$context) {
 
       $node = install_save_node($release);
 
-      $context['results'][] = t('Created project release %name.', array('%name' => $release['title']));
-
       // Automatically create an empty file for each release with a non-empty
       // file path.
+      $file_message = '';
       if (!empty($release['filename'])) {
         $error = NULL;
         // Build the full file path of the file associated with the release.
@@ -1245,8 +1244,7 @@ function _drupalorg_testing_create_content_project_release($args, &$context) {
               $file->nid = $node->nid;
               $file->filehash = $release['filehash'];
               drupal_write_record('project_release_file', $file);
-
-              $context['results'][] = t('A file for release %title was created at %full_path.', array('%title' => $release['title'], '%full_path' => $filepath));
+              $file_message = t(', and release file %name', array('%name' => $file->filename));
             }
             else {
               $error = TRUE;
@@ -1267,6 +1265,8 @@ function _drupalorg_testing_create_content_project_release($args, &$context) {
 
       // Put an entry for this tag/branch in {cvs_tags}
       db_query("INSERT INTO {cvs_tags} (nid, tag, branch) VALUES (%d, '%s', %d)", $release['project_release']['pid'], $release['project_release']['tag'], $release['project_release']['rebuild']);
+
+      $context['results'][] = t('Created project release %name', array('%name' => $release['title'])) . $file_message;
     }
 
     rmdir($release_temp_dir);
