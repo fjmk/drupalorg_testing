@@ -694,6 +694,15 @@ function _drupalorg_testing_create_users($args, &$context) {
     }
   }
 
+  // Create a simple 'System Message' user for issue auto-followups.
+  $edit = array();
+  $edit['pass'] = D_O_PASSWORD;
+  $edit['status'] = 1;
+  $edit['name'] = t('System Message');
+  $edit['mail'] = 'system-message@'. D_O_DOMAIN;
+  user_save($account, $edit);
+  $context['results'][] = t('Created user %name.', array('%name' => $edit['name']));
+
   // Create 50 random users.
   module_load_include('inc', 'devel', 'devel_generate');
   devel_create_users(50, FALSE);
@@ -853,8 +862,9 @@ function _drupalorg_testing_configure_project_settings($args, &$context) {
 
   // Settings for project_issue.module.
   variable_set('project_directory_issues', 'issues');
-  variable_set('project_issue_followup_user', '0');
   variable_set('project_issue_autocomplete', '1');
+  $account = user_load(array('name' => t('System Message')));
+  variable_set('project_issue_followup_user', $account->uid);
 
   // Add custom statuses
   $form_state = array();
