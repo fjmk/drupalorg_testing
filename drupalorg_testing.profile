@@ -940,6 +940,7 @@ function _drupalorg_testing_configure_project_settings($args, &$context) {
     'default_query' => 0,
   );
 
+  $form_state = array();
   $form_state['values']['status'] = $status;
   $form_state['values']['default_state'] = '1';
   project_issue_admin_states_form_submit(array(), $form_state);
@@ -1214,6 +1215,7 @@ function _drupalorg_testing_create_content_project_release($args, &$context) {
       foreach ($release['categories'] as $category) {
         $categories[] = install_taxonomy_get_tid($category);
       }
+      $release['taxonomy'] = $categories;
 
       $release['type'] = 'project_release';
 
@@ -1261,17 +1263,6 @@ function _drupalorg_testing_create_content_project_release($args, &$context) {
         if (isset($error)) {
           drupal_set_message(t('A file for the release titled %title could not be created at %full_path.', array('%title' => $release['title'], '%full_path' => $filepath)));
         }
-      }
-
-      // LAME HACK: Because of evil interactions between how project.module is
-      // creating the taxonomy vocabularies for itself and how
-      // taxonomy_get_tree() caches its results, we have to do raw DB
-      // manipulation to add the terms and cvs related stuff.  See
-      // http://drupal.org/node/151976#comment-569814 for more information on
-      // why this hack is needed.
-      // TODO: is this still true in 6.x?
-      foreach ($categories as $tid) {
-        db_query('INSERT INTO {term_node} (nid, tid, vid) VALUES (%d, %d, %d)', $node->nid, $tid, $node->vid);
       }
 
       // Put an entry for this tag/branch in {cvs_tags}
