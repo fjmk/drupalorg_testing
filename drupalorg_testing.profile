@@ -78,7 +78,7 @@ function drupalorg_testing_profile_modules() {
     // contrib modules
     'install_profile_api',
     'codefilter', 'cvs', 'devel', 'project', 'project_issue', 'project_release',
-    'comment_upload', 'comment_alter_taxonomy', 'views',
+    'comment_upload', 'comment_alter_taxonomy', 'views', 'views_ui',
   );
 }
 
