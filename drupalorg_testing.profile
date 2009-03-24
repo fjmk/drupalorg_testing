@@ -155,6 +155,7 @@ function _drupalorg_testing_set_batch(&$task, $url) {
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_devel_module', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_cvs_module', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_project_terms', array())),
+      array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_issue_tags', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_configure_project_settings', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_content', array())),
       array('_drupalorg_testing_batch_dispatch', array('_drupalorg_testing_create_content_project', array())),
@@ -804,6 +805,41 @@ function _drupalorg_testing_create_project_terms($args, &$context) {
   }
 
   $context['message'] = t('Created project taxonomy');
+}
+
+/**
+ * Configure the "Issue tags" vocabulary and comment_alter_taxonomy.
+ */
+function _drupalorg_testing_configure_issue_tags($args, &$context) {
+  $vocab_properties = array(
+    'multiple' => TRUE,
+    'tags' => TRUE,
+    'help' => t('Do <strong>NOT</strong> use tags for duplicating the "Assigned" or "Component" fields. Separate terms with a comma, not a space.'),
+  );
+  $issue_tags_vid = install_taxonomy_add_vocabulary(t('Issue tags'), array('project_issue' => 'project_issue'), $vocab_properties);
+
+  $terms = array(
+    t('Accessibility'),
+    t('Bikeshed'),
+    t('DX'),
+    t('Needs documentation'),
+    t('Needs benchmarking'),
+    t('Needs code style'),
+    t('Needs tests'),
+    t('Novice'),
+    t('Performance'),
+    t('Usability'),
+  );
+  foreach ($terms as $name) {
+    install_taxonomy_add_term($issue_tags_vid, $name);
+    $context['results'][] = t('Created Issue tag %term.', array('%term' => $name));
+  }
+
+  // Configure Comment alter taxonomy
+  variable_set('comment_alter_taxonomy_legacy_issue_paths', TRUE);
+  variable_set('comment_alter_taxonomy_vocabularies', array($issue_tags_vid => $issue_tags_vid));
+
+  $context['message'] = t('Created "Issue tags" vocabulary and configured Comment alter taxonomy');
 }
 
 function _drupalorg_testing_create_content($args, &$context) {
