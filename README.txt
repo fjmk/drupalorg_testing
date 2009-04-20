@@ -1,17 +1,15 @@
 This profile will create a site suitable for testing patches for Drupal.org.
 It was originally based on the development profile.
 
-Required modules and versions for Drupal 5.x as of March 8th, 2008:
-    
-    * codefilter DRUPAL-5 
-    * cvslog DRUPAL-5
-    * devel DRUPAL-5
-    * project DRUPAL-5
-    * project_issue DRUPAL-5--2 or DRUPAL-5
-    * comment_upload DRUPAL-5 (if using DRUPAL-5--2 of project_issue)
+Required modules and versions for Drupal 6.x as of April 18th, 2009:
 
-You can also use the HEAD branch of both project and project_issue for
-now, until we directly start making changes for the 6.x core API.
+    * codefilter HEAD
+    * cvslog HEAD
+    * devel DRUPAL-6--1
+    * project HEAD
+    * project_issue HEAD
+    * comment_upload DRUPAL-6--1
+    * install_profile_api DRUPAL-6--2
 
 Before installing with this profile, download or checkout these
 modules to sites/all/modules, sites/default/modules, or another
@@ -38,8 +36,7 @@ performs the following additional setup:
   pretends that there's a CVS repository connected to the site).
   Each of the well-known users has a corresponding CVS account.
 * Configures other project, menu, and block settings like drupal.org.
-* Creates a set of random issues, and if you use the 5.x-2.* series of
-  project_issue, some random comments on those issues.
+* Creates a set of random issues and some random comments on those issues.
 
 
 $Id$
