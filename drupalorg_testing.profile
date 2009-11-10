@@ -903,6 +903,8 @@ function _drupalorg_testing_configure_project_settings($args, &$context) {
   variable_set('project_issue_followup_user', $account->uid);
 
   // Add custom statuses
+  // TODO: this is lame -- we should have an API to add a new status.
+  module_load_include('inc', 'project_issue', 'includes/admin.issue_status');
   $form_state = array();
   $form_state['values']['status'] = array();
   $form_state['values']['status_add'] = array(
