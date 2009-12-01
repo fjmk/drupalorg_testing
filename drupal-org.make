@@ -9,8 +9,8 @@ projects[project_issue] = 1.0-alpha3
 projects[install_profile_api] = 2.1
 projects[codefilter] = 1.0
 projects[cvslog] = 1.0-alpha3
-projects[devel] = 1.16
-projects[views] = 2.6
+projects[devel] = 1.18
+projects[views] = 2.7
 projects[comment_upload] = 1.0-alpha5
 projects[comment_alter_taxonomy] = 1.0-rc1
 
