@@ -13,6 +13,7 @@ projects[devel] = 1.19
 projects[views] = 2.10
 projects[comment_upload] = 1.0-alpha5
 projects[comment_alter_taxonomy] = 1.0-rc1
+projects[simpletest] = 2.10
 
 ; Themes.
 projects[zen] = 1.1
