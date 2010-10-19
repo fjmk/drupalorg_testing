@@ -1,7 +1,7 @@
 ; $Id$
 
 ; make file for drupalorg_testing profile
-core = 6.17
+core = 6.37
 
 ; Modules
 projects[project] = 1.0-alpha4
