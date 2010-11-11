@@ -60,6 +60,10 @@ projects[cvs_deploy][download][type] = "cvs"
 projects[cvs_deploy][download][module] = "contributions/modules/cvs_deploy"
 projects[cvs_deploy][download][revision] = "DRUPAL-6--1"
 
+projects[ctools][download][type] = "cvs"
+projects[ctools][download][module] = "contributions/modules/ctools"
+projects[ctools][download][revision] = "DRUPAL-6--1"
+
 
 ; Version control API
 
@@ -78,3 +82,19 @@ projects[versioncontrol][download][revision] = "HEAD"
 projects[versioncontrol_git][download][type] = "cvs"
 projects[versioncontrol_git][download][module] = "contributions/modules/versioncontrol_git"
 projects[versioncontrol_git][download][revision] = "DRUPAL-6--2"
+
+
+; Experimental stuff for Repo auth
+
+projects[sshkey][download][type] = "cvs"
+projects[sshkey][download][module] = "contributions/modules/sshkey"
+projects[sshkey][download][revision] = "HEAD"
+
+projects[project_git_auth][type] = "module"
+projects[project_git_auth][download][type] = "git"
+projects[project_git_auth][download][url] = "git://github.com/tizzo/Project-Git-Auth.git"
+
+projects[beanstalkd][download][type] = "cvs"
+projects[beanstalkd][download][module] = "contributions/modules/beanstalkd"
+projects[beanstalkd][download][revision] = "DRUPAL-6--1"
+
