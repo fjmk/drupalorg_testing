@@ -4,7 +4,7 @@ api = 2
 
 ; make file for drupalorg_testing profile
 core = 6.x
-projects[] = drupal
+projects[drupal][patch][] = "http://drupalcode.org/viewvc/drupal/contributions/modules/simpletest/D6-core-simpletest.patch?revision=1.1.2.11&content-type=text/plain&view=co&pathrev=DRUPAL-6--2"
 
 
 ; Profile.
