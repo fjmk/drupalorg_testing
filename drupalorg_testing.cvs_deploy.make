@@ -7,9 +7,9 @@ projects[] = drupal
 
 ; Profile.
 
-projects[drupalorg_testing][download][type] = "cvs"
-projects[drupalorg_testing][download][module] = "contributions/profiles/drupalorg_testing"
-projects[drupalorg_testing][download][revision] = "HEAD"
+projects[drupalorg_testing][type] = "profile"
+projects[drupalorg_testing][download][type] = "git"
+projects[drupalorg_testing][download][url] = "git://github.com/shomeya/drupalorg_testing.git"
 
 
 ; Modules.
@@ -58,3 +58,21 @@ projects[cvs_deploy][download][type] = "cvs"
 projects[cvs_deploy][download][module] = "contributions/modules/cvs_deploy"
 projects[cvs_deploy][download][revision] = "DRUPAL-6--1"
 
+
+; Version control API
+
+projects[autoload][download][type] = "cvs"
+projects[autoload][download][module] = "contributions/modules/autoload"
+projects[autoload][download][revision] = "DRUPAL-6--2"
+
+projects[dbtng][download][type] = "cvs"
+projects[dbtng][download][module] = "contributions/modules/dbtng"
+projects[dbtng][download][revision] = "DRUPAL-6--1"
+
+projects[versioncontrol][download][type] = "cvs"
+projects[versioncontrol][download][module] = "contributions/modules/versioncontrol"
+projects[versioncontrol][download][revision] = "HEAD"
+
+projects[versioncontrol_git][download][type] = "cvs"
+projects[versioncontrol_git][download][module] = "contributions/modules/versioncontrol_git"
+projects[versioncontrol_git][download][revision] = "DRUPAL-6--2"
