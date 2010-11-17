@@ -1,19 +1,6 @@
 ; $Id$
 api = 2
 
-
-; make file for drupalorg_testing profile
-core = 6.x
-projects[drupal][patch][] = "http://drupalcode.org/viewvc/drupal/contributions/modules/simpletest/D6-core-simpletest.patch?revision=1.1.2.11&content-type=text/plain&view=co&pathrev=DRUPAL-6--2"
-
-
-; Profile.
-
-projects[drupalorg_testing][type] = "profile"
-projects[drupalorg_testing][download][type] = "git"
-projects[drupalorg_testing][download][url] = "git://github.com/shomeya/drupalorg_testing.git"
-
-
 ; Modules.
 
 projects[project][download][type] = "cvs"
@@ -78,6 +65,10 @@ projects[dbtng][download][revision] = "DRUPAL-6--1"
 projects[versioncontrol][download][type] = "cvs"
 projects[versioncontrol][download][module] = "contributions/modules/versioncontrol"
 projects[versioncontrol][download][revision] = "HEAD"
+
+projects[views_field_view][download][type] = "cvs"
+projects[views_field_view][download][module] = "contributions/modules/views_field_view"
+projects[views_field_view][download][revision] = "DRUPAL-6--1"
 
 projects[versioncontrol_git][download][type] = "cvs"
 projects[versioncontrol_git][download][module] = "contributions/modules/versioncontrol_git"
