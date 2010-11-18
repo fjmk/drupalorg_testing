@@ -26,6 +26,7 @@ if [ -f drupalorg_testing.make ]; then
 
 MAKE=$(cat <<EOF
 core = "6.x"\n
+api = 2\n
 projects[drupal][version] = "6.19"\n
 projects[drupalorg_testing][type] = "profile"\n
 projects[drupalorg_testing][download][type] = "git"\n
