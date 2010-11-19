@@ -82,7 +82,7 @@ function drupalorg_testing_profile_modules() {
     // VC modules
     'autoload', 'dbtng', 'versioncontrol', 'versioncontrol_git',
     // Repo auth related modules
-    'beanstalkd', 'sshkey', 'project_git_auth',
+    'beanstalkd', 'sshkey', 'project_git_auth', 'drupal_queue',
     // Extra modules
     'simpletest',
     
