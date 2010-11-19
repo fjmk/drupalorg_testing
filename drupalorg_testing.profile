@@ -80,7 +80,7 @@ function drupalorg_testing_profile_modules() {
     'codefilter', 'cvs', 'devel', 'project', 'project_issue', 'project_release',
     'comment_upload', 'comment_alter_taxonomy', 'views', 'views_ui', 'ctools',
     // VC modules
-    'autoload', 'dbtng', 'versioncontrol', 'versioncontrol_git'
+    'autoload', 'dbtng', 'versioncontrol', 'versioncontrol_git',
     // Repo auth related modules
     'beanstalkd', 'sshkey', 'project_git_auth',
     // Extra modules
