@@ -90,3 +90,6 @@ projects[beanstalkd][download][type] = "cvs"
 projects[beanstalkd][download][module] = "contributions/modules/beanstalkd"
 projects[beanstalkd][download][revision] = "DRUPAL-6--1"
 
+projects[drupal_queue][download][type] = "cvs"
+projects[drupal_queue][download][module] = "contributions/modules/drupal_queue"
+projects[drupal_queue][download][revision] = "HEAD"
